@@ -1,0 +1,1257 @@
+{
+  "meta": {
+    "toolkit_name": "AI Underwriting Pipeline — Sample Outputs",
+    "deal_name": "Wildflower Crossing",
+    "deal_slug": "uploaded-deal",
+    "generated_on": "2026-10-21",
+    "as_of_date": "2025-11-12",
+    "illustrative_pricing": false,
+    "pricing_note": "Pricing is as stated in the uploaded documents or the notes box, not a market opinion.",
+    "synthetic": false,
+    "provenance": [
+      {
+        "document": "Wildflower Crossing Offering Memorandum.pdf",
+        "kind": "om",
+        "note": "Offering memorandum: 10 of the phrases a marketing package uses."
+      },
+      {
+        "document": "Wildflower Crossing Rent Roll.xlsx",
+        "kind": "rent_roll",
+        "note": "Rent roll: the header names units, rents and lease dates."
+      },
+      {
+        "document": "Wildflower Crossing T-12.xlsx",
+        "kind": "t12",
+        "note": "Trailing-twelve statement: 12 month columns on the header row."
+      },
+      {
+        "document": "Vendored county property-tax rate table",
+        "kind": "tax",
+        "note": "Representative combined rate for Maricopa, AZ and the state's assessment rules; 12 counties on file as of 2026-09-04. No county portal is reached."
+      }
+    ],
+    "excluded_sources": [
+      "Third-party licensed rent-comp feeds",
+      "Subscription market-data providers",
+      "Any comparable-rent, demographic or supply source — the upload demo does not reach them"
+    ],
+    "notes": [
+      {
+        "topic": "About this run",
+        "applies_to": "Notes & Disclosures",
+        "note": "Ties to the statement's own printed subtotals: revenue, operating expenses, NOI."
+      },
+      {
+        "topic": "About this run",
+        "applies_to": "Notes & Disclosures",
+        "note": "The market report (demand, supply, comps) did not run: the market-report service is not part of this offline build, so demand, supply and rent comps were not requested."
+      },
+      {
+        "topic": "About this run",
+        "applies_to": "Notes & Disclosures",
+        "note": "Property tax: the rate is the vendored county rate table's entry for Maricopa, AZ — 10.2573 per $100 of assessed value, tax year 2025, Tax area code 971300 — City of Phoenix / Deer Valley Unified School District #97 — with the AZ assessment ratio and reset-on-sale rule from the same table. No county portal was reached: the parcel, the tax area code, the assessor's value, the billed amount, the bill's tax year, the exemption read MISSING. The statement's own Property Taxes line is shown as billed in the statement where a statement was uploaded."
+      },
+      {
+        "topic": "About this run",
+        "applies_to": "Notes & Disclosures",
+        "note": "The uploaded rent roll did not state the date it was run, so the as-of date was INFERRED as 2025-11-12 — the most recent lease start or move-in on the roll, which is the earliest date the snapshot can have been taken. Every window on this page (the move-in and lease-signed lookback, and annualised turnover) is measured back from that date. It is not the upload date, and it is not today."
+      },
+      {
+        "topic": "About this run",
+        "applies_to": "Notes & Disclosures",
+        "note": "This output set was generated from documents uploaded to a public demo. It read an offering memorandum, a trailing-twelve statement, a rent roll. 10 summary field(s) were read from the marketing document by a language model and each one is carried with the sentence it came from; any value whose sentence could not be found in the document was discarded rather than shown. Every figure on the T-12 and rent-roll tabs are computed by code from the uploaded spreadsheets, not read by a model. Each T-12 line's category was assigned from the wording of its account label, not from an account-code table, because account codes mean different things in different systems. The category chosen for every line is shown beside it on the T-12 Data tab so you can check it; lines that could not be placed confidently are excluded rather than guessed at, and are listed above. Comparable rents, demographics, competing supply and closing costs were not run: they need data sources this demo does not reach. The uploaded files were deleted as soon as they were parsed, and this output set is deleted with the rest of the run."
+      }
+    ],
+    "run": {
+      "kind": "upload",
+      "model_calls": 4,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "dollars": 0.0,
+      "seconds": 0.0,
+      "models": {
+        "extraction": "claude-opus-5",
+        "classification": "claude-haiku-4-5"
+      },
+      "note": "Model mode: mock. Every number above is the run's own ledger. Generation of the workbooks and previews makes no model calls."
+    }
+  },
+  "summary": {
+    "deal_name": "Wildflower Crossing",
+    "street_address": "100 Example Way",
+    "city": "Mesa",
+    "state": "AZ",
+    "zip": "85204",
+    "county": "Maricopa",
+    "msa": "MISSING",
+    "address_provenance": "MISSING",
+    "product_type": "build-for-rent",
+    "structure": "MISSING",
+    "units_total": 24,
+    "year_built": 2021,
+    "product_detail": "MISSING",
+    "construction_status": "MISSING",
+    "delivery_date": "MISSING",
+    "seller_entity": "MISSING",
+    "listing_brokerage": "MISSING",
+    "deal_status": "MISSING",
+    "pricing_guidance": "$215,000 per unit (entered on the upload form); the memorandum's own figure is $308,333 per unit (a stated total of $7,400,000 over 24 units, +43.4% against the price entered)",
+    "in_place_rent_avg": 2456.67,
+    "market_rent_for_model": 2456.67,
+    "fair_market_value": "MISSING",
+    "tax_rate_as_billed": 10.2573,
+    "tax_rate_evidence": "Vendored county rate table: 10.2573 per $100 of assessed value, tax year 2025 — Tax area code 971300 — City of Phoenix / Deer Valley Unified School District #97: Primary rate 6.7007; Secondary rate 3.5566. Source: Maricopa County, '2025 Tax Rates, Maricopa County, Arizona' (the treasurer's rate table by tax area code), row 971300: primary 6.7007, approx residential primary 5.1401, secondary 3.5566 (maricopa.gov/5160/Tax-Levy-and-Rates — Tax Rate 2025 PDF). Verified 2026-09-04. The parcel's own tax district decides; this is the representative stack for the county. Maricopa publishes rates per tax area code and they vary by district: area 591300 (City of Phoenix / Laveen ESD #59) is 15.7387 in the same table. The parcel's own tax area decides. The 'approx residential primary' column is the owner-occupied rebate and does not apply to a rental. Ratio 10% — legal class 4.2, residential rental (A.R.S. sec. 42-15003 (class four assessed at 10%); A.R.S. sec. 42-12004 (class four includes residential rental property)). The upload demo reaches no county portal: the parcel, tax area code, assessor's value and billed amount are not verified against one, and read MISSING unless an uploaded document stated them. The rate on file is a representative district stack for the county, not the parcel's own.",
+    "assessed_value_basis": "MISSING",
+    "assessment_ratio": 0.1,
+    "tax_divisor": 100,
+    "tax_exemption": "MISSING",
+    "tax_parcel_id": "MISSING",
+    "tax_area_code": "MISSING",
+    "tax_basis_label": "Limited property value (LPV), per the county assessor",
+    "tax_basis_note": "Arizona taxes the limited property value, not the price. Under Proposition 117 (Ariz. Const. art. IX sec. 18; A.R.S. sec. 42-13301) the LPV rises at most 5% a year and does not reset on sale, so a buyer inherits the seller's basis and tax priced off the purchase price overstates the bill — roughly threefold on the showcase parcel. With no assessor value on file, no year-one estimate is asserted. The rate table's 'approx residential primary' column is the class-3 owner-occupied rebate (A.R.S. sec. 15-972) and does not apply to a rental; the full primary plus secondary rate is the one billed.",
+    "tax_billed_amount": "MISSING",
+    "tax_billed_year": "MISSING",
+    "tax_statement_amount": 106586.4,
+    "tax_per_unit_flag": "OUTSIDE the band (the statement's line per unit): $4,441 per unit a year is outside the AZ band of $400–$2,600 — double-check the rate, its unit and the assessment ratio against the bill or the statement. The band is a typical range, not a rule: a new-build can sit above it.",
+    "tax_rate_year": 2025,
+    "school_elementary_name": "MISSING",
+    "school_elementary_rating": "MISSING",
+    "school_middle_name": "MISSING",
+    "school_middle_rating": "MISSING",
+    "school_high_name": "MISSING",
+    "school_high_rating": "MISSING",
+    "notes": "Generated by the upload demo from the documents supplied with this run. Every field reads MISSING unless a document stated it; nothing here is inferred to fill a gap. No licensed data source was used and no price is assumed."
+  },
+  "t12": {
+    "month_labels": [
+      "2025-07",
+      "2025-08",
+      "2025-09",
+      "2025-10",
+      "2025-11",
+      "2025-12",
+      "2026-01",
+      "2026-02",
+      "2026-03",
+      "2026-04",
+      "2026-05",
+      "2026-06"
+    ],
+    "units": 24,
+    "rows": [
+      {
+        "label": "Gross Potential Rent (4010)",
+        "category": "Gross Potential Rent",
+        "monthly": [
+          60512.0,
+          60760.0,
+          61008.0,
+          61256.0,
+          61504.0,
+          61752.0,
+          62000.0,
+          62248.0,
+          62496.0,
+          62744.0,
+          62992.0,
+          63240.0
+        ]
+      },
+      {
+        "label": "Gain / (Loss) to Lease (4020)",
+        "category": "Gain / (Loss) to Lease",
+        "monthly": [
+          -2049.6,
+          -2058.0,
+          -2066.4,
+          -2074.8,
+          -2083.2,
+          -2091.6,
+          -2100.0,
+          -2108.4,
+          -2116.8,
+          -2125.2,
+          -2133.6,
+          -2142.0
+        ]
+      },
+      {
+        "label": "Vacancy (4100)",
+        "category": "Vacancy",
+        "monthly": [
+          -4196.8,
+          -4214.0,
+          -4231.2,
+          -4248.4,
+          -4265.6,
+          -4282.8,
+          -4300.0,
+          -4317.2,
+          -4334.4,
+          -4351.6,
+          -4368.8,
+          -4386.0
+        ]
+      },
+      {
+        "label": "Concessions (4110)",
+        "category": "Concessions",
+        "monthly": [
+          -878.4,
+          -882.0,
+          -885.6,
+          -889.2,
+          -892.8,
+          -896.4,
+          -900.0,
+          -903.6,
+          -907.2,
+          -910.8,
+          -914.4,
+          -918.0
+        ]
+      },
+      {
+        "label": "Utility Reimbursement (4200)",
+        "category": "Utility Reimbursements",
+        "monthly": [
+          3025.6,
+          3038.0,
+          3050.4,
+          3062.8,
+          3075.2,
+          3087.6,
+          3100.0,
+          3112.4,
+          3124.8,
+          3137.2,
+          3149.6,
+          3162.0
+        ]
+      },
+      {
+        "label": "Other Income (4300)",
+        "category": "Other Income",
+        "monthly": [
+          1708.0,
+          1715.0,
+          1722.0,
+          1729.0,
+          1736.0,
+          1743.0,
+          1750.0,
+          1757.0,
+          1764.0,
+          1771.0,
+          1778.0,
+          1785.0
+        ]
+      },
+      {
+        "label": "Payroll (5010)",
+        "category": "Payroll",
+        "monthly": [
+          7027.2,
+          7056.0,
+          7084.8,
+          7113.6,
+          7142.4,
+          7171.2,
+          7200.0,
+          7228.8,
+          7257.6,
+          7286.4,
+          7315.2,
+          7344.0
+        ]
+      },
+      {
+        "label": "Repairs & Maintenance (5100)",
+        "category": "Repairs and Maintenance",
+        "monthly": [
+          4001.6,
+          4018.0,
+          4034.4,
+          4050.8,
+          4067.2,
+          4083.6,
+          4100.0,
+          4116.4,
+          4132.8,
+          4149.2,
+          4165.6,
+          4182.0
+        ]
+      },
+      {
+        "label": "Contract Services (5200)",
+        "category": "Repairs and Maintenance",
+        "monthly": [
+          2244.8,
+          2254.0,
+          2263.2,
+          2272.4,
+          2281.6,
+          2290.8,
+          2300.0,
+          2309.2,
+          2318.4,
+          2327.6,
+          2336.8,
+          2346.0
+        ]
+      },
+      {
+        "label": "Marketing (5300)",
+        "category": "Leasing and Marketing",
+        "monthly": [
+          878.4,
+          882.0,
+          885.6,
+          889.2,
+          892.8,
+          896.4,
+          900.0,
+          903.6,
+          907.2,
+          910.8,
+          914.4,
+          918.0
+        ]
+      },
+      {
+        "label": "Administrative (5400)",
+        "category": "General and Administrative",
+        "monthly": [
+          1366.4,
+          1372.0,
+          1377.6,
+          1383.2,
+          1388.8,
+          1394.4,
+          1400.0,
+          1405.6,
+          1411.2,
+          1416.8,
+          1422.4,
+          1428.0
+        ]
+      },
+      {
+        "label": "Utilities (5500)",
+        "category": "Utilities",
+        "monthly": [
+          3513.6,
+          3528.0,
+          3542.4,
+          3556.8,
+          3571.2,
+          3585.6,
+          3600.0,
+          3614.4,
+          3628.8,
+          3643.2,
+          3657.6,
+          3672.0
+        ]
+      },
+      {
+        "label": "Management Fee (5600)",
+        "category": "Management Fee",
+        "monthly": [
+          1737.28,
+          1744.4,
+          1751.52,
+          1758.64,
+          1765.76,
+          1772.88,
+          1780.0,
+          1787.12,
+          1794.24,
+          1801.36,
+          1808.48,
+          1815.6
+        ]
+      },
+      {
+        "label": "Insurance (5700)",
+        "category": "Insurance",
+        "monthly": [
+          2537.6,
+          2548.0,
+          2558.4,
+          2568.8,
+          2579.2,
+          2589.6,
+          2600.0,
+          2610.4,
+          2620.8,
+          2631.2,
+          2641.6,
+          2652.0
+        ]
+      },
+      {
+        "label": "Real Estate Taxes (5800)",
+        "category": "Property Taxes",
+        "monthly": [
+          8686.4,
+          8722.0,
+          8757.6,
+          8793.2,
+          8828.8,
+          8864.4,
+          8900.0,
+          8935.6,
+          8971.2,
+          9006.8,
+          9042.4,
+          9078.0
+        ]
+      }
+    ],
+    "source_subtotals": {
+      "Total Revenue": 713170.8,
+      "Total Operating Expenses": 392573.28,
+      "Net Operating Income": 320597.52
+    },
+    "broker_proforma": null,
+    "absent_reason": null
+  },
+  "rent_roll": {
+    "absent_reason": null,
+    "as_of": "2025-11-12",
+    "lookback_months": 12,
+    "new_tenant_tolerance_days": 31,
+    "units": [
+      {
+        "unit_id": "101",
+        "floor_plan": "A1",
+        "beds": 2.0,
+        "baths": 2.0,
+        "sqft": 1150.0,
+        "status": "Occupied",
+        "lease_start": "2024-01-15",
+        "move_in": "2024-01-15",
+        "lease_type": null,
+        "in_place_rent": 2090.0,
+        "source_row": 4,
+        "source_rent_raw": 2090,
+        "market_rent": 2145.0
+      },
+      {
+        "unit_id": "102",
+        "floor_plan": "B2",
+        "beds": 3.0,
+        "baths": 2.0,
+        "sqft": 1440.0,
+        "status": "Occupied",
+        "lease_start": "2024-02-13",
+        "move_in": "2024-02-13",
+        "lease_type": null,
+        "in_place_rent": 2425.0,
+        "source_row": 5,
+        "source_rent_raw": 2425,
+        "market_rent": 2480.0
+      },
+      {
+        "unit_id": "103",
+        "floor_plan": "C3",
+        "beds": 4.0,
+        "baths": 3.0,
+        "sqft": 1785.0,
+        "status": "Occupied",
+        "lease_start": "2024-03-13",
+        "move_in": "2024-03-13",
+        "lease_type": null,
+        "in_place_rent": 2855.0,
+        "source_row": 6,
+        "source_rent_raw": 2855,
+        "market_rent": 2910.0
+      },
+      {
+        "unit_id": "104",
+        "floor_plan": "A1",
+        "beds": 2.0,
+        "baths": 2.0,
+        "sqft": 1150.0,
+        "status": "Vacant",
+        "lease_start": null,
+        "move_in": null,
+        "lease_type": null,
+        "in_place_rent": null,
+        "source_row": 7,
+        "source_rent_raw": 0,
+        "market_rent": 2145.0
+      },
+      {
+        "unit_id": "105",
+        "floor_plan": "B2",
+        "beds": 3.0,
+        "baths": 2.0,
+        "sqft": 1440.0,
+        "status": "Occupied",
+        "lease_start": "2024-05-10",
+        "move_in": "2024-05-10",
+        "lease_type": null,
+        "in_place_rent": 2425.0,
+        "source_row": 8,
+        "source_rent_raw": 2425,
+        "market_rent": 2480.0
+      },
+      {
+        "unit_id": "106",
+        "floor_plan": "C3",
+        "beds": 4.0,
+        "baths": 3.0,
+        "sqft": 1785.0,
+        "status": "Occupied",
+        "lease_start": "2024-06-08",
+        "move_in": "2024-06-08",
+        "lease_type": null,
+        "in_place_rent": 2855.0,
+        "source_row": 9,
+        "source_rent_raw": 2855,
+        "market_rent": 2910.0
+      },
+      {
+        "unit_id": "107",
+        "floor_plan": "A1",
+        "beds": 2.0,
+        "baths": 2.0,
+        "sqft": 1150.0,
+        "status": "Occupied",
+        "lease_start": "2024-07-07",
+        "move_in": "2024-07-07",
+        "lease_type": null,
+        "in_place_rent": 2090.0,
+        "source_row": 10,
+        "source_rent_raw": 2090,
+        "market_rent": 2145.0
+      },
+      {
+        "unit_id": "108",
+        "floor_plan": "B2",
+        "beds": 3.0,
+        "baths": 2.0,
+        "sqft": 1440.0,
+        "status": "Occupied",
+        "lease_start": "2024-08-05",
+        "move_in": "2024-08-05",
+        "lease_type": null,
+        "in_place_rent": 2425.0,
+        "source_row": 11,
+        "source_rent_raw": 2425,
+        "market_rent": 2480.0
+      },
+      {
+        "unit_id": "109",
+        "floor_plan": "C3",
+        "beds": 4.0,
+        "baths": 3.0,
+        "sqft": 1785.0,
+        "status": "Occupied",
+        "lease_start": "2024-09-03",
+        "move_in": "2024-09-03",
+        "lease_type": null,
+        "in_place_rent": 2855.0,
+        "source_row": 12,
+        "source_rent_raw": 2855,
+        "market_rent": 2910.0
+      },
+      {
+        "unit_id": "110",
+        "floor_plan": "A1",
+        "beds": 2.0,
+        "baths": 2.0,
+        "sqft": 1150.0,
+        "status": "Occupied",
+        "lease_start": "2024-10-02",
+        "move_in": "2024-10-02",
+        "lease_type": null,
+        "in_place_rent": 2090.0,
+        "source_row": 13,
+        "source_rent_raw": 2090,
+        "market_rent": 2145.0
+      },
+      {
+        "unit_id": "111",
+        "floor_plan": "B2",
+        "beds": 3.0,
+        "baths": 2.0,
+        "sqft": 1440.0,
+        "status": "Occupied",
+        "lease_start": "2024-10-31",
+        "move_in": "2024-10-31",
+        "lease_type": null,
+        "in_place_rent": 2425.0,
+        "source_row": 14,
+        "source_rent_raw": 2425,
+        "market_rent": 2480.0
+      },
+      {
+        "unit_id": "112",
+        "floor_plan": "C3",
+        "beds": 4.0,
+        "baths": 3.0,
+        "sqft": 1785.0,
+        "status": "Vacant",
+        "lease_start": null,
+        "move_in": null,
+        "lease_type": null,
+        "in_place_rent": null,
+        "source_row": 15,
+        "source_rent_raw": 0,
+        "market_rent": 2910.0
+      },
+      {
+        "unit_id": "113",
+        "floor_plan": "A1",
+        "beds": 2.0,
+        "baths": 2.0,
+        "sqft": 1150.0,
+        "status": "Occupied",
+        "lease_start": "2024-12-28",
+        "move_in": "2024-12-28",
+        "lease_type": null,
+        "in_place_rent": 2090.0,
+        "source_row": 16,
+        "source_rent_raw": 2090,
+        "market_rent": 2145.0
+      },
+      {
+        "unit_id": "114",
+        "floor_plan": "B2",
+        "beds": 3.0,
+        "baths": 2.0,
+        "sqft": 1440.0,
+        "status": "Occupied",
+        "lease_start": "2025-01-26",
+        "move_in": "2025-01-26",
+        "lease_type": null,
+        "in_place_rent": 2425.0,
+        "source_row": 17,
+        "source_rent_raw": 2425,
+        "market_rent": 2480.0
+      },
+      {
+        "unit_id": "115",
+        "floor_plan": "C3",
+        "beds": 4.0,
+        "baths": 3.0,
+        "sqft": 1785.0,
+        "status": "Occupied",
+        "lease_start": "2025-02-24",
+        "move_in": "2025-02-24",
+        "lease_type": null,
+        "in_place_rent": 2855.0,
+        "source_row": 18,
+        "source_rent_raw": 2855,
+        "market_rent": 2910.0
+      },
+      {
+        "unit_id": "116",
+        "floor_plan": "A1",
+        "beds": 2.0,
+        "baths": 2.0,
+        "sqft": 1150.0,
+        "status": "Occupied",
+        "lease_start": "2025-03-25",
+        "move_in": "2025-03-25",
+        "lease_type": null,
+        "in_place_rent": 2090.0,
+        "source_row": 19,
+        "source_rent_raw": 2090,
+        "market_rent": 2145.0
+      },
+      {
+        "unit_id": "117",
+        "floor_plan": "B2",
+        "beds": 3.0,
+        "baths": 2.0,
+        "sqft": 1440.0,
+        "status": "Occupied",
+        "lease_start": "2025-04-23",
+        "move_in": "2025-04-23",
+        "lease_type": null,
+        "in_place_rent": 2425.0,
+        "source_row": 20,
+        "source_rent_raw": 2425,
+        "market_rent": 2480.0
+      },
+      {
+        "unit_id": "118",
+        "floor_plan": "C3",
+        "beds": 4.0,
+        "baths": 3.0,
+        "sqft": 1785.0,
+        "status": "Occupied",
+        "lease_start": "2025-05-22",
+        "move_in": "2025-05-22",
+        "lease_type": null,
+        "in_place_rent": 2855.0,
+        "source_row": 21,
+        "source_rent_raw": 2855,
+        "market_rent": 2910.0
+      },
+      {
+        "unit_id": "119",
+        "floor_plan": "A1",
+        "beds": 2.0,
+        "baths": 2.0,
+        "sqft": 1150.0,
+        "status": "Occupied",
+        "lease_start": "2025-06-20",
+        "move_in": "2025-06-20",
+        "lease_type": null,
+        "in_place_rent": 2090.0,
+        "source_row": 22,
+        "source_rent_raw": 2090,
+        "market_rent": 2145.0
+      },
+      {
+        "unit_id": "120",
+        "floor_plan": "B2",
+        "beds": 3.0,
+        "baths": 2.0,
+        "sqft": 1440.0,
+        "status": "Vacant",
+        "lease_start": null,
+        "move_in": null,
+        "lease_type": null,
+        "in_place_rent": null,
+        "source_row": 23,
+        "source_rent_raw": 0,
+        "market_rent": 2480.0
+      },
+      {
+        "unit_id": "121",
+        "floor_plan": "C3",
+        "beds": 4.0,
+        "baths": 3.0,
+        "sqft": 1785.0,
+        "status": "Occupied",
+        "lease_start": "2025-08-17",
+        "move_in": "2025-08-17",
+        "lease_type": null,
+        "in_place_rent": 2855.0,
+        "source_row": 24,
+        "source_rent_raw": 2855,
+        "market_rent": 2910.0
+      },
+      {
+        "unit_id": "122",
+        "floor_plan": "A1",
+        "beds": 2.0,
+        "baths": 2.0,
+        "sqft": 1150.0,
+        "status": "Occupied",
+        "lease_start": "2025-09-15",
+        "move_in": "2025-09-15",
+        "lease_type": null,
+        "in_place_rent": 2090.0,
+        "source_row": 25,
+        "source_rent_raw": 2090,
+        "market_rent": 2145.0
+      },
+      {
+        "unit_id": "123",
+        "floor_plan": "B2",
+        "beds": 3.0,
+        "baths": 2.0,
+        "sqft": 1440.0,
+        "status": "Occupied",
+        "lease_start": "2025-10-14",
+        "move_in": "2025-10-14",
+        "lease_type": null,
+        "in_place_rent": 2425.0,
+        "source_row": 26,
+        "source_rent_raw": 2425,
+        "market_rent": 2480.0
+      },
+      {
+        "unit_id": "124",
+        "floor_plan": "C3",
+        "beds": 4.0,
+        "baths": 3.0,
+        "sqft": 1785.0,
+        "status": "Occupied",
+        "lease_start": "2025-11-12",
+        "move_in": "2025-11-12",
+        "lease_type": null,
+        "in_place_rent": 2855.0,
+        "source_row": 27,
+        "source_rent_raw": 2855,
+        "market_rent": 2910.0
+      }
+    ],
+    "stated": {
+      "units_total": null,
+      "sqft": null,
+      "occupancy": null,
+      "sheet": "RENTROLL",
+      "rent_column": "J",
+      "sqft_column": "E",
+      "buckets": {},
+      "occupied_units": null,
+      "occupied_basis": null,
+      "market_rent": null,
+      "current_rent": null,
+      "duplicate_units": [],
+      "duplicate_detail": [],
+      "in_place_lease_status": "Current"
+    }
+  },
+  "trade_out": {
+    "rows": [],
+    "absent_reason": "The upload demo does not ask for a lease trade-out report, so there is no basis for a new-versus-renewal block."
+  },
+  "pricing": {
+    "price_per_unit": 215000.0,
+    "units_total": 24,
+    "document_price_per_unit": 308333.33
+  },
+  "comps": {
+    "as_of": "2025-11-12",
+    "source": "own weekly scrape",
+    "subject_market_rent": 2456.67,
+    "rows": [],
+    "absent_reason": "Not run: the market-report service is not part of this offline build, so demand, supply and rent comps were not requested.",
+    "coverage_note": null,
+    "nearby": [],
+    "tiering": {
+      "subject_product": null,
+      "subject_year_built": null,
+      "year_band": null,
+      "radius_mi": null,
+      "top_n": null,
+      "additional_n": null,
+      "vintage_footnote": "Not run: the market-report service is not part of this offline build, so demand, supply and rent comps were not requested."
+    }
+  },
+  "demand": {
+    "rings": [],
+    "columns": [],
+    "sections": [],
+    "engine_note": null,
+    "data_year": null,
+    "output_year": null,
+    "ring_1mi_caveat": null,
+    "matched_address": null,
+    "level_row_hints": [],
+    "absent_reason": "Not run: the market-report service is not part of this offline build, so demand, supply and rent comps were not requested."
+  },
+  "supply": {
+    "rings": [],
+    "projects": [],
+    "ring_stock": null,
+    "absent_reason": "Not run: the market-report service is not part of this offline build, so demand, supply and rent comps were not requested."
+  },
+  "closing_costs": {
+    "state": "AZ",
+    "price": 5160000.0,
+    "transfer_tax": {
+      "applies": false,
+      "amount_status": "not_asserted",
+      "rate_label": "Not looked up",
+      "amount": 0,
+      "citation": "Not run in the upload demo. This section needs data sources the demo does not reach, so it is left empty rather than filled with placeholders.",
+      "as_of": "",
+      "caveat": null
+    },
+    "mortgage_tax": {
+      "applies": false,
+      "amount_status": "not_asserted",
+      "rate_label": "Not looked up",
+      "amount": 0,
+      "citation": "Not run in the upload demo. This section needs data sources the demo does not reach, so it is left empty rather than filled with placeholders.",
+      "as_of": "",
+      "caveat": null
+    },
+    "loan_amount": null,
+    "note": "Not run in the upload demo. This section needs data sources the demo does not reach, so it is left empty rather than filled with placeholders."
+  },
+  "provenance": {
+    "summary.deal_name": {
+      "source_doc": "Wildflower Crossing Offering Memorandum.pdf",
+      "locator": "p.1",
+      "method": "read",
+      "quote": "[[page 1]]\nWildflower Crossing - Offering Memorandum\nA wholly invented property. Every figur"
+    },
+    "summary.street_address": {
+      "source_doc": "Wildflower Crossing Offering Memorandum.pdf",
+      "locator": "p.1",
+      "method": "read",
+      "quote": "ry figure below is made up for testing.\nAddress: 100 Example Way, Mesa, Maricopa County, AZ 85204 (an inv"
+    },
+    "summary.city": {
+      "source_doc": "Wildflower Crossing Offering Memorandum.pdf",
+      "locator": "p.1",
+      "method": "read",
+      "quote": "ry figure below is made up for testing.\nAddress: 100 Example Way, Mesa, Maricopa County, AZ 85204 (an invented"
+    },
+    "summary.state": {
+      "source_doc": "Wildflower Crossing Offering Memorandum.pdf",
+      "locator": "p.1",
+      "method": "read",
+      "quote": "ddress: 100 Example Way, Mesa, Maricopa County, AZ 85204 (an invented address).\nExecutive"
+    },
+    "summary.zip": {
+      "source_doc": "Wildflower Crossing Offering Memorandum.pdf",
+      "locator": "p.1",
+      "method": "read",
+      "quote": "ry figure below is made up for testing.\nAddress: 100 Example Way, Mesa, Maricopa County, AZ 85204 (an invented address).\nExecutive Summar"
+    },
+    "summary.county": {
+      "source_doc": "Wildflower Crossing Offering Memorandum.pdf",
+      "locator": "p.1",
+      "method": "read",
+      "quote": "esting.\nAddress: 100 Example Way, Mesa, Maricopa County, AZ 85204 (an invented address).\nExecut"
+    },
+    "summary.product_type": {
+      "source_doc": "Wildflower Crossing Offering Memorandum.pdf",
+      "locator": "p.1",
+      "method": "read",
+      "quote": "ummary\nWildflower Crossing is a 24-unit build-for-rent community in a market that does not exi"
+    },
+    "summary.units_total": {
+      "source_doc": "Wildflower Crossing Rent Roll.xlsx",
+      "locator": "—",
+      "method": "derived",
+      "inputs": [
+        "rent_roll.units"
+      ],
+      "note": "Counted from the rows of the uploaded rent roll."
+    },
+    "summary.year_built": {
+      "source_doc": "Wildflower Crossing Offering Memorandum.pdf",
+      "locator": "p.1",
+      "method": "read",
+      "quote": "munity in a market that does not exist.\nYear built: 2021.  Occupancy: 93.8%.  Asking price: $7,4"
+    },
+    "summary.pricing_guidance": {
+      "source_doc": "Wildflower Crossing Offering Memorandum.pdf",
+      "locator": "p.1",
+      "method": "read",
+      "quote": ".\nYear built: 2021.  Occupancy: 93.8%.  Asking price: $7,400,000.\nCapitalization rate: 5.35% on in-place"
+    },
+    "summary.in_place_rent_avg": {
+      "source_doc": "Wildflower Crossing Rent Roll.xlsx",
+      "locator": "—",
+      "method": "derived",
+      "inputs": [
+        "rent_roll.units"
+      ],
+      "note": "Unit-weighted across the uploaded roll."
+    },
+    "summary.market_rent_for_model": {
+      "source_doc": "Wildflower Crossing Rent Roll.xlsx",
+      "locator": "—",
+      "method": "derived",
+      "inputs": [
+        "rent_roll.units"
+      ],
+      "note": "Unit-weighted across the uploaded roll."
+    },
+    "t12.source_subtotals": {
+      "source_doc": "Wildflower Crossing T-12.xlsx",
+      "locator": "header block",
+      "method": "read"
+    },
+    "pricing.price_per_unit": {
+      "source_doc": "The upload form's price field",
+      "locator": "—",
+      "method": "read",
+      "note": "The purchase price per unit the visitor entered, inside the sale-price band. It outranks a price in the notes box or the memorandum."
+    },
+    "pricing.units_total": {
+      "source_doc": "Wildflower Crossing Rent Roll.xlsx",
+      "locator": "—",
+      "method": "derived",
+      "inputs": [
+        "summary.units_total"
+      ],
+      "note": "The same count the summary carries, counted from the rows of the uploaded rent roll."
+    },
+    "rent_roll.as_of": {
+      "source_doc": "Wildflower Crossing Rent Roll.xlsx",
+      "locator": "—",
+      "method": "derived",
+      "inputs": [
+        "rent_roll.units"
+      ],
+      "note": "The roll states no as-of date, so this is inferred from the newest lease date on it."
+    },
+    "rent_roll.lookback_months": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "This demo's default of 12 — the months of lease history the turnover figures look back over. No uploaded document or note set it."
+    },
+    "rent_roll.new_tenant_tolerance_days": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "This demo's default of 31 — the days a lease start may sit from a move-in and still count as the same event. No uploaded document or note set it."
+    },
+    "rent_roll.units": {
+      "source_doc": "Wildflower Crossing Rent Roll.xlsx",
+      "locator": "roll",
+      "method": "read",
+      "note": "Read from the uploaded rent roll."
+    },
+    "trade_out.rows": {
+      "source_doc": "Not asked for by the upload demo",
+      "locator": "—",
+      "method": "read",
+      "note": "The upload demo does not ask for a lease trade-out report, so there is no basis for a new-versus-renewal block."
+    },
+    "summary.msa": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "No uploaded document stated this, so the value reads MISSING. Nothing was assumed to fill it."
+    },
+    "summary.structure": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "No uploaded document stated this, so the value reads MISSING. Nothing was assumed to fill it."
+    },
+    "summary.product_detail": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "No uploaded document stated this, so the value reads MISSING. Nothing was assumed to fill it."
+    },
+    "summary.construction_status": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "No uploaded document stated this, so the value reads MISSING. Nothing was assumed to fill it."
+    },
+    "summary.delivery_date": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "No uploaded document stated this, so the value reads MISSING. Nothing was assumed to fill it."
+    },
+    "summary.seller_entity": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "No uploaded document stated this, so the value reads MISSING. Nothing was assumed to fill it."
+    },
+    "summary.listing_brokerage": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "No uploaded document stated this, so the value reads MISSING. Nothing was assumed to fill it."
+    },
+    "summary.deal_status": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "No uploaded document stated this, so the value reads MISSING. Nothing was assumed to fill it."
+    },
+    "summary.fair_market_value": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "No uploaded document stated this, so the value reads MISSING. Nothing was assumed to fill it."
+    },
+    "summary.tax_rate_as_billed": {
+      "source_doc": "Vendored county rate table",
+      "locator": "property_tax_table.COUNTY_RATES[('AZ', 'maricopa')]",
+      "method": "read",
+      "note": "Tax area code 971300 — City of Phoenix / Deer Valley Unified School District #97, tax year 2025. Maricopa County, '2025 Tax Rates, Maricopa County, Arizona' (the treasurer's rate table by tax area code), row 971300: primary 6.7007, approx residential primary 5.1401, secondary 3.5566. Verified 2026-09-04."
+    },
+    "summary.assessed_value_basis": {
+      "source_doc": "Internal pipeline only",
+      "locator": "—",
+      "method": "read",
+      "note": "See parcel: read off the county assessor's portal by the internal pipeline only."
+    },
+    "summary.assessment_ratio": {
+      "source_doc": "Vendored county rate table",
+      "locator": "property_tax_table.STATE_RULES['AZ']",
+      "method": "read",
+      "note": "10% — legal class 4.2, residential rental. A.R.S. sec. 42-15003 (class four assessed at 10%); A.R.S. sec. 42-12004 (class four includes residential rental property)."
+    },
+    "summary.tax_divisor": {
+      "source_doc": "Vendored county rate table",
+      "locator": "property_tax_table.STATE_RULES['AZ']",
+      "method": "read",
+      "note": "The rate's unit in Arizona: per $100 of assessed value."
+    },
+    "summary.tax_exemption": {
+      "source_doc": "Internal pipeline only",
+      "locator": "—",
+      "method": "read",
+      "note": "See parcel: read off the county assessor's portal by the internal pipeline only."
+    },
+    "summary.tax_parcel_id": {
+      "source_doc": "Internal pipeline only",
+      "locator": "—",
+      "method": "read",
+      "note": "The internal pipeline reads the parcel, tax district, assessed value, exemption and billed amount off the county assessor's portal; the demo shows the county's published rate only."
+    },
+    "summary.tax_area_code": {
+      "source_doc": "Internal pipeline only",
+      "locator": "—",
+      "method": "read",
+      "note": "See parcel: read off the county assessor's portal by the internal pipeline only."
+    },
+    "summary.tax_basis_label": {
+      "source_doc": "Vendored county rate table",
+      "locator": "property_tax_table.STATE_RULES['AZ']",
+      "method": "read",
+      "note": "What the assessed basis is in this state."
+    },
+    "summary.tax_basis_note": {
+      "source_doc": "Vendored county rate table",
+      "locator": "property_tax_table.STATE_RULES['AZ']",
+      "method": "read",
+      "note": "How the basis behaves on a sale, with the authority."
+    },
+    "summary.tax_billed_amount": {
+      "source_doc": "Internal pipeline only",
+      "locator": "—",
+      "method": "read",
+      "note": "See parcel: read off the county assessor's portal by the internal pipeline only."
+    },
+    "summary.tax_billed_year": {
+      "source_doc": "Internal pipeline only",
+      "locator": "—",
+      "method": "read",
+      "note": "See parcel: read off the county assessor's portal by the internal pipeline only."
+    },
+    "closing_costs.transfer_tax.amount": {
+      "source_doc": "Not run in the upload demo",
+      "locator": "—",
+      "method": "read",
+      "note": "Not run in the upload demo. This section needs data sources the demo does not reach, so it is left empty rather than filled with placeholders."
+    },
+    "closing_costs.mortgage_tax.amount": {
+      "source_doc": "Not run in the upload demo",
+      "locator": "—",
+      "method": "read",
+      "note": "Not run in the upload demo. This section needs data sources the demo does not reach, so it is left empty rather than filled with placeholders."
+    },
+    "summary.school_elementary_name": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "No uploaded document stated this, so the value reads MISSING. Nothing was assumed to fill it."
+    },
+    "summary.school_middle_name": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "No uploaded document stated this, so the value reads MISSING. Nothing was assumed to fill it."
+    },
+    "summary.school_high_name": {
+      "source_doc": "Not stated in the uploaded documents",
+      "locator": "—",
+      "method": "read",
+      "note": "No uploaded document stated this, so the value reads MISSING. Nothing was assumed to fill it."
+    },
+    "t12.month_labels": {
+      "source_doc": "Wildflower Crossing T-12.xlsx",
+      "locator": "statement",
+      "method": "read",
+      "note": "Read from the uploaded statement."
+    },
+    "t12.units": {
+      "source_doc": "Wildflower Crossing T-12.xlsx",
+      "locator": "statement",
+      "method": "read",
+      "note": "Read from the uploaded statement."
+    },
+    "comps.rows": {
+      "source_doc": "Not run in the upload demo",
+      "locator": "—",
+      "method": "read",
+      "note": "Not run in the upload demo. This section needs data sources the demo does not reach, so it is left empty rather than filled with placeholders."
+    },
+    "comps.rows.tier": {
+      "source_doc": "Not run in the upload demo",
+      "locator": "—",
+      "method": "read",
+      "note": "Not run in the upload demo. This section needs data sources the demo does not reach, so it is left empty rather than filled with placeholders."
+    },
+    "comps.nearby": {
+      "source_doc": "Not run in the upload demo",
+      "locator": "—",
+      "method": "read",
+      "note": "Not run in the upload demo. This section needs data sources the demo does not reach, so it is left empty rather than filled with placeholders."
+    },
+    "demand.rings": {
+      "source_doc": "Not run in the upload demo",
+      "locator": "—",
+      "method": "read",
+      "note": "Not run in the upload demo. This section needs data sources the demo does not reach, so it is left empty rather than filled with placeholders."
+    },
+    "supply.rings": {
+      "source_doc": "Not run in the upload demo",
+      "locator": "—",
+      "method": "read",
+      "note": "Not run in the upload demo. This section needs data sources the demo does not reach, so it is left empty rather than filled with placeholders."
+    },
+    "pricing.document_price_per_unit": {
+      "source_doc": "Wildflower Crossing Offering Memorandum.pdf",
+      "locator": "p.1",
+      "method": "derived",
+      "inputs": [
+        "summary.pricing_guidance",
+        "rent_roll.units"
+      ],
+      "note": "Derived from the stated total and the rent roll's 24 units: the document states a total price of $7,400,000, the uploaded rent roll counts 24 units, and this is that total divided by that count. The document did not state a per-unit price."
+    },
+    "summary.tax_rate_year": {
+      "source_doc": "Vendored county rate table",
+      "locator": "property_tax_table.COUNTY_RATES[('AZ', 'maricopa')]",
+      "method": "read",
+      "note": "The tax year of the rate on file. A bill from another year is displayed, not tied out."
+    },
+    "summary.tax_rate_evidence": {
+      "source_doc": "Vendored county rate table",
+      "locator": "property_tax_table.evidence_text",
+      "method": "derived",
+      "inputs": [
+        "summary.state",
+        "summary.county"
+      ],
+      "note": "The citation, tax year and jurisdiction stack behind the rate, or the honest note that none is on file."
+    },
+    "summary.tax_statement_amount": {
+      "source_doc": "Wildflower Crossing T-12.xlsx",
+      "locator": "Property Taxes lines",
+      "method": "computed",
+      "inputs": [
+        "t12.rows"
+      ],
+      "note": "The statement's lines categorised as Property Taxes, summed over its twelve months. As billed in the statement, not the county's bill."
+    },
+    "summary.tax_per_unit_flag": {
+      "source_doc": "Vendored county rate table",
+      "locator": "property_tax_table.band_check",
+      "method": "derived",
+      "inputs": [
+        "summary.tax_statement_amount",
+        "summary.units_total",
+        "summary.state"
+      ],
+      "note": "A sanity check against the state's typical per-unit range. It flags; it never changes a figure."
+    }
+  },
+  "om_comps": {
+    "source": "Stated in the offering memorandum",
+    "rent": [],
+    "sale": [],
+    "retail_note": "Retail for-sale comps are not part of this demo. Sale comparables shown here are the whole-community trades the memorandum itself cites.",
+    "absent_reason": "the memorandum states no comparables"
+  }
+}

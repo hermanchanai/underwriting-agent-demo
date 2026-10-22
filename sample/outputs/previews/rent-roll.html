@@ -1,0 +1,80 @@
+<style>
+.op-wrap { font-family: var(--sans, sans-serif); color: var(--fg, #111); }
+.op-wrap h3 {
+  font-family: var(--serif, Georgia, serif); font-weight: 500;
+  font-size: var(--t-22, 22px); letter-spacing: -0.01em;
+  margin: 0 0 var(--s-2, 8px); color: var(--fg, #111);
+}
+.op-note {
+  font-family: var(--serif, Georgia, serif); font-size: var(--t-15, 15px);
+  line-height: 1.5; color: var(--muted, #666); margin: 0 0 var(--s-5, 24px);
+  max-width: 62ch;
+}
+.op-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 var(--s-5, 24px); }
+.op-table { border-collapse: collapse; width: 100%; min-width: max-content; font-size: var(--t-13, 13px); }
+.op-table th, .op-table td {
+  padding: 6px 12px; text-align: left; white-space: nowrap;
+  border-bottom: 1px solid var(--rule-soft, #e6e6e6);
+}
+.op-table thead th {
+  font-family: var(--mono, monospace); font-size: var(--t-12, 12px);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted, #666); font-weight: 500;
+  border-bottom: 1px solid var(--rule, #ccc); background: var(--bg-alt, #f2f2f2);
+  position: sticky; top: 0;
+}
+.op-table td.op-num, .op-table th.op-num { text-align: right; font-family: var(--mono, monospace); font-variant-numeric: tabular-nums; }
+.op-table tr.op-total td { font-weight: 600; background: var(--bg-alt, #f2f2f2); border-bottom: 1px solid var(--rule, #ccc); }
+.op-table tr.op-sub td { background: var(--bg-alt, #f6f6f6); font-weight: 600; }
+.op-table td.op-wrapcell { white-space: normal; min-width: 26ch; max-width: 46ch; }
+.op-card { display: grid; gap: 0; margin: 0 0 var(--s-5, 24px); }
+.op-sec {
+  font-family: var(--mono, monospace); font-size: var(--t-12, 12px);
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted, #666);
+  padding: var(--s-4, 16px) 0 var(--s-2, 8px); border-bottom: 1px solid var(--rule, #ccc);
+}
+.op-row { display: grid; grid-template-columns: minmax(11rem, 15rem) 1fr; gap: var(--s-4, 16px);
+  padding: 7px 0; border-bottom: 1px solid var(--rule-soft, #eee); align-items: baseline; }
+.op-row dt { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--muted, #666); }
+.op-row dd { margin: 0; font-size: var(--t-15, 15px); }
+.op-row dd .op-prov { display: block; font-size: var(--t-12, 12px); color: var(--muted-2, #999); margin-top: 3px; }
+.op-row dd .op-src { display: block; font-size: var(--t-11, 11px); color: var(--muted-2, #999); margin-top: 2px; opacity: .8; font-style: italic; }
+td .op-src { display: block; font-size: var(--t-11, 11px); color: var(--muted-2, #999); margin-top: 2px; opacity: .8; font-style: italic; }
+.op-chip {
+  display: inline-block; font-family: var(--mono, monospace); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.07em; padding: 1px 6px;
+  border: 1px solid var(--rule, #ccc); border-radius: 2px;
+  color: var(--muted, #666); margin-left: 6px; vertical-align: 1px; white-space: nowrap;
+}
+.op-flag { color: var(--accent, #14304f); font-weight: 600; }
+.op-ok { color: var(--muted, #666); }
+.op-missing { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--accent, #14304f); }
+.op-internal { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--muted, #666); border-bottom: 1px dotted var(--muted, #666); cursor: help; }
+.op-bar { display: grid; grid-template-columns: 7rem 1fr 5.5rem; gap: 8px; align-items: center;
+  margin: 0 0 5px; font-size: var(--t-12, 12px); }
+.op-bar__label { font-family: var(--mono, monospace); color: var(--muted, #666); }
+.op-bar__track { background: var(--bg-alt, #eee); height: 14px; position: relative;
+  display: grid; grid-auto-rows: 1fr; }
+.op-bar__track--multi { height: auto; background: transparent; gap: 1px; }
+.op-bar__sub { background: var(--bg-alt, #eee); height: 8px; }
+.op-bar__fill { background: var(--accent, #14304f); height: 100%; display: block; }
+.op-bar__fill--alt { background: var(--muted-2, #999); }
+.op-bar__fill--soft { background: var(--rule, #ccc); }
+.op-bar__val { font-family: var(--mono, monospace); text-align: right; color: var(--fg, #111);
+  font-variant-numeric: tabular-nums; }
+.op-legend { display: flex; gap: var(--s-4, 16px); flex-wrap: wrap; margin: 0 0 var(--s-3, 12px);
+  font-family: var(--mono, monospace); font-size: 10px; color: var(--muted, #666);
+  text-transform: uppercase; letter-spacing: .07em; }
+.op-legend i { display: inline-block; width: 10px; height: 10px; margin-right: 5px;
+  vertical-align: -1px; }
+.op-empty { border: 1px dashed var(--rule, #ccc); padding: var(--s-5, 24px);
+  font-family: var(--serif, Georgia, serif); color: var(--muted, #666); max-width: 62ch; }
+@media (max-width: 640px) {
+  .op-row { grid-template-columns: 1fr; gap: 2px; }
+}
+</style>
+<div class="op-wrap">
+<h3>Rent roll</h3>
+<p class="op-note">The normalized per-unit roll. Unit identifiers only — there is no tenant-name column in the schema, so there is nothing for a scrub step to miss. Lease type is derived from the gap between lease start and move-in (31-day tolerance); a blank means the source could not support a classification, and a date the source gave as text stays text rather than being coerced.</p>
+<div class="op-scroll"><table class="op-table"><thead><tr><th>Unit</th><th>Plan</th><th class="op-num">Bd</th><th class="op-num">Ba</th><th class="op-num">SF</th><th>Status</th><th>Lease start</th><th>Move-in</th><th>Type</th><th class="op-num">In-place rent</th><th class="op-num">$/SF</th></tr></thead><tbody><tr><td>101</td><td>A1</td><td class="op-num">2</td><td class="op-num">2.0</td><td class="op-num">1,150</td><td>Occupied</td><td>2024-01-15</td><td>2024-01-15</td><td>New</td><td class="op-num">$2,090</td><td class="op-num">$1.82</td></tr><tr><td>102</td><td>B2</td><td class="op-num">3</td><td class="op-num">2.0</td><td class="op-num">1,440</td><td>Occupied</td><td>2024-02-13</td><td>2024-02-13</td><td>New</td><td class="op-num">$2,425</td><td class="op-num">$1.68</td></tr><tr><td>103</td><td>C3</td><td class="op-num">4</td><td class="op-num">3.0</td><td class="op-num">1,785</td><td>Occupied</td><td>2024-03-13</td><td>2024-03-13</td><td>New</td><td class="op-num">$2,855</td><td class="op-num">$1.60</td></tr><tr><td>104</td><td>A1</td><td class="op-num">2</td><td class="op-num">2.0</td><td class="op-num">1,150</td><td>Vacant</td><td>—</td><td>—</td><td>—</td><td class="op-num">—</td><td class="op-num">—</td></tr><tr><td>105</td><td>B2</td><td class="op-num">3</td><td class="op-num">2.0</td><td class="op-num">1,440</td><td>Occupied</td><td>2024-05-10</td><td>2024-05-10</td><td>New</td><td class="op-num">$2,425</td><td class="op-num">$1.68</td></tr><tr><td>106</td><td>C3</td><td class="op-num">4</td><td class="op-num">3.0</td><td class="op-num">1,785</td><td>Occupied</td><td>2024-06-08</td><td>2024-06-08</td><td>New</td><td class="op-num">$2,855</td><td class="op-num">$1.60</td></tr><tr><td>107</td><td>A1</td><td class="op-num">2</td><td class="op-num">2.0</td><td class="op-num">1,150</td><td>Occupied</td><td>2024-07-07</td><td>2024-07-07</td><td>New</td><td class="op-num">$2,090</td><td class="op-num">$1.82</td></tr><tr><td>108</td><td>B2</td><td class="op-num">3</td><td class="op-num">2.0</td><td class="op-num">1,440</td><td>Occupied</td><td>2024-08-05</td><td>2024-08-05</td><td>New</td><td class="op-num">$2,425</td><td class="op-num">$1.68</td></tr><tr><td>109</td><td>C3</td><td class="op-num">4</td><td class="op-num">3.0</td><td class="op-num">1,785</td><td>Occupied</td><td>2024-09-03</td><td>2024-09-03</td><td>New</td><td class="op-num">$2,855</td><td class="op-num">$1.60</td></tr><tr><td>110</td><td>A1</td><td class="op-num">2</td><td class="op-num">2.0</td><td class="op-num">1,150</td><td>Occupied</td><td>2024-10-02</td><td>2024-10-02</td><td>New</td><td class="op-num">$2,090</td><td class="op-num">$1.82</td></tr><tr><td>111</td><td>B2</td><td class="op-num">3</td><td class="op-num">2.0</td><td class="op-num">1,440</td><td>Occupied</td><td>2024-10-31</td><td>2024-10-31</td><td>New</td><td class="op-num">$2,425</td><td class="op-num">$1.68</td></tr><tr><td>112</td><td>C3</td><td class="op-num">4</td><td class="op-num">3.0</td><td class="op-num">1,785</td><td>Vacant</td><td>—</td><td>—</td><td>—</td><td class="op-num">—</td><td class="op-num">—</td></tr><tr><td>113</td><td>A1</td><td class="op-num">2</td><td class="op-num">2.0</td><td class="op-num">1,150</td><td>Occupied</td><td>2024-12-28</td><td>2024-12-28</td><td>New</td><td class="op-num">$2,090</td><td class="op-num">$1.82</td></tr><tr><td>114</td><td>B2</td><td class="op-num">3</td><td class="op-num">2.0</td><td class="op-num">1,440</td><td>Occupied</td><td>2025-01-26</td><td>2025-01-26</td><td>New</td><td class="op-num">$2,425</td><td class="op-num">$1.68</td></tr><tr><td>115</td><td>C3</td><td class="op-num">4</td><td class="op-num">3.0</td><td class="op-num">1,785</td><td>Occupied</td><td>2025-02-24</td><td>2025-02-24</td><td>New</td><td class="op-num">$2,855</td><td class="op-num">$1.60</td></tr><tr><td>116</td><td>A1</td><td class="op-num">2</td><td class="op-num">2.0</td><td class="op-num">1,150</td><td>Occupied</td><td>2025-03-25</td><td>2025-03-25</td><td>New</td><td class="op-num">$2,090</td><td class="op-num">$1.82</td></tr><tr><td>117</td><td>B2</td><td class="op-num">3</td><td class="op-num">2.0</td><td class="op-num">1,440</td><td>Occupied</td><td>2025-04-23</td><td>2025-04-23</td><td>New</td><td class="op-num">$2,425</td><td class="op-num">$1.68</td></tr><tr><td>118</td><td>C3</td><td class="op-num">4</td><td class="op-num">3.0</td><td class="op-num">1,785</td><td>Occupied</td><td>2025-05-22</td><td>2025-05-22</td><td>New</td><td class="op-num">$2,855</td><td class="op-num">$1.60</td></tr><tr><td>119</td><td>A1</td><td class="op-num">2</td><td class="op-num">2.0</td><td class="op-num">1,150</td><td>Occupied</td><td>2025-06-20</td><td>2025-06-20</td><td>New</td><td class="op-num">$2,090</td><td class="op-num">$1.82</td></tr><tr><td>120</td><td>B2</td><td class="op-num">3</td><td class="op-num">2.0</td><td class="op-num">1,440</td><td>Vacant</td><td>—</td><td>—</td><td>—</td><td class="op-num">—</td><td class="op-num">—</td></tr><tr><td>121</td><td>C3</td><td class="op-num">4</td><td class="op-num">3.0</td><td class="op-num">1,785</td><td>Occupied</td><td>2025-08-17</td><td>2025-08-17</td><td>New</td><td class="op-num">$2,855</td><td class="op-num">$1.60</td></tr><tr><td>122</td><td>A1</td><td class="op-num">2</td><td class="op-num">2.0</td><td class="op-num">1,150</td><td>Occupied</td><td>2025-09-15</td><td>2025-09-15</td><td>New</td><td class="op-num">$2,090</td><td class="op-num">$1.82</td></tr><tr><td>123</td><td>B2</td><td class="op-num">3</td><td class="op-num">2.0</td><td class="op-num">1,440</td><td>Occupied</td><td>2025-10-14</td><td>2025-10-14</td><td>New</td><td class="op-num">$2,425</td><td class="op-num">$1.68</td></tr><tr><td>124</td><td>C3</td><td class="op-num">4</td><td class="op-num">3.0</td><td class="op-num">1,785</td><td>Occupied</td><td>2025-11-12</td><td>2025-11-12</td><td>New</td><td class="op-num">$2,855</td><td class="op-num">$1.60</td></tr></tbody></table></div>
+</div>

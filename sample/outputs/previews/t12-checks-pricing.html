@@ -1,0 +1,84 @@
+<style>
+.op-wrap { font-family: var(--sans, sans-serif); color: var(--fg, #111); }
+.op-wrap h3 {
+  font-family: var(--serif, Georgia, serif); font-weight: 500;
+  font-size: var(--t-22, 22px); letter-spacing: -0.01em;
+  margin: 0 0 var(--s-2, 8px); color: var(--fg, #111);
+}
+.op-note {
+  font-family: var(--serif, Georgia, serif); font-size: var(--t-15, 15px);
+  line-height: 1.5; color: var(--muted, #666); margin: 0 0 var(--s-5, 24px);
+  max-width: 62ch;
+}
+.op-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 var(--s-5, 24px); }
+.op-table { border-collapse: collapse; width: 100%; min-width: max-content; font-size: var(--t-13, 13px); }
+.op-table th, .op-table td {
+  padding: 6px 12px; text-align: left; white-space: nowrap;
+  border-bottom: 1px solid var(--rule-soft, #e6e6e6);
+}
+.op-table thead th {
+  font-family: var(--mono, monospace); font-size: var(--t-12, 12px);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted, #666); font-weight: 500;
+  border-bottom: 1px solid var(--rule, #ccc); background: var(--bg-alt, #f2f2f2);
+  position: sticky; top: 0;
+}
+.op-table td.op-num, .op-table th.op-num { text-align: right; font-family: var(--mono, monospace); font-variant-numeric: tabular-nums; }
+.op-table tr.op-total td { font-weight: 600; background: var(--bg-alt, #f2f2f2); border-bottom: 1px solid var(--rule, #ccc); }
+.op-table tr.op-sub td { background: var(--bg-alt, #f6f6f6); font-weight: 600; }
+.op-table td.op-wrapcell { white-space: normal; min-width: 26ch; max-width: 46ch; }
+.op-card { display: grid; gap: 0; margin: 0 0 var(--s-5, 24px); }
+.op-sec {
+  font-family: var(--mono, monospace); font-size: var(--t-12, 12px);
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted, #666);
+  padding: var(--s-4, 16px) 0 var(--s-2, 8px); border-bottom: 1px solid var(--rule, #ccc);
+}
+.op-row { display: grid; grid-template-columns: minmax(11rem, 15rem) 1fr; gap: var(--s-4, 16px);
+  padding: 7px 0; border-bottom: 1px solid var(--rule-soft, #eee); align-items: baseline; }
+.op-row dt { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--muted, #666); }
+.op-row dd { margin: 0; font-size: var(--t-15, 15px); }
+.op-row dd .op-prov { display: block; font-size: var(--t-12, 12px); color: var(--muted-2, #999); margin-top: 3px; }
+.op-row dd .op-src { display: block; font-size: var(--t-11, 11px); color: var(--muted-2, #999); margin-top: 2px; opacity: .8; font-style: italic; }
+td .op-src { display: block; font-size: var(--t-11, 11px); color: var(--muted-2, #999); margin-top: 2px; opacity: .8; font-style: italic; }
+.op-chip {
+  display: inline-block; font-family: var(--mono, monospace); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.07em; padding: 1px 6px;
+  border: 1px solid var(--rule, #ccc); border-radius: 2px;
+  color: var(--muted, #666); margin-left: 6px; vertical-align: 1px; white-space: nowrap;
+}
+.op-flag { color: var(--accent, #14304f); font-weight: 600; }
+.op-ok { color: var(--muted, #666); }
+.op-missing { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--accent, #14304f); }
+.op-internal { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--muted, #666); border-bottom: 1px dotted var(--muted, #666); cursor: help; }
+.op-bar { display: grid; grid-template-columns: 7rem 1fr 5.5rem; gap: 8px; align-items: center;
+  margin: 0 0 5px; font-size: var(--t-12, 12px); }
+.op-bar__label { font-family: var(--mono, monospace); color: var(--muted, #666); }
+.op-bar__track { background: var(--bg-alt, #eee); height: 14px; position: relative;
+  display: grid; grid-auto-rows: 1fr; }
+.op-bar__track--multi { height: auto; background: transparent; gap: 1px; }
+.op-bar__sub { background: var(--bg-alt, #eee); height: 8px; }
+.op-bar__fill { background: var(--accent, #14304f); height: 100%; display: block; }
+.op-bar__fill--alt { background: var(--muted-2, #999); }
+.op-bar__fill--soft { background: var(--rule, #ccc); }
+.op-bar__val { font-family: var(--mono, monospace); text-align: right; color: var(--fg, #111);
+  font-variant-numeric: tabular-nums; }
+.op-legend { display: flex; gap: var(--s-4, 16px); flex-wrap: wrap; margin: 0 0 var(--s-3, 12px);
+  font-family: var(--mono, monospace); font-size: 10px; color: var(--muted, #666);
+  text-transform: uppercase; letter-spacing: .07em; }
+.op-legend i { display: inline-block; width: 10px; height: 10px; margin-right: 5px;
+  vertical-align: -1px; }
+.op-empty { border: 1px dashed var(--rule, #ccc); padding: var(--s-5, 24px);
+  font-family: var(--serif, Georgia, serif); color: var(--muted, #666); max-width: 62ch; }
+@media (max-width: 640px) {
+  .op-row { grid-template-columns: 1fr; gap: 2px; }
+}
+</style>
+<div class="op-wrap">
+<h3>T-12 audit trail</h3>
+<p class="op-note">The cross-tie against the subtotals the source statement printed, then the statement against the rent roll. A difference over a dollar reads REVIEW rather than quietly passing; a subtotal the source never printed reads NOT CHECKED, not OK.</p>
+<div class="op-scroll"><table class="op-table"><thead><tr><th>Check</th><th class="op-num">Our total</th><th class="op-num">Source subtotal</th><th class="op-num">Difference</th><th>Status</th><th>Why</th></tr></thead><tbody><tr><td>Total Revenue</td><td class="op-num">$713,171</td><td class="op-num">$713,171</td><td class="op-num">$0</td><td><span class="op-ok">OK</span></td><td class="op-wrapcell"></td></tr><tr><td>Total Operating Expenses</td><td class="op-num">$392,573</td><td class="op-num">$392,573</td><td class="op-num">($0)</td><td><span class="op-ok">OK</span></td><td class="op-wrapcell"></td></tr><tr><td>Net Operating Income</td><td class="op-num">$320,598</td><td class="op-num">$320,598</td><td class="op-num">$0</td><td><span class="op-ok">OK</span></td><td class="op-wrapcell"></td></tr><tr><td>Group subtotals (Other Income, Utility Reimbursements, Utilities)</td><td class="op-num">—</td><td class="op-num">—</td><td class="op-num">—</td><td><span class="op-flag">NOT CHECKED</span></td><td class="op-wrapcell">The statement prints no subtotal for these 3 groups, so there is nothing to tie their category totals to. The P&amp;amp;L still shows each group&#x27;s own total.</td></tr></tbody></table></div>
+<h3>Statement sanity checks</h3><p class="op-note">Four guards on how the statement is printed. A REVIEW is flagged for a reader to resolve; nothing here changes a number — the P&amp;L is the statement as categorised, unflipped.</p>
+<div class="op-scroll"><table class="op-table"><thead><tr><th>Guard</th><th>Status</th><th>Lines named</th><th>Detail</th></tr></thead><tbody><tr><td>Contra-revenue categories net negative</td><td><span class="op-ok">OK</span></td><td class="op-wrapcell">—</td><td class="op-wrapcell">Every contra-revenue category (Vacancy, Concessions, Non-Revenue Units, Delinquency) nets negative, as it must.</td></tr><tr><td>Total operating expenses positive</td><td><span class="op-ok">OK</span></td><td class="op-wrapcell">—</td><td class="op-wrapcell">Total operating expenses are $392,573 — positive, as an expense total must be.</td></tr><tr><td>No recovery lines inside expense buckets</td><td><span class="op-ok">OK</span></td><td class="op-wrapcell">—</td><td class="op-wrapcell">No negative line inside an expense category carries a recovery word (rebill, reimburse, recover, recapture).</td></tr><tr><td>No subtotal row counted with its members</td><td><span class="op-ok">OK</span></td><td class="op-wrapcell">—</td><td class="op-wrapcell">No categorised row named like a subtotal (|value| ≥ $500) equals the sum of one to three rows within 25 lines of it.</td></tr></tbody></table></div>
+<h3>Across the two documents: statement vs rent roll</h3><p class="op-note">Different documents on different bases — twelve months of a statement against one day of a roll — so a tie within 10% is the expected state and a wider gap is the thing to look at, not a rounding difference.</p>
+<div class="op-scroll"><table class="op-table"><thead><tr><th>Tie</th><th class="op-num">Statement</th><th class="op-num">Rent roll</th><th class="op-num">Gap</th><th>Status</th><th>Basis / why not</th></tr></thead><tbody><tr><td>Gross Potential Rent vs the roll&#x27;s market rent x 12</td><td class="op-num">$742,512</td><td class="op-num">$723,360</td><td class="op-num">2.6%</td><td><span class="op-ok">OK</span></td><td class="op-wrapcell">statement GPR, twelve months; roll market rent, every unit, x 12</td></tr><tr><td>Total Revenue vs the roll&#x27;s in-place rent x 12</td><td class="op-num">$713,171</td><td class="op-num">$619,080</td><td class="op-num">15.2%</td><td><span class="op-flag">REVIEW</span></td><td class="op-wrapcell">statement total revenue; roll in-place rent, occupied units, x 12</td></tr></tbody></table></div>
+</div>

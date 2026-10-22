@@ -1,0 +1,80 @@
+<style>
+.op-wrap { font-family: var(--sans, sans-serif); color: var(--fg, #111); }
+.op-wrap h3 {
+  font-family: var(--serif, Georgia, serif); font-weight: 500;
+  font-size: var(--t-22, 22px); letter-spacing: -0.01em;
+  margin: 0 0 var(--s-2, 8px); color: var(--fg, #111);
+}
+.op-note {
+  font-family: var(--serif, Georgia, serif); font-size: var(--t-15, 15px);
+  line-height: 1.5; color: var(--muted, #666); margin: 0 0 var(--s-5, 24px);
+  max-width: 62ch;
+}
+.op-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 var(--s-5, 24px); }
+.op-table { border-collapse: collapse; width: 100%; min-width: max-content; font-size: var(--t-13, 13px); }
+.op-table th, .op-table td {
+  padding: 6px 12px; text-align: left; white-space: nowrap;
+  border-bottom: 1px solid var(--rule-soft, #e6e6e6);
+}
+.op-table thead th {
+  font-family: var(--mono, monospace); font-size: var(--t-12, 12px);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted, #666); font-weight: 500;
+  border-bottom: 1px solid var(--rule, #ccc); background: var(--bg-alt, #f2f2f2);
+  position: sticky; top: 0;
+}
+.op-table td.op-num, .op-table th.op-num { text-align: right; font-family: var(--mono, monospace); font-variant-numeric: tabular-nums; }
+.op-table tr.op-total td { font-weight: 600; background: var(--bg-alt, #f2f2f2); border-bottom: 1px solid var(--rule, #ccc); }
+.op-table tr.op-sub td { background: var(--bg-alt, #f6f6f6); font-weight: 600; }
+.op-table td.op-wrapcell { white-space: normal; min-width: 26ch; max-width: 46ch; }
+.op-card { display: grid; gap: 0; margin: 0 0 var(--s-5, 24px); }
+.op-sec {
+  font-family: var(--mono, monospace); font-size: var(--t-12, 12px);
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted, #666);
+  padding: var(--s-4, 16px) 0 var(--s-2, 8px); border-bottom: 1px solid var(--rule, #ccc);
+}
+.op-row { display: grid; grid-template-columns: minmax(11rem, 15rem) 1fr; gap: var(--s-4, 16px);
+  padding: 7px 0; border-bottom: 1px solid var(--rule-soft, #eee); align-items: baseline; }
+.op-row dt { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--muted, #666); }
+.op-row dd { margin: 0; font-size: var(--t-15, 15px); }
+.op-row dd .op-prov { display: block; font-size: var(--t-12, 12px); color: var(--muted-2, #999); margin-top: 3px; }
+.op-row dd .op-src { display: block; font-size: var(--t-11, 11px); color: var(--muted-2, #999); margin-top: 2px; opacity: .8; font-style: italic; }
+td .op-src { display: block; font-size: var(--t-11, 11px); color: var(--muted-2, #999); margin-top: 2px; opacity: .8; font-style: italic; }
+.op-chip {
+  display: inline-block; font-family: var(--mono, monospace); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.07em; padding: 1px 6px;
+  border: 1px solid var(--rule, #ccc); border-radius: 2px;
+  color: var(--muted, #666); margin-left: 6px; vertical-align: 1px; white-space: nowrap;
+}
+.op-flag { color: var(--accent, #14304f); font-weight: 600; }
+.op-ok { color: var(--muted, #666); }
+.op-missing { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--accent, #14304f); }
+.op-internal { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--muted, #666); border-bottom: 1px dotted var(--muted, #666); cursor: help; }
+.op-bar { display: grid; grid-template-columns: 7rem 1fr 5.5rem; gap: 8px; align-items: center;
+  margin: 0 0 5px; font-size: var(--t-12, 12px); }
+.op-bar__label { font-family: var(--mono, monospace); color: var(--muted, #666); }
+.op-bar__track { background: var(--bg-alt, #eee); height: 14px; position: relative;
+  display: grid; grid-auto-rows: 1fr; }
+.op-bar__track--multi { height: auto; background: transparent; gap: 1px; }
+.op-bar__sub { background: var(--bg-alt, #eee); height: 8px; }
+.op-bar__fill { background: var(--accent, #14304f); height: 100%; display: block; }
+.op-bar__fill--alt { background: var(--muted-2, #999); }
+.op-bar__fill--soft { background: var(--rule, #ccc); }
+.op-bar__val { font-family: var(--mono, monospace); text-align: right; color: var(--fg, #111);
+  font-variant-numeric: tabular-nums; }
+.op-legend { display: flex; gap: var(--s-4, 16px); flex-wrap: wrap; margin: 0 0 var(--s-3, 12px);
+  font-family: var(--mono, monospace); font-size: 10px; color: var(--muted, #666);
+  text-transform: uppercase; letter-spacing: .07em; }
+.op-legend i { display: inline-block; width: 10px; height: 10px; margin-right: 5px;
+  vertical-align: -1px; }
+.op-empty { border: 1px dashed var(--rule, #ccc); padding: var(--s-5, 24px);
+  font-family: var(--serif, Georgia, serif); color: var(--muted, #666); max-width: 62ch; }
+@media (max-width: 640px) {
+  .op-row { grid-template-columns: 1fr; gap: 2px; }
+}
+</style>
+<div class="op-wrap">
+<h3>T-12 data</h3>
+<p class="op-note">The monthly matrix as normalized, with each source line mapped to a category. Months run oldest-first, detected from the labels rather than assumed — the trailing-three window depends on it. An uncategorized subtotal the statement printed stays visible, and nothing sums it twice.</p>
+<div class="op-scroll"><table class="op-table"><thead><tr><th>Line item</th><th>Category</th><th class="op-num">2025-07</th><th class="op-num">2025-08</th><th class="op-num">2025-09</th><th class="op-num">2025-10</th><th class="op-num">2025-11</th><th class="op-num">2025-12</th><th class="op-num">2026-01</th><th class="op-num">2026-02</th><th class="op-num">2026-03</th><th class="op-num">2026-04</th><th class="op-num">2026-05</th><th class="op-num">2026-06</th><th class="op-num">T-12</th><th class="op-num">T-3</th></tr></thead><tbody><tr><td>Gross Potential Rent (4010)</td><td>Gross Potential Rent</td><td class="op-num">$60,512</td><td class="op-num">$60,760</td><td class="op-num">$61,008</td><td class="op-num">$61,256</td><td class="op-num">$61,504</td><td class="op-num">$61,752</td><td class="op-num">$62,000</td><td class="op-num">$62,248</td><td class="op-num">$62,496</td><td class="op-num">$62,744</td><td class="op-num">$62,992</td><td class="op-num">$63,240</td><td class="op-num">$742,512</td><td class="op-num">$188,976</td></tr><tr><td>Gain / (Loss) to Lease (4020)</td><td>Gain / (Loss) to Lease</td><td class="op-num">($2,050)</td><td class="op-num">($2,058)</td><td class="op-num">($2,066)</td><td class="op-num">($2,075)</td><td class="op-num">($2,083)</td><td class="op-num">($2,092)</td><td class="op-num">($2,100)</td><td class="op-num">($2,108)</td><td class="op-num">($2,117)</td><td class="op-num">($2,125)</td><td class="op-num">($2,134)</td><td class="op-num">($2,142)</td><td class="op-num">($25,150)</td><td class="op-num">($6,401)</td></tr><tr><td>Vacancy (4100)</td><td>Vacancy</td><td class="op-num">($4,197)</td><td class="op-num">($4,214)</td><td class="op-num">($4,231)</td><td class="op-num">($4,248)</td><td class="op-num">($4,266)</td><td class="op-num">($4,283)</td><td class="op-num">($4,300)</td><td class="op-num">($4,317)</td><td class="op-num">($4,334)</td><td class="op-num">($4,352)</td><td class="op-num">($4,369)</td><td class="op-num">($4,386)</td><td class="op-num">($51,497)</td><td class="op-num">($13,106)</td></tr><tr><td>Concessions (4110)</td><td>Concessions</td><td class="op-num">($878)</td><td class="op-num">($882)</td><td class="op-num">($886)</td><td class="op-num">($889)</td><td class="op-num">($893)</td><td class="op-num">($896)</td><td class="op-num">($900)</td><td class="op-num">($904)</td><td class="op-num">($907)</td><td class="op-num">($911)</td><td class="op-num">($914)</td><td class="op-num">($918)</td><td class="op-num">($10,778)</td><td class="op-num">($2,743)</td></tr><tr><td>Utility Reimbursement (4200)</td><td>Utility Reimbursements</td><td class="op-num">$3,026</td><td class="op-num">$3,038</td><td class="op-num">$3,050</td><td class="op-num">$3,063</td><td class="op-num">$3,075</td><td class="op-num">$3,088</td><td class="op-num">$3,100</td><td class="op-num">$3,112</td><td class="op-num">$3,125</td><td class="op-num">$3,137</td><td class="op-num">$3,150</td><td class="op-num">$3,162</td><td class="op-num">$37,126</td><td class="op-num">$9,449</td></tr><tr><td>Other Income (4300)</td><td>Other Income</td><td class="op-num">$1,708</td><td class="op-num">$1,715</td><td class="op-num">$1,722</td><td class="op-num">$1,729</td><td class="op-num">$1,736</td><td class="op-num">$1,743</td><td class="op-num">$1,750</td><td class="op-num">$1,757</td><td class="op-num">$1,764</td><td class="op-num">$1,771</td><td class="op-num">$1,778</td><td class="op-num">$1,785</td><td class="op-num">$20,958</td><td class="op-num">$5,334</td></tr><tr><td>Payroll (5010)</td><td>Payroll</td><td class="op-num">$7,027</td><td class="op-num">$7,056</td><td class="op-num">$7,085</td><td class="op-num">$7,114</td><td class="op-num">$7,142</td><td class="op-num">$7,171</td><td class="op-num">$7,200</td><td class="op-num">$7,229</td><td class="op-num">$7,258</td><td class="op-num">$7,286</td><td class="op-num">$7,315</td><td class="op-num">$7,344</td><td class="op-num">$86,227</td><td class="op-num">$21,946</td></tr><tr><td>Repairs &amp; Maintenance (5100)</td><td>Repairs and Maintenance</td><td class="op-num">$4,002</td><td class="op-num">$4,018</td><td class="op-num">$4,034</td><td class="op-num">$4,051</td><td class="op-num">$4,067</td><td class="op-num">$4,084</td><td class="op-num">$4,100</td><td class="op-num">$4,116</td><td class="op-num">$4,133</td><td class="op-num">$4,149</td><td class="op-num">$4,166</td><td class="op-num">$4,182</td><td class="op-num">$49,102</td><td class="op-num">$12,497</td></tr><tr><td>Contract Services (5200)</td><td>Repairs and Maintenance</td><td class="op-num">$2,245</td><td class="op-num">$2,254</td><td class="op-num">$2,263</td><td class="op-num">$2,272</td><td class="op-num">$2,282</td><td class="op-num">$2,291</td><td class="op-num">$2,300</td><td class="op-num">$2,309</td><td class="op-num">$2,318</td><td class="op-num">$2,328</td><td class="op-num">$2,337</td><td class="op-num">$2,346</td><td class="op-num">$27,545</td><td class="op-num">$7,010</td></tr><tr><td>Marketing (5300)</td><td>Leasing and Marketing</td><td class="op-num">$878</td><td class="op-num">$882</td><td class="op-num">$886</td><td class="op-num">$889</td><td class="op-num">$893</td><td class="op-num">$896</td><td class="op-num">$900</td><td class="op-num">$904</td><td class="op-num">$907</td><td class="op-num">$911</td><td class="op-num">$914</td><td class="op-num">$918</td><td class="op-num">$10,778</td><td class="op-num">$2,743</td></tr><tr><td>Administrative (5400)</td><td>General and Administrative</td><td class="op-num">$1,366</td><td class="op-num">$1,372</td><td class="op-num">$1,378</td><td class="op-num">$1,383</td><td class="op-num">$1,389</td><td class="op-num">$1,394</td><td class="op-num">$1,400</td><td class="op-num">$1,406</td><td class="op-num">$1,411</td><td class="op-num">$1,417</td><td class="op-num">$1,422</td><td class="op-num">$1,428</td><td class="op-num">$16,766</td><td class="op-num">$4,267</td></tr><tr><td>Utilities (5500)</td><td>Utilities</td><td class="op-num">$3,514</td><td class="op-num">$3,528</td><td class="op-num">$3,542</td><td class="op-num">$3,557</td><td class="op-num">$3,571</td><td class="op-num">$3,586</td><td class="op-num">$3,600</td><td class="op-num">$3,614</td><td class="op-num">$3,629</td><td class="op-num">$3,643</td><td class="op-num">$3,658</td><td class="op-num">$3,672</td><td class="op-num">$43,114</td><td class="op-num">$10,973</td></tr><tr><td>Management Fee (5600)</td><td>Management Fee</td><td class="op-num">$1,737</td><td class="op-num">$1,744</td><td class="op-num">$1,752</td><td class="op-num">$1,759</td><td class="op-num">$1,766</td><td class="op-num">$1,773</td><td class="op-num">$1,780</td><td class="op-num">$1,787</td><td class="op-num">$1,794</td><td class="op-num">$1,801</td><td class="op-num">$1,808</td><td class="op-num">$1,816</td><td class="op-num">$21,317</td><td class="op-num">$5,425</td></tr><tr><td>Insurance (5700)</td><td>Insurance</td><td class="op-num">$2,538</td><td class="op-num">$2,548</td><td class="op-num">$2,558</td><td class="op-num">$2,569</td><td class="op-num">$2,579</td><td class="op-num">$2,590</td><td class="op-num">$2,600</td><td class="op-num">$2,610</td><td class="op-num">$2,621</td><td class="op-num">$2,631</td><td class="op-num">$2,642</td><td class="op-num">$2,652</td><td class="op-num">$31,138</td><td class="op-num">$7,925</td></tr><tr><td>Real Estate Taxes (5800)</td><td>Property Taxes</td><td class="op-num">$8,686</td><td class="op-num">$8,722</td><td class="op-num">$8,758</td><td class="op-num">$8,793</td><td class="op-num">$8,829</td><td class="op-num">$8,864</td><td class="op-num">$8,900</td><td class="op-num">$8,936</td><td class="op-num">$8,971</td><td class="op-num">$9,007</td><td class="op-num">$9,042</td><td class="op-num">$9,078</td><td class="op-num">$106,586</td><td class="op-num">$27,127</td></tr></tbody></table></div>
+</div>

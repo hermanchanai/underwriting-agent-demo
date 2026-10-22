@@ -1,0 +1,85 @@
+<style>
+.op-wrap { font-family: var(--sans, sans-serif); color: var(--fg, #111); }
+.op-wrap h3 {
+  font-family: var(--serif, Georgia, serif); font-weight: 500;
+  font-size: var(--t-22, 22px); letter-spacing: -0.01em;
+  margin: 0 0 var(--s-2, 8px); color: var(--fg, #111);
+}
+.op-note {
+  font-family: var(--serif, Georgia, serif); font-size: var(--t-15, 15px);
+  line-height: 1.5; color: var(--muted, #666); margin: 0 0 var(--s-5, 24px);
+  max-width: 62ch;
+}
+.op-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 var(--s-5, 24px); }
+.op-table { border-collapse: collapse; width: 100%; min-width: max-content; font-size: var(--t-13, 13px); }
+.op-table th, .op-table td {
+  padding: 6px 12px; text-align: left; white-space: nowrap;
+  border-bottom: 1px solid var(--rule-soft, #e6e6e6);
+}
+.op-table thead th {
+  font-family: var(--mono, monospace); font-size: var(--t-12, 12px);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted, #666); font-weight: 500;
+  border-bottom: 1px solid var(--rule, #ccc); background: var(--bg-alt, #f2f2f2);
+  position: sticky; top: 0;
+}
+.op-table td.op-num, .op-table th.op-num { text-align: right; font-family: var(--mono, monospace); font-variant-numeric: tabular-nums; }
+.op-table tr.op-total td { font-weight: 600; background: var(--bg-alt, #f2f2f2); border-bottom: 1px solid var(--rule, #ccc); }
+.op-table tr.op-sub td { background: var(--bg-alt, #f6f6f6); font-weight: 600; }
+.op-table td.op-wrapcell { white-space: normal; min-width: 26ch; max-width: 46ch; }
+.op-card { display: grid; gap: 0; margin: 0 0 var(--s-5, 24px); }
+.op-sec {
+  font-family: var(--mono, monospace); font-size: var(--t-12, 12px);
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted, #666);
+  padding: var(--s-4, 16px) 0 var(--s-2, 8px); border-bottom: 1px solid var(--rule, #ccc);
+}
+.op-row { display: grid; grid-template-columns: minmax(11rem, 15rem) 1fr; gap: var(--s-4, 16px);
+  padding: 7px 0; border-bottom: 1px solid var(--rule-soft, #eee); align-items: baseline; }
+.op-row dt { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--muted, #666); }
+.op-row dd { margin: 0; font-size: var(--t-15, 15px); }
+.op-row dd .op-prov { display: block; font-size: var(--t-12, 12px); color: var(--muted-2, #999); margin-top: 3px; }
+.op-row dd .op-src { display: block; font-size: var(--t-11, 11px); color: var(--muted-2, #999); margin-top: 2px; opacity: .8; font-style: italic; }
+td .op-src { display: block; font-size: var(--t-11, 11px); color: var(--muted-2, #999); margin-top: 2px; opacity: .8; font-style: italic; }
+.op-chip {
+  display: inline-block; font-family: var(--mono, monospace); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.07em; padding: 1px 6px;
+  border: 1px solid var(--rule, #ccc); border-radius: 2px;
+  color: var(--muted, #666); margin-left: 6px; vertical-align: 1px; white-space: nowrap;
+}
+.op-flag { color: var(--accent, #14304f); font-weight: 600; }
+.op-ok { color: var(--muted, #666); }
+.op-missing { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--accent, #14304f); }
+.op-internal { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--muted, #666); border-bottom: 1px dotted var(--muted, #666); cursor: help; }
+.op-bar { display: grid; grid-template-columns: 7rem 1fr 5.5rem; gap: 8px; align-items: center;
+  margin: 0 0 5px; font-size: var(--t-12, 12px); }
+.op-bar__label { font-family: var(--mono, monospace); color: var(--muted, #666); }
+.op-bar__track { background: var(--bg-alt, #eee); height: 14px; position: relative;
+  display: grid; grid-auto-rows: 1fr; }
+.op-bar__track--multi { height: auto; background: transparent; gap: 1px; }
+.op-bar__sub { background: var(--bg-alt, #eee); height: 8px; }
+.op-bar__fill { background: var(--accent, #14304f); height: 100%; display: block; }
+.op-bar__fill--alt { background: var(--muted-2, #999); }
+.op-bar__fill--soft { background: var(--rule, #ccc); }
+.op-bar__val { font-family: var(--mono, monospace); text-align: right; color: var(--fg, #111);
+  font-variant-numeric: tabular-nums; }
+.op-legend { display: flex; gap: var(--s-4, 16px); flex-wrap: wrap; margin: 0 0 var(--s-3, 12px);
+  font-family: var(--mono, monospace); font-size: 10px; color: var(--muted, #666);
+  text-transform: uppercase; letter-spacing: .07em; }
+.op-legend i { display: inline-block; width: 10px; height: 10px; margin-right: 5px;
+  vertical-align: -1px; }
+.op-empty { border: 1px dashed var(--rule, #ccc); padding: var(--s-5, 24px);
+  font-family: var(--serif, Georgia, serif); color: var(--muted, #666); max-width: 62ch; }
+@media (max-width: 640px) {
+  .op-row { grid-template-columns: 1fr; gap: 2px; }
+}
+</style>
+<div class="op-wrap">
+<h3>Unit mix summary</h3>
+<p class="op-note">Per-plan rollup, in the rent-roll Summary's own columns. Market rent for model is the new move-in rent — residents whose move-in date falls inside the lookback window, whatever their lease type — where the plan has one, and the in-place average otherwise (in-place outright on a roll with no usable lease start or move-in date); the basis column says which, per plan. Leases signed is every classified lease started in the window, new and renewal together, shown for context and never fed to the model: a blended average is a renewal average wearing a market-rent label, and it understates trade-out on every deal it touches.</p>
+<div class="op-scroll"><table class="op-table"><thead><tr><th>Plan</th><th class="op-num">Bd</th><th class="op-num">Ba</th><th class="op-num">Avg SF</th><th class="op-num">Units</th><th class="op-num">Occ</th><th class="op-num">Vac</th><th class="op-num">In-place rent</th><th class="op-num">Leases signed rent</th><th class="op-num">Signed #</th><th class="op-num">New move-in rent</th><th class="op-num">Move-in #</th><th class="op-num">Market rent for model</th><th>Basis</th></tr></thead><tbody><tr><td>A1</td><td class="op-num">2</td><td class="op-num">2.0</td><td class="op-num">1,150</td><td class="op-num">8</td><td class="op-num">7</td><td class="op-num">1</td><td class="op-num">$2,090</td><td class="op-num">$2,090</td><td class="op-num">4</td><td class="op-num">$2,090</td><td class="op-num">4</td><td class="op-num">$2,090</td><td class="op-wrapcell">New move-ins (n=4)</td></tr><tr><td>B2</td><td class="op-num">3</td><td class="op-num">2.0</td><td class="op-num">1,440</td><td class="op-num">8</td><td class="op-num">7</td><td class="op-num">1</td><td class="op-num">$2,425</td><td class="op-num">$2,425</td><td class="op-num">3</td><td class="op-num">$2,425</td><td class="op-num">3</td><td class="op-num">$2,425</td><td class="op-wrapcell">New move-ins (n=3)</td></tr><tr><td>C3</td><td class="op-num">4</td><td class="op-num">3.0</td><td class="op-num">1,785</td><td class="op-num">8</td><td class="op-num">7</td><td class="op-num">1</td><td class="op-num">$2,855</td><td class="op-num">$2,855</td><td class="op-num">4</td><td class="op-num">$2,855</td><td class="op-num">4</td><td class="op-num">$2,855</td><td class="op-wrapcell">New move-ins (n=4)</td></tr></tbody></table></div>
+<h3>Units by floor plan</h3>
+<div class="op-bar"><span class="op-bar__label">A1</span><span class="op-bar__track"><span class="op-bar__sub"><span class="op-bar__fill " style="width:100.0%"></span></span></span><span class="op-bar__val">8</span></div><div class="op-bar"><span class="op-bar__label">B2</span><span class="op-bar__track"><span class="op-bar__sub"><span class="op-bar__fill " style="width:100.0%"></span></span></span><span class="op-bar__val">8</span></div><div class="op-bar"><span class="op-bar__label">C3</span><span class="op-bar__track"><span class="op-bar__sub"><span class="op-bar__fill " style="width:100.0%"></span></span></span><span class="op-bar__val">8</span></div>
+<h3>In-place vs new move-in vs market rent for model</h3>
+<div class="op-legend"><span><i class="op-bar__fill "></i>In-place</span><span><i class="op-bar__fill op-bar__fill--alt"></i>New move-in</span><span><i class="op-bar__fill op-bar__fill--soft"></i>Market rent for model</span></div><div class="op-bar"><span class="op-bar__label">A1</span><span class="op-bar__track op-bar__track--multi"><span class="op-bar__sub"><span class="op-bar__fill " style="width:73.2%"></span></span><span class="op-bar__sub"><span class="op-bar__fill op-bar__fill--alt" style="width:73.2%"></span></span><span class="op-bar__sub"><span class="op-bar__fill op-bar__fill--soft" style="width:73.2%"></span></span></span><span class="op-bar__val">$2,090</span></div><div class="op-bar"><span class="op-bar__label">B2</span><span class="op-bar__track op-bar__track--multi"><span class="op-bar__sub"><span class="op-bar__fill " style="width:84.9%"></span></span><span class="op-bar__sub"><span class="op-bar__fill op-bar__fill--alt" style="width:84.9%"></span></span><span class="op-bar__sub"><span class="op-bar__fill op-bar__fill--soft" style="width:84.9%"></span></span></span><span class="op-bar__val">$2,425</span></div><div class="op-bar"><span class="op-bar__label">C3</span><span class="op-bar__track op-bar__track--multi"><span class="op-bar__sub"><span class="op-bar__fill " style="width:100.0%"></span></span><span class="op-bar__sub"><span class="op-bar__fill op-bar__fill--alt" style="width:100.0%"></span></span><span class="op-bar__sub"><span class="op-bar__fill op-bar__fill--soft" style="width:100.0%"></span></span></span><span class="op-bar__val">$2,855</span></div>
+<dl class="op-card"><div class="op-sec">Knobs</div><div class="op-row"><dt>As-of date</dt><dd>2025-11-12<span class="op-prov">Every window is measured from this date, never from today.</span></dd></div><div class="op-row"><dt>Lookback months</dt><dd>12</dd></div><div class="op-row"><dt>New-tenant tolerance</dt><dd>31 days</dd></div><div class="op-sec">Occupancy</div><div class="op-row"><dt>Total units</dt><dd>24</dd></div><div class="op-row"><dt>Occupied</dt><dd>21</dd></div><div class="op-row"><dt>Vacant</dt><dd>3</dd></div><div class="op-row"><dt>Non-revenue</dt><dd>0<span class="op-prov">Models and down units: in the stock, in neither occupancy bucket.</span></dd></div><div class="op-row"><dt>Occupancy</dt><dd>87.5%</dd></div><div class="op-row"><dt>Vacancy</dt><dd>12.5%<span class="op-prov">The physical-vacancy input.</span></dd></div><div class="op-sec">Rents and turnover</div><div class="op-row"><dt>Weighted in-place rent</dt><dd>$2,457<span class="op-prov">Weighted by occupied units.</span></dd></div><div class="op-row"><dt>Weighted market rent for model</dt><dd>$2,457<span class="op-prov">Weighted by total units.</span></dd></div><div class="op-row"><dt>Move-ins in window</dt><dd>11</dd></div><div class="op-row"><dt>Annualized turnover</dt><dd>45.8%<span class="op-prov">Move-ins in the window, annualized against unit count.</span></dd></div><div class="op-sec">New move-ins</div><div class="op-row"><dt>Move-ins in window</dt><dd>11<span class="op-prov">Counted by MOVE-IN date, never by lease start — a renewal stamps a fresh lease start against a resident who moved in years ago.</span></dd></div><div class="op-row"><dt>Window (months)</dt><dd>12</dd></div><div class="op-row"><dt>Share of units</dt><dd>45.8%</dd></div></dl>
+</div>

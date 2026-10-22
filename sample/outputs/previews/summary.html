@@ -1,0 +1,80 @@
+<style>
+.op-wrap { font-family: var(--sans, sans-serif); color: var(--fg, #111); }
+.op-wrap h3 {
+  font-family: var(--serif, Georgia, serif); font-weight: 500;
+  font-size: var(--t-22, 22px); letter-spacing: -0.01em;
+  margin: 0 0 var(--s-2, 8px); color: var(--fg, #111);
+}
+.op-note {
+  font-family: var(--serif, Georgia, serif); font-size: var(--t-15, 15px);
+  line-height: 1.5; color: var(--muted, #666); margin: 0 0 var(--s-5, 24px);
+  max-width: 62ch;
+}
+.op-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 var(--s-5, 24px); }
+.op-table { border-collapse: collapse; width: 100%; min-width: max-content; font-size: var(--t-13, 13px); }
+.op-table th, .op-table td {
+  padding: 6px 12px; text-align: left; white-space: nowrap;
+  border-bottom: 1px solid var(--rule-soft, #e6e6e6);
+}
+.op-table thead th {
+  font-family: var(--mono, monospace); font-size: var(--t-12, 12px);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted, #666); font-weight: 500;
+  border-bottom: 1px solid var(--rule, #ccc); background: var(--bg-alt, #f2f2f2);
+  position: sticky; top: 0;
+}
+.op-table td.op-num, .op-table th.op-num { text-align: right; font-family: var(--mono, monospace); font-variant-numeric: tabular-nums; }
+.op-table tr.op-total td { font-weight: 600; background: var(--bg-alt, #f2f2f2); border-bottom: 1px solid var(--rule, #ccc); }
+.op-table tr.op-sub td { background: var(--bg-alt, #f6f6f6); font-weight: 600; }
+.op-table td.op-wrapcell { white-space: normal; min-width: 26ch; max-width: 46ch; }
+.op-card { display: grid; gap: 0; margin: 0 0 var(--s-5, 24px); }
+.op-sec {
+  font-family: var(--mono, monospace); font-size: var(--t-12, 12px);
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted, #666);
+  padding: var(--s-4, 16px) 0 var(--s-2, 8px); border-bottom: 1px solid var(--rule, #ccc);
+}
+.op-row { display: grid; grid-template-columns: minmax(11rem, 15rem) 1fr; gap: var(--s-4, 16px);
+  padding: 7px 0; border-bottom: 1px solid var(--rule-soft, #eee); align-items: baseline; }
+.op-row dt { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--muted, #666); }
+.op-row dd { margin: 0; font-size: var(--t-15, 15px); }
+.op-row dd .op-prov { display: block; font-size: var(--t-12, 12px); color: var(--muted-2, #999); margin-top: 3px; }
+.op-row dd .op-src { display: block; font-size: var(--t-11, 11px); color: var(--muted-2, #999); margin-top: 2px; opacity: .8; font-style: italic; }
+td .op-src { display: block; font-size: var(--t-11, 11px); color: var(--muted-2, #999); margin-top: 2px; opacity: .8; font-style: italic; }
+.op-chip {
+  display: inline-block; font-family: var(--mono, monospace); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.07em; padding: 1px 6px;
+  border: 1px solid var(--rule, #ccc); border-radius: 2px;
+  color: var(--muted, #666); margin-left: 6px; vertical-align: 1px; white-space: nowrap;
+}
+.op-flag { color: var(--accent, #14304f); font-weight: 600; }
+.op-ok { color: var(--muted, #666); }
+.op-missing { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--accent, #14304f); }
+.op-internal { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--muted, #666); border-bottom: 1px dotted var(--muted, #666); cursor: help; }
+.op-bar { display: grid; grid-template-columns: 7rem 1fr 5.5rem; gap: 8px; align-items: center;
+  margin: 0 0 5px; font-size: var(--t-12, 12px); }
+.op-bar__label { font-family: var(--mono, monospace); color: var(--muted, #666); }
+.op-bar__track { background: var(--bg-alt, #eee); height: 14px; position: relative;
+  display: grid; grid-auto-rows: 1fr; }
+.op-bar__track--multi { height: auto; background: transparent; gap: 1px; }
+.op-bar__sub { background: var(--bg-alt, #eee); height: 8px; }
+.op-bar__fill { background: var(--accent, #14304f); height: 100%; display: block; }
+.op-bar__fill--alt { background: var(--muted-2, #999); }
+.op-bar__fill--soft { background: var(--rule, #ccc); }
+.op-bar__val { font-family: var(--mono, monospace); text-align: right; color: var(--fg, #111);
+  font-variant-numeric: tabular-nums; }
+.op-legend { display: flex; gap: var(--s-4, 16px); flex-wrap: wrap; margin: 0 0 var(--s-3, 12px);
+  font-family: var(--mono, monospace); font-size: 10px; color: var(--muted, #666);
+  text-transform: uppercase; letter-spacing: .07em; }
+.op-legend i { display: inline-block; width: 10px; height: 10px; margin-right: 5px;
+  vertical-align: -1px; }
+.op-empty { border: 1px dashed var(--rule, #ccc); padding: var(--s-5, 24px);
+  font-family: var(--serif, Georgia, serif); color: var(--muted, #666); max-width: 62ch; }
+@media (max-width: 640px) {
+  .op-row { grid-template-columns: 1fr; gap: 2px; }
+}
+</style>
+<div class="op-wrap">
+<h3>Deal summary</h3>
+<p class="op-note">One card, built from the deal's own documents. Where a value could not be established it reads <span class="op-missing">MISSING</span> rather than a plausible guess — a visible hole is cheaper than a wrong number that survives into a model.</p>
+<dl class="op-card"><div class="op-sec">Identification</div><div class="op-row"><dt>Deal name</dt><dd>Wildflower Crossing<span class="op-src">Wildflower Crossing Offering Memorandum.pdf — p.1</span></dd></div><div class="op-row"><dt>Address</dt><dd>100 Example Way, Mesa, AZ 85204<span class="op-prov">MISSING</span><span class="op-src">Wildflower Crossing Offering Memorandum.pdf — p.1</span></dd></div><div class="op-row"><dt>County</dt><dd>Maricopa<span class="op-src">Wildflower Crossing Offering Memorandum.pdf — p.1</span></dd></div><div class="op-row"><dt>Market</dt><dd>MISSING<span class="op-src">Not stated in the uploaded documents</span></dd></div><div class="op-sec">Property</div><div class="op-row"><dt>Product type</dt><dd>build-for-rent</dd></div><div class="op-row"><dt>Structure</dt><dd>MISSING</dd></div><div class="op-row"><dt>Units</dt><dd>24</dd></div><div class="op-row"><dt>Year built</dt><dd>2021</dd></div><div class="op-row"><dt>Detail</dt><dd>MISSING</dd></div><div class="op-sec">Parties</div><div class="op-row"><dt>Seller</dt><dd>MISSING</dd></div><div class="op-row"><dt>Listing brokerage</dt><dd>MISSING</dd></div><div class="op-sec">Pricing</div><div class="op-row"><dt>Guidance</dt><dd>$215,000 per unit (entered on the upload form); the memorandum&#x27;s own figure is $308,333 per unit (a stated total of $7,400,000 over 24 units, +43.4% against the price entered)<span class="op-prov">Pricing is as stated in the uploaded documents or the notes box, not a market opinion.</span></dd></div><div class="op-row"><dt>Total price</dt><dd>$5,160,000</dd></div><div class="op-row"><dt>T-12 NOI</dt><dd>$320,598<span class="op-prov">From the T-12 rollup.</span></dd></div><div class="op-row"><dt>T-12 cap rate</dt><dd>6.21%</dd></div><div class="op-row"><dt>T-3 cap rate</dt><dd>6.33%<span class="op-prov">Trailing three months annualized.</span></dd></div><div class="op-sec">Rents</div><div class="op-row"><dt>In-place (avg)</dt><dd>$2,457</dd></div><div class="op-row"><dt>Market rent for model</dt><dd>$2,457<span class="op-prov">New move-in rent (residents who moved in inside the window, by move-in date) where a plan has one, otherwise in-place — and in-place outright when the roll has no usable lease start or move-in date. Never a blend of new and renewal.</span></dd></div><div class="op-sec">Taxes</div><div class="op-row"><dt>Year-one tax (underwriting assumption)</dt><dd>—<span class="op-prov">The figure to carry into the model: AZ does not reset the assessed value on sale. Proposition 117 caps growth in the limited property value at 5% a year, so year-one tax is the current basis grown at the cap — NOT the purchase price times the assessment ratio.</span><span class="op-src">computed</span></dd></div><div class="op-row"><dt>Year-one tax per unit</dt><dd>—<span class="op-src">computed</span></dd></div><div class="op-row"><dt>Billed by the county</dt><dd><span class="op-internal" title="See parcel: read off the county assessor&#x27;s portal by the internal pipeline only.">Available in the internal underwriting agent only</span><span class="op-src">Internal pipeline only</span></dd></div><div class="op-sec">Closing costs at the illustrative price</div><div class="op-row"><dt>Transfer tax</dt><dd><span class="op-missing">NOT ASSERTED</span><span class="op-prov">Not looked up · Not run in the upload demo. This section needs data sources the demo does not reach, so it is left empty rather than filled with placeholders.</span></dd></div><div class="op-row"><dt>Mortgage / recording tax</dt><dd><span class="op-missing">NOT ASSERTED</span><span class="op-prov">Not looked up · Not run in the upload demo. This section needs data sources the demo does not reach, so it is left empty rather than filled with placeholders.</span></dd></div><div class="op-sec">Schools (internal underwriting agent only)</div><div class="op-row"><dt>Elementary</dt><dd><span class="op-internal" title="The internal pipeline looks up the attendance-zone elementary, middle and high school and their public ratings; the demo reads a school name only where the memorandum states one and never rates it.">Available in the internal underwriting agent only</span></dd></div><div class="op-row"><dt>Middle</dt><dd><span class="op-internal" title="The internal pipeline looks up the attendance-zone elementary, middle and high school and their public ratings; the demo reads a school name only where the memorandum states one and never rates it.">Available in the internal underwriting agent only</span></dd></div><div class="op-row"><dt>High</dt><dd><span class="op-internal" title="The internal pipeline looks up the attendance-zone elementary, middle and high school and their public ratings; the demo reads a school name only where the memorandum states one and never rates it.">Available in the internal underwriting agent only</span></dd></div><div class="op-row"><dt>Source</dt><dd>Attendance-zone schools and ratings are looked up by the internal underwriting agent. The public demo does not run this on an uploaded deal.</dd></div></dl>
+</div>

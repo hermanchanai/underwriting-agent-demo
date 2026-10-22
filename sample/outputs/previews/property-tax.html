@@ -1,0 +1,81 @@
+<style>
+.op-wrap { font-family: var(--sans, sans-serif); color: var(--fg, #111); }
+.op-wrap h3 {
+  font-family: var(--serif, Georgia, serif); font-weight: 500;
+  font-size: var(--t-22, 22px); letter-spacing: -0.01em;
+  margin: 0 0 var(--s-2, 8px); color: var(--fg, #111);
+}
+.op-note {
+  font-family: var(--serif, Georgia, serif); font-size: var(--t-15, 15px);
+  line-height: 1.5; color: var(--muted, #666); margin: 0 0 var(--s-5, 24px);
+  max-width: 62ch;
+}
+.op-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 var(--s-5, 24px); }
+.op-table { border-collapse: collapse; width: 100%; min-width: max-content; font-size: var(--t-13, 13px); }
+.op-table th, .op-table td {
+  padding: 6px 12px; text-align: left; white-space: nowrap;
+  border-bottom: 1px solid var(--rule-soft, #e6e6e6);
+}
+.op-table thead th {
+  font-family: var(--mono, monospace); font-size: var(--t-12, 12px);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted, #666); font-weight: 500;
+  border-bottom: 1px solid var(--rule, #ccc); background: var(--bg-alt, #f2f2f2);
+  position: sticky; top: 0;
+}
+.op-table td.op-num, .op-table th.op-num { text-align: right; font-family: var(--mono, monospace); font-variant-numeric: tabular-nums; }
+.op-table tr.op-total td { font-weight: 600; background: var(--bg-alt, #f2f2f2); border-bottom: 1px solid var(--rule, #ccc); }
+.op-table tr.op-sub td { background: var(--bg-alt, #f6f6f6); font-weight: 600; }
+.op-table td.op-wrapcell { white-space: normal; min-width: 26ch; max-width: 46ch; }
+.op-card { display: grid; gap: 0; margin: 0 0 var(--s-5, 24px); }
+.op-sec {
+  font-family: var(--mono, monospace); font-size: var(--t-12, 12px);
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted, #666);
+  padding: var(--s-4, 16px) 0 var(--s-2, 8px); border-bottom: 1px solid var(--rule, #ccc);
+}
+.op-row { display: grid; grid-template-columns: minmax(11rem, 15rem) 1fr; gap: var(--s-4, 16px);
+  padding: 7px 0; border-bottom: 1px solid var(--rule-soft, #eee); align-items: baseline; }
+.op-row dt { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--muted, #666); }
+.op-row dd { margin: 0; font-size: var(--t-15, 15px); }
+.op-row dd .op-prov { display: block; font-size: var(--t-12, 12px); color: var(--muted-2, #999); margin-top: 3px; }
+.op-row dd .op-src { display: block; font-size: var(--t-11, 11px); color: var(--muted-2, #999); margin-top: 2px; opacity: .8; font-style: italic; }
+td .op-src { display: block; font-size: var(--t-11, 11px); color: var(--muted-2, #999); margin-top: 2px; opacity: .8; font-style: italic; }
+.op-chip {
+  display: inline-block; font-family: var(--mono, monospace); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.07em; padding: 1px 6px;
+  border: 1px solid var(--rule, #ccc); border-radius: 2px;
+  color: var(--muted, #666); margin-left: 6px; vertical-align: 1px; white-space: nowrap;
+}
+.op-flag { color: var(--accent, #14304f); font-weight: 600; }
+.op-ok { color: var(--muted, #666); }
+.op-missing { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--accent, #14304f); }
+.op-internal { font-family: var(--mono, monospace); font-size: var(--t-12, 12px); color: var(--muted, #666); border-bottom: 1px dotted var(--muted, #666); cursor: help; }
+.op-bar { display: grid; grid-template-columns: 7rem 1fr 5.5rem; gap: 8px; align-items: center;
+  margin: 0 0 5px; font-size: var(--t-12, 12px); }
+.op-bar__label { font-family: var(--mono, monospace); color: var(--muted, #666); }
+.op-bar__track { background: var(--bg-alt, #eee); height: 14px; position: relative;
+  display: grid; grid-auto-rows: 1fr; }
+.op-bar__track--multi { height: auto; background: transparent; gap: 1px; }
+.op-bar__sub { background: var(--bg-alt, #eee); height: 8px; }
+.op-bar__fill { background: var(--accent, #14304f); height: 100%; display: block; }
+.op-bar__fill--alt { background: var(--muted-2, #999); }
+.op-bar__fill--soft { background: var(--rule, #ccc); }
+.op-bar__val { font-family: var(--mono, monospace); text-align: right; color: var(--fg, #111);
+  font-variant-numeric: tabular-nums; }
+.op-legend { display: flex; gap: var(--s-4, 16px); flex-wrap: wrap; margin: 0 0 var(--s-3, 12px);
+  font-family: var(--mono, monospace); font-size: 10px; color: var(--muted, #666);
+  text-transform: uppercase; letter-spacing: .07em; }
+.op-legend i { display: inline-block; width: 10px; height: 10px; margin-right: 5px;
+  vertical-align: -1px; }
+.op-empty { border: 1px dashed var(--rule, #ccc); padding: var(--s-5, 24px);
+  font-family: var(--serif, Georgia, serif); color: var(--muted, #666); max-width: 62ch; }
+@media (max-width: 640px) {
+  .op-row { grid-template-columns: 1fr; gap: 2px; }
+}
+</style>
+<div class="op-wrap">
+<h3>Property tax</h3>
+<p class="op-note">Rates as actually billed, not statutory or effective. The current year is checked against the county's own bill; the assumption block is what a buyer should carry at the illustrative price.</p>
+<dl class="op-card"><div class="op-sec">The rate, as billed</div><div class="op-row"><dt>Parcel</dt><dd><span class="op-internal" title="The internal pipeline reads the parcel, tax district, assessed value, exemption and billed amount off the county assessor&#x27;s portal; the demo shows the county&#x27;s published rate only.">Available in the internal underwriting agent only</span><span class="op-src">Internal pipeline only</span></dd></div><div class="op-row"><dt>Tax area code</dt><dd><span class="op-internal" title="See parcel: read off the county assessor&#x27;s portal by the internal pipeline only.">Available in the internal underwriting agent only</span><span class="op-src">Internal pipeline only</span></dd></div><div class="op-row"><dt>Combined rate</dt><dd>10.2573 per $100<span class="op-prov">Primary plus secondary, as billed.</span><span class="op-src">Vendored county rate table — property_tax_table.COUNTY_RATES[(&#x27;AZ&#x27;, &#x27;maricopa&#x27;)]</span></dd></div><div class="op-row"><dt>Assessment ratio</dt><dd>10%<span class="op-prov">Legal class for a rental, not the owner-occupied rate.</span><span class="op-src">Vendored county rate table — property_tax_table.STATE_RULES[&#x27;AZ&#x27;]</span></dd></div><div class="op-row"><dt>Rate evidence</dt><dd>Vendored county rate table: 10.2573 per $100 of assessed value, tax year 2025 — Tax area code 971300 — City of Phoenix / Deer Valley Unified School District #97: Primary rate 6.7007; Secondary rate 3.5566. Source: Maricopa County, &#x27;2025 Tax Rates, Maricopa County, Arizona&#x27; (the treasurer&#x27;s rate table by tax area code), row 971300: primary 6.7007, approx residential primary 5.1401, secondary 3.5566 (maricopa.gov/5160/Tax-Levy-and-Rates — Tax Rate 2025 PDF). Verified 2026-09-04. The parcel&#x27;s own tax district decides; this is the representative stack for the county. Maricopa publishes rates per tax area code and they vary by district: area 591300 (City of Phoenix / Laveen ESD #59) is 15.7387 in the same table. The parcel&#x27;s own tax area decides. The &#x27;approx residential primary&#x27; column is the owner-occupied rebate and does not apply to a rental. Ratio 10% — legal class 4.2, residential rental (A.R.S. sec. 42-15003 (class four assessed at 10%); A.R.S. sec. 42-12004 (class four includes residential rental property)). The upload demo reaches no county portal: the parcel, tax area code, assessor&#x27;s value and billed amount are not verified against one, and read MISSING unless an uploaded document stated them. The rate on file is a representative district stack for the county, not the parcel&#x27;s own.<span class="op-src">Vendored county rate table — property_tax_table.evidence_text (derived)</span></dd></div><div class="op-sec">Current year</div><div class="op-row"><dt>Assessed-value basis</dt><dd><span class="op-internal" title="See parcel: read off the county assessor&#x27;s portal by the internal pipeline only.">Available in the internal underwriting agent only</span><span class="op-prov">Limited property value (LPV), per the county assessor</span><span class="op-src">Internal pipeline only</span></dd></div><div class="op-row"><dt>Assessed value</dt><dd><span class="op-missing">MISSING</span><span class="op-prov">Basis times the legal-class ratio.</span></dd></div><div class="op-row"><dt>Computed annual tax</dt><dd><span class="op-missing">MISSING</span><span class="op-src">computed</span></dd></div><div class="op-row"><dt>County billed amount</dt><dd><span class="op-internal" title="See parcel: read off the county assessor&#x27;s portal by the internal pipeline only.">Available in the internal underwriting agent only</span><span class="op-prov">As billed for a year the source did not state.</span><span class="op-src">Internal pipeline only</span></dd></div><div class="op-row"><dt>Computed less billed</dt><dd><span class="op-missing">NOT CHECKED</span><span class="op-prov">Status: NOT CHECKED.</span></dd></div><div class="op-row"><dt>Property taxes per the statement (T-12)</dt><dd>$106,586<span class="op-prov">As billed in the uploaded statement over its twelve months — the operator&#x27;s ledger, not the county&#x27;s bill, which the demo does not fetch.</span><span class="op-src">Wildflower Crossing T-12.xlsx — Property Taxes lines (computed)</span></dd></div><div class="op-row"><dt>Per-unit sanity band</dt><dd>OUTSIDE the band (the statement&#x27;s line per unit): $4,441 per unit a year is outside the AZ band of $400–$2,600 — double-check the rate, its unit and the assessment ratio against the bill or the statement. The band is a typical range, not a rule: a new-build can sit above it.<span class="op-prov">A check against the state&#x27;s typical range. It flags; it never changes a figure.</span><span class="op-src">Vendored county rate table — property_tax_table.band_check (derived)</span></dd></div><div class="op-sec">Underwriting assumption at the illustrative price</div><div class="op-row"><dt>Does the basis reset on sale?</dt><dd>No<span class="op-prov">AZ does not reset the assessed value on sale. Proposition 117 caps growth in the limited property value at 5% a year, so year-one tax is the current basis grown at the cap — NOT the purchase price times the assessment ratio.</span></dd></div><div class="op-row"><dt>Year-one full value</dt><dd><span class="op-missing">MISSING</span><span class="op-prov">Current LPV grown 5% (the Prop 117 cap)</span></dd></div><div class="op-row"><dt>Year-one assessed value</dt><dd><span class="op-missing">MISSING</span><span class="op-prov">Assessed value = full value x assessment ratio</span></dd></div><div class="op-row"><dt>Year-one tax</dt><dd><span class="op-missing">MISSING</span><span class="op-prov">The figure to carry into the model.</span><span class="op-src">computed</span></dd></div><div class="op-row"><dt>Year-one tax per unit</dt><dd><span class="op-missing">MISSING</span><span class="op-src">computed</span></dd></div><div class="op-sec">What the generic shortcut would have said</div><div class="op-row"><dt>Assessed value if it reset to the price</dt><dd>$516,000<span class="op-prov">Purchase price times the assessment ratio — the pattern that holds in most states.</span></dd></div><div class="op-row"><dt>Tax on that basis</dt><dd>$52,928</dd></div><div class="op-row"><dt>Overstatement versus the correct approach</dt><dd><span class="op-missing">MISSING</span><span class="op-prov">Shown because the size of the error is the point: a tax line this far out fails a deal that works.</span></dd></div></dl>
+<p class="op-note">Every line marked <em>Available in the internal underwriting agent only</em> — the parcel, its tax area, the assessed value and the county's bill — is produced by the internal underwriting agent from the county assessor. The demo carries the rate, the assessment ratio and the tax it computes from them.</p>
+</div>
