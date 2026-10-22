@@ -67,7 +67,7 @@ Live mode (`DEMO_MODEL_MODE=live`, `ANTHROPIC_API_KEY` in `.env`, `pip install a
 
 ## What's not in this repo and why
 
-- **Real deal documents.** The sample on the live site is derived from a real, previously marketed deal's statements (scaled, re-dated, renamed, at an illustrative address and price). It is not here; this repository's sample is invented end to end.
+- **The live demo's sample deal.** The live site runs a different sample deal, which is not included here. This repository's sample is invented end to end.
 - **The market-report service.** On the hosted demo, rent comps come from the author's own weekly rent scrape, demand rings from public Census/BLS data, and competing supply from a permit pipeline. That service, its database and its client are separate systems; offline, those three blocks are written absent with the reason.
 - **Licensed and vendor data.** No third-party comp feed, subscription market data, or vendor-derived property attributes are used or shipped.
 - **The hosted service layer.** The HTTP API, upload limits, spend ledger, bot check and deployment configuration are not included. `server/pipeline.py` runs the same stages from the command line.
