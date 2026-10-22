@@ -1,0 +1,14 @@
+.env
+.env.*
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.sqlite
+data/local/
+.tmp/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+~$*.xlsx
+out/

@@ -1,0 +1,11 @@
+"""Gross Scheduled Rent is ``=IF(SUMIF(...)<>0, SUMIF(...), GPR + GLL)`` — printed where
+the statement prints it, derived where it does not.
+
+This file contains the pattern ONLY in prose. The first version of the sweep reported an
+offender here and nowhere else, which is how it appeared to work: it was matching the
+docstring, not the code, and went quiet the moment the prose was reworded.
+"""
+
+# A nonzero-total gate would be spelled SUMIF(...)<>0 in a comment like this one.
+
+VALUE = 1

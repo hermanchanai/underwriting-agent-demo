@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest==8.3.3
+pytest-socket==0.7.0
+ruff==0.6.9
+# Regenerates the legacy .xls parser fixtures (server/tests/fixtures/make_fixtures.py).
+xlwt==1.3.0

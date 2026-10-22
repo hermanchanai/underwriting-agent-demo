@@ -1,0 +1,5597 @@
+{
+  "meta": {
+    "toolkit_name": "AI Underwriting Pipeline — Sample Outputs",
+    "deal_name": "Fixture Park",
+    "deal_slug": "fixture-park",
+    "generated_on": "2026-09-01",
+    "as_of_date": "2026-06-30",
+    "illustrative_pricing": true,
+    "pricing_note": "Every price and cap rate below is illustrative. The per-unit price is a round number chosen to sit inside the band a real per-unit sale price occupies; it is not a quote, an offer, or a broker's guidance.",
+    "synthetic": true,
+    "provenance": [
+      {
+        "document": "Synthetic offering memorandum",
+        "kind": "om",
+        "note": "Fabricated for demonstration. No real property is described."
+      },
+      {
+        "document": "Synthetic trailing-twelve income statement",
+        "kind": "t12",
+        "note": "Monthly matrix generated to exercise the rollup's edge cases."
+      },
+      {
+        "document": "Synthetic rent roll export",
+        "kind": "rent_roll",
+        "note": "180 units across 6 plans, including vacancies and a model unit."
+      },
+      {
+        "document": "Synthetic lease trade-out report",
+        "kind": "trade_out",
+        "note": "Cohort averages, gross and effective stated separately."
+      }
+    ],
+    "excluded_sources": [
+      "Third-party licensed rent-comp feeds",
+      "Subscription market-data providers",
+      "Any employer-owned deal data or template"
+    ],
+    "notes": [
+      {
+        "topic": "Pricing is illustrative",
+        "applies_to": "Deal Summary — Pricing",
+        "note": "Every price, per-unit figure and cap rate in this set is illustrative. The per-unit price is a round number chosen to sit inside the band a real per-unit sale price occupies, so the cap-rate arithmetic is realistic. It is not a quote, an offer, a broker's guidance, or a valuation. Cap rates move inversely with the price, so read them as a demonstration of the mechanics rather than a view on the asset."
+      },
+      {
+        "topic": "Licensed data is excluded by design, not by omission",
+        "applies_to": "Rent Comps",
+        "note": "No subscription or licensed market-data feed appears anywhere in this set. Comps come only from an operator's own weekly scrape of public leasing pages. That is a deliberate constraint, not a gap: licensed data cannot travel outside the licence, so a portfolio piece built on it could not be shown at all. The cost is coverage, and the coverage is measured and stated rather than assumed."
+      },
+      {
+        "topic": "Comp radius is stated, and coverage inside it is measured",
+        "applies_to": "Rent Comps",
+        "note": "The comp block states the radius it searched and how many tracked communities inside it carry live rents; that sentence is counted from the operator's own scrape, never written by hand. The detail tiers are the closest same-product communities within that radius, so a wide radius adds candidates without letting a distant one outrank a close one. A community the scrape tracks but could not quote is not dropped: it is carried, with the reason it is not a comp, in the downloadable interchange file."
+      },
+      {
+        "topic": "Comps are matched on vintage",
+        "applies_to": "Rent Comps — tiers",
+        "note": "The detailed tiers hold only communities within ten years of the subject's year built. Widening that range changes which communities are in the set, and a set that includes materially newer product will generally report a different rent — how much, and in which direction, is a property of the particular submarket and date, not a rule. Where this output set has measured the difference between two otherwise-identical comp sets on its own subject, the figures appear in the note below."
+      },
+      {
+        "topic": "Year built comes from a free-text note, where it exists at all",
+        "applies_to": "Rent Comps — tiers",
+        "note": "The rent tracker has no year-built column. Where a vintage appears here it was parsed out of a free-text note on the community record, and every row carries that as its source. A community with no such note keeps its place in the comp set on distance and product, shows a dash for the year, and the tier header says how many rows the vintage filter could not be applied to. Inventing a year would fabricate the evidence the filter runs on; dropping the community would hide the closest comps for want of a field the source never had."
+      },
+      {
+        "topic": "Market rent is never a blend of new and renewal",
+        "applies_to": "Rent Roll — Summary",
+        "note": "Market rent for the model is the new move-in rent — residents whose move-in date falls inside the lookback window, whatever their lease type — where a plan has one, and in-place rent where it does not. It is never the average of every lease signed, new and renewal together. A blended figure reads as market rent and is not one: renewals are priced off the existing rent, so blending them in drags the number toward where rents used to be and understates the gap the underwriting is trying to measure. On an asset whose in-place rents sit above what the market is currently signing, the rule produces a market rent BELOW in-place — which is the correct and uncomfortable answer, and the one a blend would hide."
+      },
+      {
+        "topic": "Estimated values are not published as facts",
+        "applies_to": "throughout",
+        "note": "Where a figure is derived rather than read, the audit trail says so and names the inputs. Where a figure is unknown, the cell shows a visible hole rather than a plausible-looking number. A blank that reads as a zero is the most expensive kind of missing data, because nothing downstream flags it."
+      },
+      {
+        "topic": "What the public demo leaves to the internal pipeline",
+        "applies_to": "throughout",
+        "note": "This demo is a deliberately reduced copy of the operator's pipeline. A licensed data source, a county-portal login, a school-rating lookup, a web valuation or a lease trade-out report is not something a public page should reach or ask for, so the values those produce — the assessor's parcel and bill, school ratings, a fair market value, the new-versus-renewal trade-out — read 'Internal pipeline only' with the reason wherever they appear. The field manifest lists every one of them. Everything else on these tabs is produced the same way for the sample and for an uploaded deal, from the same sources."
+      },
+      {
+        "topic": "Supply coverage is an area of ongoing work",
+        "applies_to": "Supply",
+        "note": "The supply section is real and unmodified — the rings, stages and unit counts come from a public permit and entitlement pipeline, and a zero is a genuine zero rather than a gap left blank. Coverage of that pipeline is an area of ongoing work: a ring showing no active supply means nothing was matched in the sources covered so far, which is a weaker statement than nothing being built. This section will be expanded; read it as a floor on competing supply, not a census of it."
+      },
+      {
+        "topic": "Checks degrade to NOT CHECKED rather than passing quietly",
+        "applies_to": "Error Checks & Pricing",
+        "note": "Every cross-tie on the checks tab reports OK, FAIL, or NOT CHECKED. A check missing one of its inputs reports NOT CHECKED and claims no difference — it never reports OK. A green result that only means 'this check could not run' is worse than a red one, because it buys confidence it has not earned."
+      },
+      {
+        "topic": "What vintage-matching changed on this deal",
+        "applies_to": "Rent Comps — tiers",
+        "note": "This subject was built 2019. Two comp sets were selected by identical criteria — same candidate pool, same product test, same tracker exclusions, same radius, same closest-20 cap, same rent rules, same mix weighting — differing only in whether the +/-10-year vintage test was applied. Set A, vintage test ON: 11 communities, vintages 2009 to 2029; this subject's rent reads 3.8% above it. Set B, vintage test OFF: 1 more community joins and none drops out — fewer than 20 qualify either way, so the cap never binds (vintages 1998 to 2029); the same rent reads 6.3% below it. Both figures are weighted by this property's own unit mix and computed over the same bed counts (100% of its units), so the two sets differ by 10.1 points. Every community that joins was built before 2009, set A's oldest, so set B reaches OLDER product, not newer. Both sets are listed on the Rent Comps section — this is a measurement of these two sets on this date, not an estimate of what vintage is worth in this market."
+      },
+      {
+        "topic": "This deal does not exist",
+        "applies_to": "throughout",
+        "note": "Fixture Park is fabricated end to end — the property, the operating statement, the rent roll, the comps and the demographics. It exists to exercise every edge the writers handle, so some of its figures are deliberately awkward: a plan with no priced units, a comp community with no published year, a revenue line the source statement never subtotalled."
+      },
+      {
+        "topic": "The 1-mile demographic ring overstates levels",
+        "applies_to": "Demand",
+        "note": "The 1-mile column overstates levels. Ring membership is decided by each census block group's internal point and then the whole block group is counted, so at 1 mile a single large block group can sit mostly outside the ring and still be counted whole. Measured against a commercial source, 1-mile population reads roughly 2.3x and households roughly 1.9x too high; the 3-, 5- and 10-mile columns do not have this problem. Read the 1-mile column for mix and shares, which are ratios and survive the overcount, and read levels off the 3-mile column."
+      },
+      {
+        "topic": "The rent readback checks transcription, not column choice",
+        "applies_to": "Error Checks & Pricing",
+        "note": "Ten units are sampled and their normalized in-place rent is compared against the raw cell it came from, which catches a coercion or transcription error. It cannot catch the wrong rent column having been chosen, because both sides read the same column. The sample is seeded from the roll's as-of date, so the same roll always checks the same units."
+      }
+    ]
+  },
+  "summary": {
+    "deal_name": "Fixture Park",
+    "street_address": "1400 Example Parkway",
+    "city": "Sample City",
+    "state": "TX",
+    "zip": "75000",
+    "county": "Example County",
+    "msa": "Sample City MSA",
+    "address_provenance": "Street address read from the synthetic marketing package; city/state/ZIP confirmed against the same document.",
+    "product_type": "MF",
+    "structure": "Three-story garden, surface parked",
+    "units_total": 180,
+    "year_built": 2019,
+    "product_detail": "180 units across six plans: 62 one-bedroom (720–795 SF), 78 two-bedroom (1,050–1,140 SF), 26 three-bedroom flats (1,380 SF), 14 three-bedroom townhomes (1,620 SF). Washer/dryer in unit; detached garages on 24 units.",
+    "construction_status": "Stabilized",
+    "delivery_date": "Delivered 2019; fully stabilized since 2021",
+    "seller_entity": "Sample City Residential Holdings LLC",
+    "listing_brokerage": "Listing brokerage",
+    "deal_status": "On the market",
+    "pricing_guidance": "$215,000 per unit (illustrative)",
+    "in_place_rent_avg": 1795.36,
+    "market_rent_for_model": 1834.62,
+    "fair_market_value": 39600000,
+    "tax_rate_as_billed": 2.148,
+    "tax_rate_evidence": "Rate as billed, 2.148 per $100 of assessed value, read from the synthetic county bill for the 2025 tax year.",
+    "assessed_value_basis": 23000000,
+    "assessment_ratio": 1.0,
+    "tax_divisor": 100,
+    "tax_exemption": 0,
+    "tax_parcel_id": "SYN-000-00-000",
+    "tax_area_code": "SYN-0000",
+    "tax_basis_label": "Assessed value (synthetic)",
+    "tax_basis_note": "Synthetic basis. On a real deal this row states what the basis IS in that state and whether it resets on sale.",
+    "tax_billed_amount": 494040,
+    "tax_billed_year": 2025,
+    "school_elementary_name": "Example Creek Elementary",
+    "school_elementary_rating": 7,
+    "school_middle_name": "Example Ridge Middle",
+    "school_middle_rating": 6,
+    "school_high_name": "Sample City High",
+    "school_high_rating": 7,
+    "notes": "Synthetic deal built to exercise the output formats. Pricing is illustrative and no licensed data source was used. Comps come only from an operator's own weekly rent scrape."
+  },
+  "t12": {
+    "month_labels": [
+      "2025-07",
+      "2025-08",
+      "2025-09",
+      "2025-10",
+      "2025-11",
+      "2025-12",
+      "2026-01",
+      "2026-02",
+      "2026-03",
+      "2026-04",
+      "2026-05",
+      "2026-06"
+    ],
+    "units": 180,
+    "rows": [
+      {
+        "label": "Gross Potential Rent",
+        "category": "Gross Potential Rent",
+        "monthly": [
+          319842.65,
+          319950.56,
+          320383.35,
+          320498.47,
+          325401.43,
+          323898.59,
+          324989.92,
+          325437.91,
+          325890.7,
+          332749.29,
+          333211.68,
+          333678.88
+        ]
+      },
+      {
+        "label": "Loss to Lease",
+        "category": "Gain / (Loss) to Lease",
+        "monthly": [
+          -6656.86,
+          -6671.06,
+          -6692.08,
+          -6841.42,
+          -6821.9,
+          -6802.27,
+          -6837.11,
+          -6858.45,
+          -6879.89,
+          -6901.43,
+          -6923.07,
+          -7079.81
+        ]
+      },
+      {
+        "label": "Vacancy Loss",
+        "category": "Vacancy",
+        "monthly": [
+          -18373.24,
+          -18689.64,
+          -18653.88,
+          -18599.7,
+          -18822.95,
+          -18674.93,
+          -18677.36,
+          -19013.49,
+          -18978.89,
+          -19315.57,
+          -19281.53,
+          -19247.76
+        ]
+      },
+      {
+        "label": "Concessions — Move-in",
+        "category": "Concessions",
+        "monthly": [
+          -3472.17,
+          -3546.98,
+          -3554.37,
+          -3558.27,
+          -3544.42,
+          -3530.52,
+          -3545.16,
+          -3623.71,
+          -3631.32,
+          -3638.99,
+          -3646.7,
+          -3654.47
+        ]
+      },
+      {
+        "label": "Non-Revenue Units",
+        "category": "Non-Revenue Units",
+        "monthly": [
+          -1277.88,
+          -1272.63,
+          -1293.68,
+          -1288.46,
+          -1301.79,
+          -1290.1,
+          -1288.78,
+          -1309.9,
+          -1306.03,
+          -1327.18,
+          -1323.35,
+          -1344.54
+        ]
+      },
+      {
+        "label": "Bad Debt",
+        "category": "Delinquency",
+        "monthly": [
+          -2207.29,
+          -2246.35,
+          -2242.69,
+          -2281.81,
+          -2264.63,
+          -2247.42,
+          -2293.37,
+          -2289.82,
+          -2286.3,
+          -2327.81,
+          -2324.36,
+          -2320.94
+        ]
+      },
+      {
+        "label": "RUBS — Water/Sewer",
+        "category": "Utility Reimbursements",
+        "monthly": [
+          9729.0,
+          9813.03,
+          9907.0,
+          9991.25,
+          9829.1,
+          9863.81,
+          9977.95,
+          10072.39,
+          9969.97,
+          10064.7,
+          10159.58,
+          10254.61
+        ]
+      },
+      {
+        "label": "RUBS — Trash",
+        "category": "Utility Reimbursements",
+        "monthly": [
+          4204.0,
+          4223.87,
+          4248.0,
+          4267.96,
+          4266.76,
+          4265.49,
+          4298.26,
+          4322.59,
+          4346.99,
+          4371.44,
+          4395.96,
+          4420.55
+        ]
+      },
+      {
+        "label": "Pet Rent",
+        "category": "Other Income",
+        "monthly": [
+          3891.5,
+          3883.02,
+          3957.5,
+          3949.11,
+          3921.06,
+          3971.95,
+          3975.46,
+          3971.12,
+          3966.85,
+          4041.63,
+          4037.47,
+          4033.37
+        ]
+      },
+      {
+        "label": "Parking",
+        "category": "Other Income",
+        "monthly": [
+          3096.5,
+          3108.43,
+          3123.5,
+          3135.5,
+          3131.87,
+          3128.19,
+          3149.65,
+          3164.87,
+          3180.13,
+          3195.45,
+          3210.81,
+          3226.21
+        ]
+      },
+      {
+        "label": "Late Fees",
+        "category": "Other Income",
+        "monthly": [
+          1429.75,
+          1454.26,
+          1451.25,
+          1475.8,
+          1464.04,
+          1452.25,
+          1481.22,
+          1478.28,
+          1475.35,
+          1501.45,
+          1498.57,
+          1524.71
+        ]
+      },
+      {
+        "label": "Application Fees",
+        "category": "Other Income",
+        "monthly": [
+          1179.1,
+          1172.4,
+          1189.9,
+          1183.23,
+          1193.61,
+          1180.97,
+          1200.9,
+          1195.45,
+          1213.03,
+          1207.62,
+          1225.22,
+          1242.85
+        ]
+      },
+      {
+        "label": "Storage",
+        "category": "Other Income",
+        "monthly": [
+          763.2,
+          752.61,
+          757.8,
+          762.23,
+          762.83,
+          763.42,
+          770.17,
+          775.39,
+          780.63,
+          785.87,
+          791.13,
+          796.39
+        ]
+      },
+      {
+        "label": "Miscellaneous Income",
+        "category": "Other Income",
+        "monthly": [
+          417.9,
+          417.79,
+          418.1,
+          427.0,
+          424.78,
+          422.55,
+          423.73,
+          433.06,
+          433.4,
+          433.74,
+          434.1,
+          434.45
+        ]
+      },
+      {
+        "label": "Administrative",
+        "category": "General and Administrative",
+        "monthly": [
+          5193.0,
+          5172.36,
+          5262.0,
+          5241.48,
+          5194.75,
+          5252.94,
+          5248.28,
+          5338.16,
+          5323.13,
+          5413.17,
+          5398.29,
+          5383.49
+        ]
+      },
+      {
+        "label": "Marketing & Locator Fees",
+        "category": "Leasing and Marketing",
+        "monthly": [
+          3941.0,
+          4028.97,
+          4040.0,
+          4047.06,
+          4033.96,
+          4020.8,
+          4040.06,
+          4051.28,
+          4143.56,
+          4154.9,
+          4166.3,
+          4177.76
+        ]
+      },
+      {
+        "label": "On-site Payroll",
+        "category": "Payroll",
+        "monthly": [
+          20734.0,
+          20856.34,
+          21000.0,
+          21122.82,
+          21139.79,
+          21156.45,
+          21343.31,
+          21487.97,
+          21632.94,
+          21778.22,
+          21923.82,
+          22069.74
+        ]
+      },
+      {
+        "label": "Insurance",
+        "category": "Insurance",
+        "monthly": [
+          11361.5,
+          11390.16,
+          11661.5,
+          11690.42,
+          11661.39,
+          11632.17,
+          11696.17,
+          11737.06,
+          11778.11,
+          11819.34,
+          11860.74,
+          11902.31
+        ]
+      },
+      {
+        "label": "Real Estate Taxes",
+        "category": "Property Taxes",
+        "monthly": [
+          41250.0,
+          41346.09,
+          41484.0,
+          41581.02,
+          41470.39,
+          41359.14,
+          41581.82,
+          41721.68,
+          42687.17,
+          42828.27,
+          42969.99,
+          43112.33
+        ]
+      },
+      {
+        "label": "Legal & Audit",
+        "category": "Legal and Professional",
+        "monthly": [
+          1875.5,
+          1900.04,
+          1926.5,
+          1912.08,
+          1927.08,
+          1903.06,
+          1933.43,
+          1959.98,
+          1947.57,
+          1974.18,
+          1961.82,
+          1988.49
+        ]
+      },
+      {
+        "label": "Management Fee",
+        "category": "Management Fee",
+        "monthly": [
+          10759.5,
+          10860.47,
+          10972.5,
+          11073.71,
+          10900.99,
+          10947.1,
+          11081.56,
+          11194.11,
+          11087.83,
+          11200.7,
+          11313.74,
+          11426.95
+        ]
+      },
+      {
+        "label": "Landscaping & Grounds",
+        "category": "Landscaping",
+        "monthly": [
+          3384.0,
+          3364.27,
+          3417.0,
+          3466.35,
+          3429.57,
+          3461.73,
+          3452.45,
+          3505.34,
+          3489.28,
+          3542.26,
+          3526.3,
+          3579.4
+        ]
+      },
+      {
+        "label": "R&M — Interior",
+        "category": "Repairs and Maintenance",
+        "monthly": [
+          7216.0,
+          7179.35,
+          7295.0,
+          7258.51,
+          7330.73,
+          7257.84,
+          7243.31,
+          7359.3,
+          7330.41,
+          7446.62,
+          7417.94,
+          7534.37
+        ]
+      },
+      {
+        "label": "R&M — Exterior",
+        "category": "Repairs and Maintenance",
+        "monthly": [
+          3917.5,
+          3909.02,
+          3904.5,
+          3975.11,
+          3947.06,
+          3918.95,
+          4001.46,
+          3997.12,
+          3992.85,
+          3988.63,
+          4063.47,
+          4059.37
+        ]
+      },
+      {
+        "label": "Unit Turns",
+        "category": "Unit Turns",
+        "monthly": [
+          5552.0,
+          5572.16,
+          5598.0,
+          5618.28,
+          5610.34,
+          5602.32,
+          5639.68,
+          5665.79,
+          5804.98,
+          5831.26,
+          5857.62,
+          5884.06
+        ]
+      },
+      {
+        "label": "Utilities — Water/Sewer",
+        "category": "Utilities",
+        "monthly": [
+          9260.0,
+          9426.23,
+          9413.0,
+          9579.44,
+          9509.51,
+          9439.43,
+          9634.54,
+          9621.76,
+          9609.12,
+          9785.61,
+          9773.25,
+          9761.04
+        ]
+      },
+      {
+        "label": "Utilities — Electric (common)",
+        "category": "Utilities",
+        "monthly": [
+          4215.0,
+          4234.87,
+          4259.0,
+          4278.96,
+          4277.76,
+          4276.49,
+          4309.26,
+          4248.59,
+          4272.99,
+          4297.44,
+          4321.96,
+          4346.55
+        ]
+      },
+      {
+        "label": "Utilities — Trash",
+        "category": "Utilities",
+        "monthly": [
+          4100.5,
+          4097.92,
+          4099.5,
+          4180.01,
+          4156.86,
+          4133.64,
+          4143.66,
+          4228.44,
+          4230.27,
+          4232.17,
+          4234.13,
+          4319.15
+        ]
+      },
+      {
+        "label": "Utilities — Gas",
+        "category": "Utilities",
+        "monthly": [
+          2300.5,
+          2292.83,
+          2334.5,
+          2326.88,
+          2307.68,
+          2335.43,
+          2334.83,
+          2329.61,
+          2371.42,
+          2366.27,
+          2408.15,
+          2403.06
+        ]
+      },
+      {
+        "label": "Utilities — Cable/Internet",
+        "category": "Utilities",
+        "monthly": [
+          1584.0,
+          1601.19,
+          1620.0,
+          1604.22,
+          1613.38,
+          1622.52,
+          1611.62,
+          1630.51,
+          1649.42,
+          1668.36,
+          1654.32,
+          1673.3
+        ]
+      },
+      {
+        "label": "Expense Adjustments",
+        "category": "Expense Adjustments",
+        "monthly": [
+          889.5,
+          899.54,
+          910.5,
+          901.56,
+          907.09,
+          912.6,
+          906.41,
+          917.41,
+          928.43,
+          920.45,
+          931.49,
+          942.55
+        ]
+      },
+      {
+        "label": "Total Revenue (per statement)",
+        "category": null,
+        "monthly": [
+          312566.16,
+          312349.31,
+          312999.7,
+          313120.89,
+          317639.79,
+          316401.98,
+          317625.48,
+          317755.69,
+          318174.62,
+          324840.21,
+          325465.51,
+          325964.5
+        ]
+      }
+    ],
+    "source_subtotals": {
+      "Total Revenue": 3814903.84,
+      "Total Operating Expenses": 1688442.2,
+      "Net Operating Income": 2126461.64,
+      "Other Income": 131904.63,
+      "Utilities": 263952.05
+    },
+    "broker_proforma": {
+      "revenue": 4051427.88,
+      "opex": 1718834.16,
+      "noi": 2332593.72
+    }
+  },
+  "rent_roll": {
+    "stated": {
+      "units_total": 180,
+      "sqft": 178020.0,
+      "occupancy": null,
+      "sheet": "Rent Roll (source)",
+      "rent_column": "F",
+      "sqft_column": "D",
+      "duplicate_units": [
+        "D-0ZERO",
+        "D-LOWER",
+        "D-NOCUR"
+      ],
+      "duplicate_detail": [
+        {
+          "unit_id": "D-0ZERO",
+          "kept_row": 41,
+          "kept_lease_status": "Current",
+          "kept_rent": 1160.0,
+          "kept_rent_stated": 1160.0,
+          "kept_market_rent": 1290.0,
+          "dropped": [
+            {
+              "row": 40,
+              "lease_status": "New",
+              "rent": null,
+              "rent_stated": 0.0,
+              "market_rent": 1290.0
+            }
+          ],
+          "candidate_rows": [
+            40,
+            41
+          ]
+        },
+        {
+          "unit_id": "D-LOWER",
+          "kept_row": 51,
+          "kept_lease_status": "Current",
+          "kept_rent": 1969.0,
+          "kept_rent_stated": 1969.0,
+          "kept_market_rent": 1515.0,
+          "dropped": [
+            {
+              "row": 50,
+              "lease_status": "New",
+              "rent": 1530.0,
+              "rent_stated": 1530.0,
+              "market_rent": 1515.0
+            }
+          ],
+          "candidate_rows": [
+            50,
+            51
+          ]
+        },
+        {
+          "unit_id": "D-NOCUR",
+          "kept_row": 60,
+          "kept_lease_status": "New",
+          "kept_rent": 1310.0,
+          "kept_rent_stated": 1310.0,
+          "kept_market_rent": 1310.0,
+          "dropped": [
+            {
+              "row": 61,
+              "lease_status": null,
+              "rent": null,
+              "rent_stated": 0.0,
+              "market_rent": 1310.0
+            }
+          ],
+          "candidate_rows": [
+            60,
+            61
+          ]
+        }
+      ],
+      "in_place_lease_status": "Current",
+      "market_rent": 342300.5
+    },
+    "as_of": "2026-06-30",
+    "lookback_months": 12,
+    "new_tenant_tolerance_days": 31,
+    "units": [
+      {
+        "source_row": 4,
+        "source_rent_raw": 1535,
+        "market_rent": 1627.1,
+        "unit_id": "A1-101",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2025-07-03",
+        "move_in": "2025-07-03",
+        "lease_type": "New",
+        "in_place_rent": 1535
+      },
+      {
+        "source_row": 5,
+        "source_rent_raw": 1524,
+        "market_rent": 1615.44,
+        "unit_id": "A1-102",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2025-08-04",
+        "move_in": "2025-08-04",
+        "lease_type": "New",
+        "in_place_rent": 1524
+      },
+      {
+        "source_row": 6,
+        "source_rent_raw": 1513,
+        "market_rent": 1603.78,
+        "unit_id": "A1-103",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2025-09-05",
+        "move_in": "2025-09-05",
+        "lease_type": "New",
+        "in_place_rent": 1513
+      },
+      {
+        "source_row": 7,
+        "source_rent_raw": 1502,
+        "market_rent": 1592.12,
+        "unit_id": "A1-104",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2025-10-06",
+        "move_in": "2025-10-06",
+        "lease_type": "New",
+        "in_place_rent": 1502
+      },
+      {
+        "source_row": 8,
+        "source_rent_raw": 1491,
+        "market_rent": 1580.46,
+        "unit_id": "A1-105",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2025-11-07",
+        "move_in": "2025-11-07",
+        "lease_type": "New",
+        "in_place_rent": 1491
+      },
+      {
+        "source_row": 9,
+        "source_rent_raw": 1480,
+        "market_rent": 1568.8,
+        "unit_id": "A1-106",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Vacant",
+        "lease_start": null,
+        "move_in": null,
+        "lease_type": null,
+        "in_place_rent": null
+      },
+      {
+        "source_row": 10,
+        "source_rent_raw": 1469,
+        "market_rent": 1557.14,
+        "unit_id": "A1-107",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-01-09",
+        "move_in": "2026-01-09",
+        "lease_type": "New",
+        "in_place_rent": 1469
+      },
+      {
+        "source_row": 11,
+        "source_rent_raw": 1539,
+        "market_rent": 1631.34,
+        "unit_id": "A1-108",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-02-10",
+        "move_in": "2026-02-10",
+        "lease_type": "New",
+        "in_place_rent": 1539
+      },
+      {
+        "source_row": 12,
+        "source_rent_raw": 1528,
+        "market_rent": 1619.68,
+        "unit_id": "A1-109",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-03-11",
+        "move_in": "2026-03-11",
+        "lease_type": "New",
+        "in_place_rent": 1528
+      },
+      {
+        "source_row": 13,
+        "source_rent_raw": 1517,
+        "market_rent": 1608.02,
+        "unit_id": "A1-110",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-04-12",
+        "move_in": "2026-04-12",
+        "lease_type": "New",
+        "in_place_rent": 1517
+      },
+      {
+        "source_row": 14,
+        "source_rent_raw": 1506,
+        "market_rent": 1596.36,
+        "unit_id": "A1-111",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-05-13",
+        "move_in": "2026-05-13",
+        "lease_type": "New",
+        "in_place_rent": 1506
+      },
+      {
+        "source_row": 15,
+        "source_rent_raw": 1495,
+        "market_rent": 1584.7,
+        "unit_id": "A1-112",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2025-07-14",
+        "move_in": "2025-07-14",
+        "lease_type": "New",
+        "in_place_rent": 1495
+      },
+      {
+        "source_row": 16,
+        "source_rent_raw": 1465,
+        "market_rent": 1552.9,
+        "unit_id": "A1-113",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-03-13",
+        "move_in": "2021-01-13",
+        "lease_type": "Renewal",
+        "in_place_rent": 1465
+      },
+      {
+        "source_row": 17,
+        "source_rent_raw": 1442,
+        "market_rent": 1528.52,
+        "unit_id": "A1-114",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-04-14",
+        "move_in": "2022-02-14",
+        "lease_type": "Renewal",
+        "in_place_rent": 1442
+      },
+      {
+        "source_row": 18,
+        "source_rent_raw": 1419,
+        "market_rent": 1504.14,
+        "unit_id": "A1-115",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-05-15",
+        "move_in": "2023-03-15",
+        "lease_type": "Renewal",
+        "in_place_rent": 1419
+      },
+      {
+        "source_row": 19,
+        "source_rent_raw": 1487,
+        "market_rent": 1576.22,
+        "unit_id": "A1-116",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-01-16",
+        "move_in": "2021-04-16",
+        "lease_type": "Renewal",
+        "in_place_rent": 1487
+      },
+      {
+        "source_row": 20,
+        "source_rent_raw": 1464,
+        "market_rent": 1551.84,
+        "unit_id": "A1-117",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-02-17",
+        "move_in": "2022-05-17",
+        "lease_type": "Renewal",
+        "in_place_rent": 1464
+      },
+      {
+        "source_row": 21,
+        "source_rent_raw": 1441,
+        "market_rent": 1527.46,
+        "unit_id": "A1-118",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-03-18",
+        "move_in": "2023-06-18",
+        "lease_type": "Renewal",
+        "in_place_rent": 1441
+      },
+      {
+        "source_row": 22,
+        "source_rent_raw": 1418,
+        "market_rent": 1503.08,
+        "unit_id": "A1-119",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-04-19",
+        "move_in": "2021-07-19",
+        "lease_type": "Renewal",
+        "in_place_rent": 1418
+      },
+      {
+        "source_row": 23,
+        "source_rent_raw": 1486,
+        "market_rent": 1575.16,
+        "unit_id": "A1-120",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-05-20",
+        "move_in": "2022-08-20",
+        "lease_type": "Renewal",
+        "in_place_rent": 1486
+      },
+      {
+        "source_row": 24,
+        "source_rent_raw": 1463,
+        "market_rent": 1550.78,
+        "unit_id": "A1-121",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-01-21",
+        "move_in": "2023-09-21",
+        "lease_type": "Renewal",
+        "in_place_rent": 1463
+      },
+      {
+        "source_row": 25,
+        "source_rent_raw": 1440,
+        "market_rent": 1526.4,
+        "unit_id": "A1-122",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-02-22",
+        "move_in": "2021-10-22",
+        "lease_type": "Renewal",
+        "in_place_rent": 1440
+      },
+      {
+        "source_row": 26,
+        "source_rent_raw": 1417,
+        "market_rent": 1502.02,
+        "unit_id": "A1-123",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-03-23",
+        "move_in": "2022-11-23",
+        "lease_type": "Renewal",
+        "in_place_rent": 1417
+      },
+      {
+        "source_row": 27,
+        "source_rent_raw": 1485,
+        "market_rent": 1574.1,
+        "unit_id": "A1-124",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-04-24",
+        "move_in": "2023-12-24",
+        "lease_type": "Renewal",
+        "in_place_rent": 1485
+      },
+      {
+        "source_row": 28,
+        "source_rent_raw": 1462,
+        "market_rent": 1549.72,
+        "unit_id": "A1-125",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-05-25",
+        "move_in": "2021-01-25",
+        "lease_type": "Renewal",
+        "in_place_rent": 1462
+      },
+      {
+        "source_row": 29,
+        "source_rent_raw": 1439,
+        "market_rent": 1525.34,
+        "unit_id": "A1-126",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-01-26",
+        "move_in": "2022-02-26",
+        "lease_type": "Renewal",
+        "in_place_rent": 1439
+      },
+      {
+        "source_row": 30,
+        "source_rent_raw": 1416,
+        "market_rent": 1500.96,
+        "unit_id": "A1-127",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-02-27",
+        "move_in": "2023-03-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 1416
+      },
+      {
+        "source_row": 31,
+        "source_rent_raw": 1484,
+        "market_rent": 1573.04,
+        "unit_id": "A1-128",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-03-01",
+        "move_in": "2021-04-02",
+        "lease_type": "Renewal",
+        "in_place_rent": 1484
+      },
+      {
+        "source_row": 32,
+        "source_rent_raw": 1461,
+        "market_rent": 1548.66,
+        "unit_id": "A1-129",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-04-02",
+        "move_in": "2022-05-03",
+        "lease_type": "Renewal",
+        "in_place_rent": 1461
+      },
+      {
+        "source_row": 33,
+        "source_rent_raw": 1438,
+        "market_rent": 1524.28,
+        "unit_id": "A1-130",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-05-03",
+        "move_in": "2023-06-04",
+        "lease_type": "Renewal",
+        "in_place_rent": 1438
+      },
+      {
+        "source_row": 34,
+        "source_rent_raw": 1415,
+        "market_rent": 1499.9,
+        "unit_id": "A1-131",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-01-04",
+        "move_in": "2021-07-05",
+        "lease_type": "Renewal",
+        "in_place_rent": 1415
+      },
+      {
+        "source_row": 35,
+        "source_rent_raw": 1483,
+        "market_rent": 1571.98,
+        "unit_id": "A1-132",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-02-05",
+        "move_in": "2022-08-06",
+        "lease_type": "Renewal",
+        "in_place_rent": 1483
+      },
+      {
+        "source_row": 36,
+        "source_rent_raw": 1460,
+        "market_rent": 1547.6,
+        "unit_id": "A1-133",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-03-06",
+        "move_in": "2023-09-07",
+        "lease_type": "Renewal",
+        "in_place_rent": 1460
+      },
+      {
+        "source_row": 37,
+        "source_rent_raw": 1437,
+        "market_rent": 1523.22,
+        "unit_id": "A1-134",
+        "floor_plan": "A1",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 720,
+        "status": "Occupied",
+        "lease_start": "2026-04-07",
+        "move_in": "2021-10-08",
+        "lease_type": "Renewal",
+        "in_place_rent": 1437
+      },
+      {
+        "source_row": 38,
+        "source_rent_raw": 1560,
+        "market_rent": 1653.6,
+        "unit_id": "A2-101",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2025-07-03",
+        "move_in": "2025-07-03",
+        "lease_type": "New",
+        "in_place_rent": 1560
+      },
+      {
+        "source_row": 39,
+        "source_rent_raw": 1549,
+        "market_rent": 1641.94,
+        "unit_id": "A2-102",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2025-08-04",
+        "move_in": "2025-08-04",
+        "lease_type": "New",
+        "in_place_rent": 1549
+      },
+      {
+        "source_row": 40,
+        "source_rent_raw": 1619,
+        "market_rent": 1716.14,
+        "unit_id": "A2-103",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2025-09-05",
+        "move_in": "2025-09-05",
+        "lease_type": "New",
+        "in_place_rent": 1619
+      },
+      {
+        "source_row": 41,
+        "source_rent_raw": 1608,
+        "market_rent": 1704.48,
+        "unit_id": "A2-104",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2025-10-06",
+        "move_in": "2025-10-06",
+        "lease_type": "New",
+        "in_place_rent": 1608
+      },
+      {
+        "source_row": 42,
+        "source_rent_raw": 1597,
+        "market_rent": 1692.82,
+        "unit_id": "A2-105",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2025-11-07",
+        "move_in": "2025-11-07",
+        "lease_type": "New",
+        "in_place_rent": 1597
+      },
+      {
+        "source_row": 43,
+        "source_rent_raw": 1586,
+        "market_rent": 1681.16,
+        "unit_id": "A2-106",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2025-12-08",
+        "move_in": "2025-12-08",
+        "lease_type": "New",
+        "in_place_rent": 1586
+      },
+      {
+        "source_row": 44,
+        "source_rent_raw": 1575,
+        "market_rent": 1669.5,
+        "unit_id": "A2-107",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "n/a",
+        "move_in": "2026-01-09",
+        "lease_type": null,
+        "in_place_rent": 1575
+      },
+      {
+        "source_row": 45,
+        "source_rent_raw": 1564,
+        "market_rent": 1657.84,
+        "unit_id": "A2-108",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-02-10",
+        "move_in": "2026-02-10",
+        "lease_type": "New",
+        "in_place_rent": 1564
+      },
+      {
+        "source_row": 46,
+        "source_rent_raw": 1487,
+        "market_rent": 1576.22,
+        "unit_id": "A2-109",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-04-09",
+        "move_in": "2023-09-09",
+        "lease_type": "Renewal",
+        "in_place_rent": 1487
+      },
+      {
+        "source_row": 47,
+        "source_rent_raw": 1555,
+        "market_rent": 1648.3,
+        "unit_id": "A2-110",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-05-10",
+        "move_in": "2021-10-10",
+        "lease_type": "Renewal",
+        "in_place_rent": 1555
+      },
+      {
+        "source_row": 48,
+        "source_rent_raw": 1532,
+        "market_rent": 1623.92,
+        "unit_id": "A2-111",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-01-11",
+        "move_in": "2022-11-11",
+        "lease_type": "Renewal",
+        "in_place_rent": 1532
+      },
+      {
+        "source_row": 49,
+        "source_rent_raw": 1509,
+        "market_rent": 1599.54,
+        "unit_id": "A2-112",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-02-12",
+        "move_in": "2023-12-12",
+        "lease_type": "Renewal",
+        "in_place_rent": 1509
+      },
+      {
+        "source_row": 50,
+        "source_rent_raw": 1486,
+        "market_rent": 1575.16,
+        "unit_id": "A2-113",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-03-13",
+        "move_in": "2021-01-13",
+        "lease_type": "Renewal",
+        "in_place_rent": 1486
+      },
+      {
+        "source_row": 51,
+        "source_rent_raw": 1554,
+        "market_rent": 1647.24,
+        "unit_id": "A2-114",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-04-14",
+        "move_in": "2022-02-14",
+        "lease_type": "Renewal",
+        "in_place_rent": 1554
+      },
+      {
+        "source_row": 52,
+        "source_rent_raw": 1531,
+        "market_rent": 1622.86,
+        "unit_id": "A2-115",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-05-15",
+        "move_in": "2023-03-15",
+        "lease_type": "Renewal",
+        "in_place_rent": 1531
+      },
+      {
+        "source_row": 53,
+        "source_rent_raw": 1508,
+        "market_rent": 1598.48,
+        "unit_id": "A2-116",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-01-16",
+        "move_in": "2021-04-16",
+        "lease_type": "Renewal",
+        "in_place_rent": 1508
+      },
+      {
+        "source_row": 54,
+        "source_rent_raw": 1485,
+        "market_rent": 1574.1,
+        "unit_id": "A2-117",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-02-17",
+        "move_in": "2022-05-17",
+        "lease_type": "Renewal",
+        "in_place_rent": 1485
+      },
+      {
+        "source_row": 55,
+        "source_rent_raw": 1553,
+        "market_rent": 1646.18,
+        "unit_id": "A2-118",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-03-18",
+        "move_in": "2023-06-18",
+        "lease_type": "Renewal",
+        "in_place_rent": 1553
+      },
+      {
+        "source_row": 56,
+        "source_rent_raw": 1530,
+        "market_rent": 1621.8,
+        "unit_id": "A2-119",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-04-19",
+        "move_in": "2021-07-19",
+        "lease_type": "Renewal",
+        "in_place_rent": 1530
+      },
+      {
+        "source_row": 57,
+        "source_rent_raw": 1507,
+        "market_rent": 1597.42,
+        "unit_id": "A2-120",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-05-20",
+        "move_in": "2022-08-20",
+        "lease_type": "Renewal",
+        "in_place_rent": 1507
+      },
+      {
+        "source_row": 58,
+        "source_rent_raw": 1484,
+        "market_rent": 1573.04,
+        "unit_id": "A2-121",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-01-21",
+        "move_in": "2023-09-21",
+        "lease_type": "Renewal",
+        "in_place_rent": 1484
+      },
+      {
+        "source_row": 59,
+        "source_rent_raw": 1552,
+        "market_rent": 1645.12,
+        "unit_id": "A2-122",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-02-22",
+        "move_in": "2021-10-22",
+        "lease_type": "Renewal",
+        "in_place_rent": 1552
+      },
+      {
+        "source_row": 60,
+        "source_rent_raw": 1529,
+        "market_rent": 1620.74,
+        "unit_id": "A2-123",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-03-23",
+        "move_in": "2022-11-23",
+        "lease_type": "Renewal",
+        "in_place_rent": 1529
+      },
+      {
+        "source_row": 61,
+        "source_rent_raw": 1506,
+        "market_rent": 1596.36,
+        "unit_id": "A2-124",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-04-24",
+        "move_in": "2023-12-24",
+        "lease_type": "Renewal",
+        "in_place_rent": 1506
+      },
+      {
+        "source_row": 62,
+        "source_rent_raw": 1483,
+        "market_rent": 1571.98,
+        "unit_id": "A2-125",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-05-25",
+        "move_in": "2021-01-25",
+        "lease_type": "Renewal",
+        "in_place_rent": 1483
+      },
+      {
+        "source_row": 63,
+        "source_rent_raw": 1551,
+        "market_rent": 1644.06,
+        "unit_id": "A2-126",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-01-26",
+        "move_in": "2022-02-26",
+        "lease_type": "Renewal",
+        "in_place_rent": 1551
+      },
+      {
+        "source_row": 64,
+        "source_rent_raw": 1528,
+        "market_rent": 1619.68,
+        "unit_id": "A2-127",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-02-27",
+        "move_in": "2023-03-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 1528
+      },
+      {
+        "source_row": 65,
+        "source_rent_raw": 1505,
+        "market_rent": 1595.3,
+        "unit_id": "A2-128",
+        "floor_plan": "A2",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 795,
+        "status": "Occupied",
+        "lease_start": "2026-03-01",
+        "move_in": "2021-04-02",
+        "lease_type": "Renewal",
+        "in_place_rent": 1505
+      },
+      {
+        "source_row": 66,
+        "source_rent_raw": 1831,
+        "market_rent": 1940.86,
+        "unit_id": "B1-101",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2025-07-03",
+        "move_in": "2025-07-03",
+        "lease_type": "New",
+        "in_place_rent": 1831
+      },
+      {
+        "source_row": 67,
+        "source_rent_raw": 1820,
+        "market_rent": 1929.2,
+        "unit_id": "B1-102",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2025-08-04",
+        "move_in": "2025-08-04",
+        "lease_type": "New",
+        "in_place_rent": 1820
+      },
+      {
+        "source_row": 68,
+        "source_rent_raw": 1809,
+        "market_rent": 1917.54,
+        "unit_id": "B1-103",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2025-09-05",
+        "move_in": "2025-09-05",
+        "lease_type": "New",
+        "in_place_rent": 1809
+      },
+      {
+        "source_row": 69,
+        "source_rent_raw": 1798,
+        "market_rent": 1905.88,
+        "unit_id": "B1-104",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2025-10-06",
+        "move_in": "2025-10-06",
+        "lease_type": "New",
+        "in_place_rent": 1798
+      },
+      {
+        "source_row": 70,
+        "source_rent_raw": 1868,
+        "market_rent": 1980.08,
+        "unit_id": "B1-105",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2025-11-07",
+        "move_in": "2025-11-07",
+        "lease_type": "New",
+        "in_place_rent": 1868
+      },
+      {
+        "source_row": 71,
+        "source_rent_raw": 1857,
+        "market_rent": 1968.42,
+        "unit_id": "B1-106",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2025-12-08",
+        "move_in": "2025-12-08",
+        "lease_type": "New",
+        "in_place_rent": 1857
+      },
+      {
+        "source_row": 72,
+        "source_rent_raw": 1846,
+        "market_rent": 1956.76,
+        "unit_id": "B1-107",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-01-09",
+        "move_in": "2026-01-09",
+        "lease_type": "New",
+        "in_place_rent": 1846
+      },
+      {
+        "source_row": 73,
+        "source_rent_raw": 1835,
+        "market_rent": 1945.1,
+        "unit_id": "B1-108",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-02-10",
+        "move_in": "2026-02-10",
+        "lease_type": "New",
+        "in_place_rent": 1835
+      },
+      {
+        "source_row": 74,
+        "source_rent_raw": 1824,
+        "market_rent": 1933.44,
+        "unit_id": "B1-109",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Vacant",
+        "lease_start": null,
+        "move_in": null,
+        "lease_type": null,
+        "in_place_rent": null
+      },
+      {
+        "source_row": 75,
+        "source_rent_raw": 1813,
+        "market_rent": 1921.78,
+        "unit_id": "B1-110",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-04-12",
+        "move_in": "2026-04-12",
+        "lease_type": "New",
+        "in_place_rent": 1813
+      },
+      {
+        "source_row": 76,
+        "source_rent_raw": 1802,
+        "market_rent": 1910.12,
+        "unit_id": "B1-111",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-05-13",
+        "move_in": "2026-05-13",
+        "lease_type": "New",
+        "in_place_rent": 1802
+      },
+      {
+        "source_row": 77,
+        "source_rent_raw": 1872,
+        "market_rent": 1984.32,
+        "unit_id": "B1-112",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2025-07-14",
+        "move_in": "2025-07-14",
+        "lease_type": "New",
+        "in_place_rent": 1872
+      },
+      {
+        "source_row": 78,
+        "source_rent_raw": 1734,
+        "market_rent": 1838.04,
+        "unit_id": "B1-113",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-03-13",
+        "move_in": "2021-01-13",
+        "lease_type": "Renewal",
+        "in_place_rent": 1734
+      },
+      {
+        "source_row": 79,
+        "source_rent_raw": 1802,
+        "market_rent": 1910.12,
+        "unit_id": "B1-114",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-04-14",
+        "move_in": "2022-02-14",
+        "lease_type": "Renewal",
+        "in_place_rent": 1802
+      },
+      {
+        "source_row": 80,
+        "source_rent_raw": 1779,
+        "market_rent": 1885.74,
+        "unit_id": "B1-115",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-05-15",
+        "move_in": "2023-03-15",
+        "lease_type": "Renewal",
+        "in_place_rent": 1779
+      },
+      {
+        "source_row": 81,
+        "source_rent_raw": 1756,
+        "market_rent": 1861.36,
+        "unit_id": "B1-116",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-01-16",
+        "move_in": "2021-04-16",
+        "lease_type": "Renewal",
+        "in_place_rent": 1756
+      },
+      {
+        "source_row": 82,
+        "source_rent_raw": 1733,
+        "market_rent": 1836.98,
+        "unit_id": "B1-117",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-02-17",
+        "move_in": "2022-05-17",
+        "lease_type": "Renewal",
+        "in_place_rent": 1733
+      },
+      {
+        "source_row": 83,
+        "source_rent_raw": 1801,
+        "market_rent": 1909.06,
+        "unit_id": "B1-118",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-03-18",
+        "move_in": "2023-06-18",
+        "lease_type": "Renewal",
+        "in_place_rent": 1801
+      },
+      {
+        "source_row": 84,
+        "source_rent_raw": 1778,
+        "market_rent": 1884.68,
+        "unit_id": "B1-119",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-04-19",
+        "move_in": "2021-07-19",
+        "lease_type": "Renewal",
+        "in_place_rent": 1778
+      },
+      {
+        "source_row": 85,
+        "source_rent_raw": 1755,
+        "market_rent": 1860.3,
+        "unit_id": "B1-120",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-05-20",
+        "move_in": "2022-08-20",
+        "lease_type": "Renewal",
+        "in_place_rent": 1755
+      },
+      {
+        "source_row": 86,
+        "source_rent_raw": 1732,
+        "market_rent": 1835.92,
+        "unit_id": "B1-121",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-01-21",
+        "move_in": "2023-09-21",
+        "lease_type": "Renewal",
+        "in_place_rent": 1732
+      },
+      {
+        "source_row": 87,
+        "source_rent_raw": 1800,
+        "market_rent": 1908.0,
+        "unit_id": "B1-122",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-02-22",
+        "move_in": "2021-10-22",
+        "lease_type": "Renewal",
+        "in_place_rent": 1800
+      },
+      {
+        "source_row": 88,
+        "source_rent_raw": 1777,
+        "market_rent": 1883.62,
+        "unit_id": "B1-123",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-03-23",
+        "move_in": "2022-11-23",
+        "lease_type": "Renewal",
+        "in_place_rent": 1777
+      },
+      {
+        "source_row": 89,
+        "source_rent_raw": 1754,
+        "market_rent": 1859.24,
+        "unit_id": "B1-124",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-04-24",
+        "move_in": "2023-12-24",
+        "lease_type": "Renewal",
+        "in_place_rent": 1754
+      },
+      {
+        "source_row": 90,
+        "source_rent_raw": 1731,
+        "market_rent": 1834.86,
+        "unit_id": "B1-125",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-05-25",
+        "move_in": "2021-01-25",
+        "lease_type": "Renewal",
+        "in_place_rent": 1731
+      },
+      {
+        "source_row": 91,
+        "source_rent_raw": 1799,
+        "market_rent": 1906.94,
+        "unit_id": "B1-126",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-01-26",
+        "move_in": "2022-02-26",
+        "lease_type": "Renewal",
+        "in_place_rent": 1799
+      },
+      {
+        "source_row": 92,
+        "source_rent_raw": 1776,
+        "market_rent": 1882.56,
+        "unit_id": "B1-127",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-02-27",
+        "move_in": "2023-03-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 1776
+      },
+      {
+        "source_row": 93,
+        "source_rent_raw": 1753,
+        "market_rent": 1858.18,
+        "unit_id": "B1-128",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-03-01",
+        "move_in": "2021-04-02",
+        "lease_type": "Renewal",
+        "in_place_rent": 1753
+      },
+      {
+        "source_row": 94,
+        "source_rent_raw": 1730,
+        "market_rent": 1833.8,
+        "unit_id": "B1-129",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-04-02",
+        "move_in": "2022-05-03",
+        "lease_type": "Renewal",
+        "in_place_rent": 1730
+      },
+      {
+        "source_row": 95,
+        "source_rent_raw": 1798,
+        "market_rent": 1905.88,
+        "unit_id": "B1-130",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-05-03",
+        "move_in": "2023-06-04",
+        "lease_type": "Renewal",
+        "in_place_rent": 1798
+      },
+      {
+        "source_row": 96,
+        "source_rent_raw": 1775,
+        "market_rent": 1881.5,
+        "unit_id": "B1-131",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-01-04",
+        "move_in": "2021-07-05",
+        "lease_type": "Renewal",
+        "in_place_rent": 1775
+      },
+      {
+        "source_row": 97,
+        "source_rent_raw": 1752,
+        "market_rent": 1857.12,
+        "unit_id": "B1-132",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-02-05",
+        "move_in": "2022-08-06",
+        "lease_type": "Renewal",
+        "in_place_rent": 1752
+      },
+      {
+        "source_row": 98,
+        "source_rent_raw": 1820,
+        "market_rent": 1929.2,
+        "unit_id": "B1-133",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-03-06",
+        "move_in": "2023-09-07",
+        "lease_type": "Renewal",
+        "in_place_rent": 1820
+      },
+      {
+        "source_row": 99,
+        "source_rent_raw": 1797,
+        "market_rent": 1904.82,
+        "unit_id": "B1-134",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-04-07",
+        "move_in": "2021-10-08",
+        "lease_type": "Renewal",
+        "in_place_rent": 1797
+      },
+      {
+        "source_row": 100,
+        "source_rent_raw": 1774,
+        "market_rent": 1880.44,
+        "unit_id": "B1-135",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-05-08",
+        "move_in": "2022-11-09",
+        "lease_type": "Renewal",
+        "in_place_rent": 1774
+      },
+      {
+        "source_row": 101,
+        "source_rent_raw": 1751,
+        "market_rent": 1856.06,
+        "unit_id": "B1-136",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-01-09",
+        "move_in": "2023-12-10",
+        "lease_type": "Renewal",
+        "in_place_rent": 1751
+      },
+      {
+        "source_row": 102,
+        "source_rent_raw": 1819,
+        "market_rent": 1928.14,
+        "unit_id": "B1-137",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-02-10",
+        "move_in": "2021-01-11",
+        "lease_type": "Renewal",
+        "in_place_rent": 1819
+      },
+      {
+        "source_row": 103,
+        "source_rent_raw": 1796,
+        "market_rent": 1903.76,
+        "unit_id": "B1-138",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-03-11",
+        "move_in": "2022-02-12",
+        "lease_type": "Renewal",
+        "in_place_rent": 1796
+      },
+      {
+        "source_row": 104,
+        "source_rent_raw": 1773,
+        "market_rent": 1879.38,
+        "unit_id": "B1-139",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-04-12",
+        "move_in": "2023-03-13",
+        "lease_type": "Renewal",
+        "in_place_rent": 1773
+      },
+      {
+        "source_row": 105,
+        "source_rent_raw": 1750,
+        "market_rent": 1855.0,
+        "unit_id": "B1-140",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-05-13",
+        "move_in": "2021-04-14",
+        "lease_type": "Renewal",
+        "in_place_rent": 1750
+      },
+      {
+        "source_row": 106,
+        "source_rent_raw": 1818,
+        "market_rent": 1927.08,
+        "unit_id": "B1-141",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-01-14",
+        "move_in": "2022-05-15",
+        "lease_type": "Renewal",
+        "in_place_rent": 1818
+      },
+      {
+        "source_row": 107,
+        "source_rent_raw": 1795,
+        "market_rent": 1902.7,
+        "unit_id": "B1-142",
+        "floor_plan": "B1",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1050,
+        "status": "Occupied",
+        "lease_start": "2026-02-15",
+        "move_in": "2023-06-16",
+        "lease_type": "Renewal",
+        "in_place_rent": 1795
+      },
+      {
+        "source_row": 108,
+        "source_rent_raw": 1930,
+        "market_rent": 2045.8,
+        "unit_id": "B2-101",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2025-07-03",
+        "move_in": "2025-07-03",
+        "lease_type": "New",
+        "in_place_rent": 1930
+      },
+      {
+        "source_row": 109,
+        "source_rent_raw": 1919,
+        "market_rent": 2034.14,
+        "unit_id": "B2-102",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2025-08-04",
+        "move_in": "2025-08-04",
+        "lease_type": "New",
+        "in_place_rent": 1919
+      },
+      {
+        "source_row": 110,
+        "source_rent_raw": 1908,
+        "market_rent": 2022.48,
+        "unit_id": "B2-103",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2025-09-05",
+        "move_in": "2025-09-05",
+        "lease_type": "New",
+        "in_place_rent": 1908
+      },
+      {
+        "source_row": 111,
+        "source_rent_raw": 1897,
+        "market_rent": 2010.82,
+        "unit_id": "B2-104",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2025-10-06",
+        "move_in": "2025-10-06",
+        "lease_type": "New",
+        "in_place_rent": 1897
+      },
+      {
+        "source_row": 112,
+        "source_rent_raw": 1886,
+        "market_rent": 1999.16,
+        "unit_id": "B2-105",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2025-11-07",
+        "move_in": "2025-11-07",
+        "lease_type": "New",
+        "in_place_rent": 1886
+      },
+      {
+        "source_row": 113,
+        "source_rent_raw": 1875,
+        "market_rent": 1987.5,
+        "unit_id": "B2-106",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2025-12-08",
+        "move_in": "2025-12-08",
+        "lease_type": "New",
+        "in_place_rent": 1875
+      },
+      {
+        "source_row": 114,
+        "source_rent_raw": 1945,
+        "market_rent": 2061.7,
+        "unit_id": "B2-107",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-01-09",
+        "move_in": "2026-01-09",
+        "lease_type": "New",
+        "in_place_rent": 1945
+      },
+      {
+        "source_row": 115,
+        "source_rent_raw": 1934,
+        "market_rent": 2050.04,
+        "unit_id": "B2-108",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-02-10",
+        "move_in": "2026-02-10",
+        "lease_type": "New",
+        "in_place_rent": 1934
+      },
+      {
+        "source_row": 116,
+        "source_rent_raw": 1923,
+        "market_rent": 2038.38,
+        "unit_id": "B2-109",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-03-11",
+        "move_in": "2026-03-11",
+        "lease_type": "New",
+        "in_place_rent": 1923
+      },
+      {
+        "source_row": 117,
+        "source_rent_raw": 1822,
+        "market_rent": 1931.32,
+        "unit_id": "B2-110",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-05-10",
+        "move_in": "2021-10-10",
+        "lease_type": "Renewal",
+        "in_place_rent": 1822
+      },
+      {
+        "source_row": 118,
+        "source_rent_raw": 1890,
+        "market_rent": 2003.4,
+        "unit_id": "B2-111",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-01-11",
+        "move_in": "2022-11-11",
+        "lease_type": "Renewal",
+        "in_place_rent": 1890
+      },
+      {
+        "source_row": 119,
+        "source_rent_raw": 1867,
+        "market_rent": 1979.02,
+        "unit_id": "B2-112",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-02-12",
+        "move_in": "2023-12-12",
+        "lease_type": "Renewal",
+        "in_place_rent": 1867
+      },
+      {
+        "source_row": 120,
+        "source_rent_raw": 1844,
+        "market_rent": 1954.64,
+        "unit_id": "B2-113",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-03-13",
+        "move_in": "2021-01-13",
+        "lease_type": "Renewal",
+        "in_place_rent": 1844
+      },
+      {
+        "source_row": 121,
+        "source_rent_raw": 1821,
+        "market_rent": 1930.26,
+        "unit_id": "B2-114",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-04-14",
+        "move_in": "2022-02-14",
+        "lease_type": "Renewal",
+        "in_place_rent": 1821
+      },
+      {
+        "source_row": 122,
+        "source_rent_raw": 1889,
+        "market_rent": 2002.34,
+        "unit_id": "B2-115",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-05-15",
+        "move_in": "2023-03-15",
+        "lease_type": "Renewal",
+        "in_place_rent": 1889
+      },
+      {
+        "source_row": 123,
+        "source_rent_raw": 1866,
+        "market_rent": 1977.96,
+        "unit_id": "B2-116",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-01-16",
+        "move_in": "2021-04-16",
+        "lease_type": "Renewal",
+        "in_place_rent": 1866
+      },
+      {
+        "source_row": 124,
+        "source_rent_raw": 1843,
+        "market_rent": 1953.58,
+        "unit_id": "B2-117",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Model",
+        "lease_start": null,
+        "move_in": null,
+        "lease_type": null,
+        "in_place_rent": null
+      },
+      {
+        "source_row": 125,
+        "source_rent_raw": 1820,
+        "market_rent": 1929.2,
+        "unit_id": "B2-118",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-03-18",
+        "move_in": "2023-06-18",
+        "lease_type": "Renewal",
+        "in_place_rent": 1820
+      },
+      {
+        "source_row": 126,
+        "source_rent_raw": 1888,
+        "market_rent": 2001.28,
+        "unit_id": "B2-119",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-04-19",
+        "move_in": "2021-07-19",
+        "lease_type": "Renewal",
+        "in_place_rent": 1888
+      },
+      {
+        "source_row": 127,
+        "source_rent_raw": 1865,
+        "market_rent": 1976.9,
+        "unit_id": "B2-120",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-05-20",
+        "move_in": "2022-08-20",
+        "lease_type": "Renewal",
+        "in_place_rent": 1865
+      },
+      {
+        "source_row": 128,
+        "source_rent_raw": 1842,
+        "market_rent": 1952.52,
+        "unit_id": "B2-121",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-01-21",
+        "move_in": "2023-09-21",
+        "lease_type": "Renewal",
+        "in_place_rent": 1842
+      },
+      {
+        "source_row": 129,
+        "source_rent_raw": 1819,
+        "market_rent": 1928.14,
+        "unit_id": "B2-122",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-02-22",
+        "move_in": "2021-10-22",
+        "lease_type": "Renewal",
+        "in_place_rent": 1819
+      },
+      {
+        "source_row": 130,
+        "source_rent_raw": 1887,
+        "market_rent": 2000.22,
+        "unit_id": "B2-123",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-03-23",
+        "move_in": "2022-11-23",
+        "lease_type": "Renewal",
+        "in_place_rent": 1887
+      },
+      {
+        "source_row": 131,
+        "source_rent_raw": 1864,
+        "market_rent": 1975.84,
+        "unit_id": "B2-124",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-04-24",
+        "move_in": "2023-12-24",
+        "lease_type": "Renewal",
+        "in_place_rent": 1864
+      },
+      {
+        "source_row": 132,
+        "source_rent_raw": 1841,
+        "market_rent": 1951.46,
+        "unit_id": "B2-125",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-05-25",
+        "move_in": "2021-01-25",
+        "lease_type": "Renewal",
+        "in_place_rent": 1841
+      },
+      {
+        "source_row": 133,
+        "source_rent_raw": 1818,
+        "market_rent": 1927.08,
+        "unit_id": "B2-126",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-01-26",
+        "move_in": "2022-02-26",
+        "lease_type": "Renewal",
+        "in_place_rent": 1818
+      },
+      {
+        "source_row": 134,
+        "source_rent_raw": 1886,
+        "market_rent": 1999.16,
+        "unit_id": "B2-127",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-02-27",
+        "move_in": "2023-03-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 1886
+      },
+      {
+        "source_row": 135,
+        "source_rent_raw": 1863,
+        "market_rent": 1974.78,
+        "unit_id": "B2-128",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-03-01",
+        "move_in": "2021-04-02",
+        "lease_type": "Renewal",
+        "in_place_rent": 1863
+      },
+      {
+        "source_row": 136,
+        "source_rent_raw": 1840,
+        "market_rent": 1950.4,
+        "unit_id": "B2-129",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-04-02",
+        "move_in": "2022-05-03",
+        "lease_type": "Renewal",
+        "in_place_rent": 1840
+      },
+      {
+        "source_row": 137,
+        "source_rent_raw": 1817,
+        "market_rent": 1926.02,
+        "unit_id": "B2-130",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-05-03",
+        "move_in": "2023-06-04",
+        "lease_type": "Renewal",
+        "in_place_rent": 1817
+      },
+      {
+        "source_row": 138,
+        "source_rent_raw": 1885,
+        "market_rent": 1998.1,
+        "unit_id": "B2-131",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-01-04",
+        "move_in": "2021-07-05",
+        "lease_type": "Renewal",
+        "in_place_rent": 1885
+      },
+      {
+        "source_row": 139,
+        "source_rent_raw": 1862,
+        "market_rent": 1973.72,
+        "unit_id": "B2-132",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-02-05",
+        "move_in": "2022-08-06",
+        "lease_type": "Renewal",
+        "in_place_rent": 1862
+      },
+      {
+        "source_row": 140,
+        "source_rent_raw": 1839,
+        "market_rent": 1949.34,
+        "unit_id": "B2-133",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-03-06",
+        "move_in": "2023-09-07",
+        "lease_type": "Renewal",
+        "in_place_rent": 1839
+      },
+      {
+        "source_row": 141,
+        "source_rent_raw": 1816,
+        "market_rent": 1924.96,
+        "unit_id": "B2-134",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-04-07",
+        "move_in": "2021-10-08",
+        "lease_type": "Renewal",
+        "in_place_rent": 1816
+      },
+      {
+        "source_row": 142,
+        "source_rent_raw": 1884,
+        "market_rent": 1997.04,
+        "unit_id": "B2-135",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-05-08",
+        "move_in": "2022-11-09",
+        "lease_type": "Renewal",
+        "in_place_rent": 1884
+      },
+      {
+        "source_row": 143,
+        "source_rent_raw": 1861,
+        "market_rent": 1972.66,
+        "unit_id": "B2-136",
+        "floor_plan": "B2",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1140,
+        "status": "Occupied",
+        "lease_start": "2026-01-09",
+        "move_in": "2023-12-10",
+        "lease_type": "Renewal",
+        "in_place_rent": 1861
+      },
+      {
+        "source_row": 144,
+        "source_rent_raw": 2184,
+        "market_rent": 2315.04,
+        "unit_id": "C1-101",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2025-07-03",
+        "move_in": "2025-07-03",
+        "lease_type": "New",
+        "in_place_rent": 2184
+      },
+      {
+        "source_row": 145,
+        "source_rent_raw": 2173,
+        "market_rent": 2303.38,
+        "unit_id": "C1-102",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2025-08-04",
+        "move_in": "2025-08-04",
+        "lease_type": "New",
+        "in_place_rent": 2173
+      },
+      {
+        "source_row": 146,
+        "source_rent_raw": 2162,
+        "market_rent": 2291.72,
+        "unit_id": "C1-103",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2025-09-05",
+        "move_in": "2025-09-05",
+        "lease_type": "New",
+        "in_place_rent": 2162
+      },
+      {
+        "source_row": 147,
+        "source_rent_raw": 2151,
+        "market_rent": 2280.06,
+        "unit_id": "C1-104",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2025-10-06",
+        "move_in": "2025-10-06",
+        "lease_type": "New",
+        "in_place_rent": 2151
+      },
+      {
+        "source_row": 148,
+        "source_rent_raw": 2140,
+        "market_rent": 2268.4,
+        "unit_id": "C1-105",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2025-11-07",
+        "move_in": "2025-11-07",
+        "lease_type": "New",
+        "in_place_rent": 2140
+      },
+      {
+        "source_row": 149,
+        "source_rent_raw": 2129,
+        "market_rent": 2256.74,
+        "unit_id": "C1-106",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2025-12-08",
+        "move_in": "2025-12-08",
+        "lease_type": "New",
+        "in_place_rent": 2129
+      },
+      {
+        "source_row": 150,
+        "source_rent_raw": 2127,
+        "market_rent": 2254.62,
+        "unit_id": "C1-107",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-02-07",
+        "move_in": "2021-07-07",
+        "lease_type": "Renewal",
+        "in_place_rent": 2127
+      },
+      {
+        "source_row": 151,
+        "source_rent_raw": 2104,
+        "market_rent": 2230.24,
+        "unit_id": "C1-108",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-03-08",
+        "move_in": "2022-08-08",
+        "lease_type": "Renewal",
+        "in_place_rent": 2104
+      },
+      {
+        "source_row": 152,
+        "source_rent_raw": 2081,
+        "market_rent": 2205.86,
+        "unit_id": "C1-109",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-04-09",
+        "move_in": "2023-09-09",
+        "lease_type": "Renewal",
+        "in_place_rent": 2081
+      },
+      {
+        "source_row": 153,
+        "source_rent_raw": 2058,
+        "market_rent": 2181.48,
+        "unit_id": "C1-110",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-05-10",
+        "move_in": "2021-10-10",
+        "lease_type": "Renewal",
+        "in_place_rent": 2058
+      },
+      {
+        "source_row": 154,
+        "source_rent_raw": 2126,
+        "market_rent": 2253.56,
+        "unit_id": "C1-111",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-01-11",
+        "move_in": "2022-11-11",
+        "lease_type": "Renewal",
+        "in_place_rent": 2126
+      },
+      {
+        "source_row": 155,
+        "source_rent_raw": 2103,
+        "market_rent": 2229.18,
+        "unit_id": "C1-112",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-02-12",
+        "move_in": "2023-12-12",
+        "lease_type": "Renewal",
+        "in_place_rent": 2103
+      },
+      {
+        "source_row": 156,
+        "source_rent_raw": 2080,
+        "market_rent": 2204.8,
+        "unit_id": "C1-113",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-03-13",
+        "move_in": "2021-01-13",
+        "lease_type": "Renewal",
+        "in_place_rent": 2080
+      },
+      {
+        "source_row": 157,
+        "source_rent_raw": 2057,
+        "market_rent": 2180.42,
+        "unit_id": "C1-114",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-04-14",
+        "move_in": "2022-02-14",
+        "lease_type": "Renewal",
+        "in_place_rent": 2057
+      },
+      {
+        "source_row": 158,
+        "source_rent_raw": 2125,
+        "market_rent": 2252.5,
+        "unit_id": "C1-115",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-05-15",
+        "move_in": "2023-03-15",
+        "lease_type": "Renewal",
+        "in_place_rent": 2125
+      },
+      {
+        "source_row": 159,
+        "source_rent_raw": 2102,
+        "market_rent": 2228.12,
+        "unit_id": "C1-116",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-01-16",
+        "move_in": "2021-04-16",
+        "lease_type": "Renewal",
+        "in_place_rent": 2102
+      },
+      {
+        "source_row": 160,
+        "source_rent_raw": 2079,
+        "market_rent": 2203.74,
+        "unit_id": "C1-117",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-02-17",
+        "move_in": "2022-05-17",
+        "lease_type": "Renewal",
+        "in_place_rent": 2079
+      },
+      {
+        "source_row": 161,
+        "source_rent_raw": 2056,
+        "market_rent": 2179.36,
+        "unit_id": "C1-118",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-03-18",
+        "move_in": "2023-06-18",
+        "lease_type": "Renewal",
+        "in_place_rent": 2056
+      },
+      {
+        "source_row": 162,
+        "source_rent_raw": 2124,
+        "market_rent": 2251.44,
+        "unit_id": "C1-119",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-04-19",
+        "move_in": "2021-07-19",
+        "lease_type": "Renewal",
+        "in_place_rent": 2124
+      },
+      {
+        "source_row": 163,
+        "source_rent_raw": 2101,
+        "market_rent": 2227.06,
+        "unit_id": "C1-120",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-05-20",
+        "move_in": "2022-08-20",
+        "lease_type": "Renewal",
+        "in_place_rent": 2101
+      },
+      {
+        "source_row": 164,
+        "source_rent_raw": 2078,
+        "market_rent": 2202.68,
+        "unit_id": "C1-121",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-01-21",
+        "move_in": "2023-09-21",
+        "lease_type": "Renewal",
+        "in_place_rent": 2078
+      },
+      {
+        "source_row": 165,
+        "source_rent_raw": 2055,
+        "market_rent": 2178.3,
+        "unit_id": "C1-122",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-02-22",
+        "move_in": "2021-10-22",
+        "lease_type": "Renewal",
+        "in_place_rent": 2055
+      },
+      {
+        "source_row": 166,
+        "source_rent_raw": 2123,
+        "market_rent": 2250.38,
+        "unit_id": "C1-123",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-03-23",
+        "move_in": "2022-11-23",
+        "lease_type": "Renewal",
+        "in_place_rent": 2123
+      },
+      {
+        "source_row": 167,
+        "source_rent_raw": 2100,
+        "market_rent": 2226.0,
+        "unit_id": "C1-124",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-04-24",
+        "move_in": "2023-12-24",
+        "lease_type": "Renewal",
+        "in_place_rent": 2100
+      },
+      {
+        "source_row": 168,
+        "source_rent_raw": 2077,
+        "market_rent": 2201.62,
+        "unit_id": "C1-125",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-05-25",
+        "move_in": "2021-01-25",
+        "lease_type": "Renewal",
+        "in_place_rent": 2077
+      },
+      {
+        "source_row": 169,
+        "source_rent_raw": 2054,
+        "market_rent": 2177.24,
+        "unit_id": "C1-126",
+        "floor_plan": "C1",
+        "beds": 3,
+        "baths": 2.0,
+        "sqft": 1380,
+        "status": "Occupied",
+        "lease_start": "2026-01-26",
+        "move_in": "2022-02-26",
+        "lease_type": "Renewal",
+        "in_place_rent": 2054
+      },
+      {
+        "source_row": 170,
+        "source_rent_raw": 2367,
+        "market_rent": 2509.02,
+        "unit_id": "Cypress-101",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2367
+      },
+      {
+        "source_row": 171,
+        "source_rent_raw": 2344,
+        "market_rent": 2484.64,
+        "unit_id": "Cypress-102",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2344
+      },
+      {
+        "source_row": 172,
+        "source_rent_raw": 2321,
+        "market_rent": 2460.26,
+        "unit_id": "Cypress-103",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2321
+      },
+      {
+        "source_row": 173,
+        "source_rent_raw": 2298,
+        "market_rent": 2435.88,
+        "unit_id": "Cypress-104",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2298
+      },
+      {
+        "source_row": 174,
+        "source_rent_raw": 2366,
+        "market_rent": 2507.96,
+        "unit_id": "Cypress-105",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2366
+      },
+      {
+        "source_row": 175,
+        "source_rent_raw": 2343,
+        "market_rent": 2483.58,
+        "unit_id": "Cypress-106",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2343
+      },
+      {
+        "source_row": 176,
+        "source_rent_raw": 2320,
+        "market_rent": 2459.2,
+        "unit_id": "Cypress-107",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2320
+      },
+      {
+        "source_row": 177,
+        "source_rent_raw": 2297,
+        "market_rent": 2434.82,
+        "unit_id": "Cypress-108",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2297
+      },
+      {
+        "source_row": 178,
+        "source_rent_raw": 2365,
+        "market_rent": 2506.9,
+        "unit_id": "Cypress-109",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2365
+      },
+      {
+        "source_row": 179,
+        "source_rent_raw": 2342,
+        "market_rent": 2482.52,
+        "unit_id": "Cypress-110",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2342
+      },
+      {
+        "source_row": 180,
+        "source_rent_raw": 2319,
+        "market_rent": 2458.14,
+        "unit_id": "Cypress-111",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2319
+      },
+      {
+        "source_row": 181,
+        "source_rent_raw": 2296,
+        "market_rent": 2433.76,
+        "unit_id": "Cypress-112",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2296
+      },
+      {
+        "source_row": 182,
+        "source_rent_raw": 2364,
+        "market_rent": 2505.84,
+        "unit_id": "Cypress-113",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2364
+      },
+      {
+        "source_row": 183,
+        "source_rent_raw": 2341,
+        "market_rent": 2481.46,
+        "unit_id": "Cypress-114",
+        "floor_plan": "Cypress TH",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1620,
+        "status": "Occupied",
+        "lease_start": "2024-11-15",
+        "move_in": "2021-06-01",
+        "lease_type": "Renewal",
+        "in_place_rent": 2341
+      }
+    ]
+  },
+  "trade_out": {
+    "rows": [
+      {
+        "cohort": "New",
+        "leases": 46,
+        "prior_rent": 1706,
+        "new_rent_gross": 1812,
+        "new_rent_effective": 1774
+      },
+      {
+        "cohort": "Renewal",
+        "leases": 88,
+        "prior_rent": 1698,
+        "new_rent_gross": 1745,
+        "new_rent_effective": 1745
+      },
+      {
+        "cohort": "First generation",
+        "leases": 12,
+        "prior_rent": 0,
+        "new_rent_gross": 1836,
+        "new_rent_effective": 1790
+      }
+    ],
+    "absent_reason": null
+  },
+  "pricing": {
+    "price_per_unit": 215000,
+    "units_total": 180
+  },
+  "comps": {
+    "as_of": "2026-06-22",
+    "source": "own weekly scrape",
+    "subject_market_rent": 1834.62,
+    "rows": [
+      {
+        "community": "Alderwood Crossing",
+        "distance_mi": 0.4,
+        "tier": 1,
+        "year_built": 2021,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "1BR-A",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 735,
+        "asking_rent": 1450,
+        "concession": 45,
+        "net_effective_rent": 1405,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Alderwood Crossing",
+        "distance_mi": 0.4,
+        "tier": 1,
+        "year_built": 2021,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "2BR-B",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1075,
+        "asking_rent": 1815,
+        "concession": 45,
+        "net_effective_rent": 1770,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Rowan Yard",
+        "distance_mi": 0.6,
+        "tier": 1,
+        "year_built": null,
+        "year_built_source": null,
+        "floor_plan": "1BR-A",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 735,
+        "asking_rent": 1455,
+        "concession": 0,
+        "net_effective_rent": 1455,
+        "occupancy": 0.96,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Rowan Yard",
+        "distance_mi": 0.6,
+        "tier": 1,
+        "year_built": null,
+        "year_built_source": null,
+        "floor_plan": "2BR-B",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1075,
+        "asking_rent": 1820,
+        "concession": 0,
+        "net_effective_rent": 1820,
+        "occupancy": 0.96,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Sable Point",
+        "distance_mi": 0.9,
+        "tier": 1,
+        "year_built": 2014,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "1BR-A",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 735,
+        "asking_rent": 1460,
+        "concession": 45,
+        "net_effective_rent": 1415,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Sable Point",
+        "distance_mi": 0.9,
+        "tier": 1,
+        "year_built": 2014,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "2BR-B",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1075,
+        "asking_rent": 1825,
+        "concession": 45,
+        "net_effective_rent": 1780,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Sable Point",
+        "distance_mi": 0.9,
+        "tier": 1,
+        "year_built": 2014,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "3BR-C",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1355,
+        "asking_rent": 2180,
+        "concession": 45,
+        "net_effective_rent": 2135,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Harper Station",
+        "distance_mi": 1.1,
+        "tier": 1,
+        "year_built": 2026,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "1BR-A",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 735,
+        "asking_rent": 1465,
+        "concession": 0,
+        "net_effective_rent": 1465,
+        "occupancy": 0.96,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Harper Station",
+        "distance_mi": 1.1,
+        "tier": 1,
+        "year_built": 2026,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "2BR-B",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1075,
+        "asking_rent": 1830,
+        "concession": 0,
+        "net_effective_rent": 1830,
+        "occupancy": 0.96,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Kestrel Ridge",
+        "distance_mi": 1.3,
+        "tier": 1,
+        "year_built": 2019,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "1BR-A",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 735,
+        "asking_rent": 1470,
+        "concession": 45,
+        "net_effective_rent": 1425,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Kestrel Ridge",
+        "distance_mi": 1.3,
+        "tier": 1,
+        "year_built": 2019,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "2BR-B",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1075,
+        "asking_rent": 1835,
+        "concession": 45,
+        "net_effective_rent": 1790,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Linden Mill",
+        "distance_mi": 1.5,
+        "tier": 2,
+        "year_built": 2011,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "1BR-A",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 735,
+        "asking_rent": 1475,
+        "concession": 0,
+        "net_effective_rent": 1475,
+        "occupancy": 0.96,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Linden Mill",
+        "distance_mi": 1.5,
+        "tier": 2,
+        "year_built": 2011,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "2BR-B",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1075,
+        "asking_rent": 1840,
+        "concession": 0,
+        "net_effective_rent": 1840,
+        "occupancy": 0.96,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Linden Mill",
+        "distance_mi": 1.5,
+        "tier": 2,
+        "year_built": 2011,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "3BR-C",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1355,
+        "asking_rent": 2195,
+        "concession": 0,
+        "net_effective_rent": 2195,
+        "occupancy": 0.96,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Pinegate Commons",
+        "distance_mi": 1.6,
+        "tier": 2,
+        "year_built": 2009,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "1BR-A",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 735,
+        "asking_rent": 1480,
+        "concession": 45,
+        "net_effective_rent": 1435,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Pinegate Commons",
+        "distance_mi": 1.6,
+        "tier": 2,
+        "year_built": 2009,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "2BR-B",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1075,
+        "asking_rent": 1845,
+        "concession": 45,
+        "net_effective_rent": 1800,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Quarry Flats",
+        "distance_mi": 1.8,
+        "tier": 2,
+        "year_built": 2029,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "1BR-A",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 735,
+        "asking_rent": 1485,
+        "concession": 0,
+        "net_effective_rent": 1485,
+        "occupancy": 0.96,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Quarry Flats",
+        "distance_mi": 1.8,
+        "tier": 2,
+        "year_built": 2029,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "2BR-B",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1075,
+        "asking_rent": 1850,
+        "concession": 0,
+        "net_effective_rent": 1850,
+        "occupancy": 0.96,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Marrow Bend",
+        "distance_mi": 2.0,
+        "tier": 2,
+        "year_built": 2028,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "1BR-A",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 735,
+        "asking_rent": 1490,
+        "concession": 45,
+        "net_effective_rent": 1445,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Marrow Bend",
+        "distance_mi": 2.0,
+        "tier": 2,
+        "year_built": 2028,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "2BR-B",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1075,
+        "asking_rent": 1855,
+        "concession": 45,
+        "net_effective_rent": 1810,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Marrow Bend",
+        "distance_mi": 2.0,
+        "tier": 2,
+        "year_built": 2028,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "3BR-C",
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1355,
+        "asking_rent": 2210,
+        "concession": 45,
+        "net_effective_rent": 2165,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Nyland Court",
+        "distance_mi": 2.2,
+        "tier": 2,
+        "year_built": 2016,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "1BR-A",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 735,
+        "asking_rent": 1495,
+        "concession": 0,
+        "net_effective_rent": 1495,
+        "occupancy": 0.96,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Nyland Court",
+        "distance_mi": 2.2,
+        "tier": 2,
+        "year_built": 2016,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "2BR-B",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1075,
+        "asking_rent": 1860,
+        "concession": 0,
+        "net_effective_rent": 1860,
+        "occupancy": 0.96,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Orchard Vale",
+        "distance_mi": 2.4,
+        "tier": 2,
+        "year_built": 2023,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "1BR-A",
+        "beds": 1,
+        "baths": 1.0,
+        "sqft": 735,
+        "asking_rent": 1500,
+        "concession": 45,
+        "net_effective_rent": 1455,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      },
+      {
+        "community": "Orchard Vale",
+        "distance_mi": 2.4,
+        "tier": 2,
+        "year_built": 2023,
+        "year_built_source": "vendor note on the tracked community record",
+        "floor_plan": "2BR-B",
+        "beds": 2,
+        "baths": 2.0,
+        "sqft": 1075,
+        "asking_rent": 1865,
+        "concession": 45,
+        "net_effective_rent": 1820,
+        "occupancy": 0.94,
+        "as_of": "2026-06-22",
+        "source": "own weekly scrape"
+      }
+    ],
+    "nearby": [
+      {
+        "community": "Rushmere Townhomes",
+        "address": "375 Sample Street, Demo City",
+        "distance_mi": 0.5,
+        "units": 96,
+        "product": "bfr",
+        "year_built": 2022,
+        "year_built_source": "vendor note on the tracked community record",
+        "tier": 3,
+        "reason": "different product: tracked as bfr, subject is MF",
+        "has_rent_data": true
+      },
+      {
+        "community": "Stonecrest Lofts",
+        "address": "400 Sample Street, Demo City",
+        "distance_mi": 0.8,
+        "units": 132,
+        "product": "mf",
+        "year_built": 1998,
+        "year_built_source": "vendor note on the tracked community record",
+        "tier": 3,
+        "reason": "vintage 1998 is 21 years from the subject's 2019, outside the +/-10-year band",
+        "has_rent_data": true
+      },
+      {
+        "community": "Tallow Creek",
+        "address": "425 Sample Street, Demo City",
+        "distance_mi": 1.0,
+        "units": 144,
+        "product": "mf",
+        "year_built": 2018,
+        "year_built_source": "vendor note on the tracked community record",
+        "tier": 3,
+        "reason": "no quoted rent in the latest scrape of this community",
+        "has_rent_data": false
+      },
+      {
+        "community": "Underhill Residences",
+        "address": "450 Sample Street, Demo City",
+        "distance_mi": 1.2,
+        "units": 88,
+        "product": "mf",
+        "year_built": 2020,
+        "year_built_source": "vendor note on the tracked community record",
+        "tier": 3,
+        "reason": "excluded from comp sets by the tracker: income_restricted",
+        "has_rent_data": true
+      }
+    ],
+    "unrestricted": {
+      "communities": 12,
+      "rows": 24,
+      "by_bed": [
+        {
+          "beds": 1.0,
+          "communities": 12,
+          "rows": 12,
+          "avg_asking": 1625.8,
+          "avg_net_effective": 1611.02
+        },
+        {
+          "beds": 2.0,
+          "communities": 12,
+          "rows": 12,
+          "avg_asking": 2027.3,
+          "avg_net_effective": 2008.87
+        },
+        {
+          "beds": 3.0,
+          "communities": 12,
+          "rows": 12,
+          "avg_asking": 2417.8,
+          "avg_net_effective": 2395.82
+        }
+      ],
+      "varied": "vintage",
+      "held_fixed": [
+        "candidate pool",
+        "product test",
+        "tracker comp exclusions",
+        "radius",
+        "closest-20 cap",
+        "per-community rent rules",
+        "mix weighting"
+      ],
+      "swapped_in": [
+        "Stonecrest Lofts"
+      ],
+      "swapped_out": [],
+      "year_min": 1998,
+      "year_max": 2029,
+      "note": "Synthetic pre-tiering population: every community in the radius with quoted rent, no product or vintage filter. On a real deal this is measured at selection time, because the nearby tier publishes no rents."
+    },
+    "tiering": {
+      "subject_product": "MF",
+      "subject_year_built": 2019,
+      "year_band": 10,
+      "radius_mi": 3.0,
+      "top_n": 5,
+      "additional_n": 15,
+      "vintage_footnote": "Vintage filter applied where year known: +/-10 years of the subject's year built. 1 of 11 communities shown carry no published year and were matched on distance and product only."
+    },
+    "absent_reason": null,
+    "coverage_note": "Synthetic coverage statement. 14 of 15 tracked communities within 3 miles carry quoted rent; 11 of those are shown in the detailed tiers and the rest are listed as nearby only. On a real deal this sentence is measured from the operator's own scrape by tools/comp_coverage_probe.py, using the scraper's own status taxonomy rather than an assumed one."
+  },
+  "demand": {
+    "rings": [
+      {
+        "ring": "1 mi",
+        "population": 9840,
+        "households": 4020,
+        "median_income": 78400,
+        "jobs": 3150,
+        "pop_growth_5yr": 0.061,
+        "renter_share": 0.44
+      },
+      {
+        "ring": "3 mi",
+        "population": 61250,
+        "households": 24100,
+        "median_income": 84900,
+        "jobs": 27400,
+        "pop_growth_5yr": 0.078,
+        "renter_share": 0.39
+      },
+      {
+        "ring": "5 mi",
+        "population": 148300,
+        "households": 57600,
+        "median_income": 89200,
+        "jobs": 71800,
+        "pop_growth_5yr": 0.084,
+        "renter_share": 0.36
+      },
+      {
+        "ring": "10 mi",
+        "population": 402700,
+        "households": 154900,
+        "median_income": 92600,
+        "jobs": 214500,
+        "pop_growth_5yr": 0.091,
+        "renter_share": 0.34
+      },
+      {
+        "ring": "MSA",
+        "population": 2418000,
+        "households": 903400,
+        "median_income": 86100,
+        "jobs": null,
+        "pop_growth_5yr": 0.073,
+        "renter_share": 0.37
+      }
+    ],
+    "columns": [
+      "1 mi",
+      "3 mi",
+      "5 mi",
+      "10 mi",
+      "Demo MSA",
+      "Demo State",
+      "U.S."
+    ],
+    "sections": [
+      {
+        "title": "Households",
+        "kind": "ring",
+        "note": "2020 Census baseline, 2024 ACS actual, and a 2026 projection.",
+        "rows": [
+          {
+            "label": "Households (2020 Census)",
+            "values": [
+              3780,
+              20520,
+              49680,
+              146700,
+              774000,
+              1170000,
+              54000000
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "Households (2024 actual)",
+            "values": [
+              4011,
+              21774,
+              52716,
+              155665,
+              821300,
+              1241500,
+              57300000
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "Growth 2020 to 2024",
+            "values": [
+              0.0611,
+              0.0611,
+              0.0611,
+              0.0611,
+              0.0611,
+              0.0611,
+              0.0611
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "Est. annual growth rate (to 2026)",
+            "values": [
+              0.0225,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "format": "pct2",
+            "kind": "ring",
+            "note": "An assumption, not a measurement.",
+            "indent": 0
+          },
+          {
+            "label": "Households (2026 est.)",
+            "values": [
+              4194,
+              22765,
+              55115,
+              162749,
+              858674,
+              1297996,
+              59907508
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          }
+        ]
+      },
+      {
+        "title": "Population",
+        "kind": "ring",
+        "note": null,
+        "rows": [
+          {
+            "label": "Population (2020 Census)",
+            "values": [
+              9555,
+              51870,
+              125580,
+              370825,
+              1956500,
+              2957500,
+              136500000
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "Population (2024 actual)",
+            "values": [
+              10017,
+              54378,
+              131652,
+              388755,
+              2051100,
+              3100500,
+              143100000
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "Growth 2020 to 2024",
+            "values": [
+              0.0484,
+              0.0484,
+              0.0484,
+              0.0484,
+              0.0484,
+              0.0484,
+              0.0484
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "Est. annual growth rate (to 2026)",
+            "values": [
+              0.011,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "format": "pct2",
+            "kind": "ring",
+            "note": "An assumption, not a measurement.",
+            "indent": 0
+          },
+          {
+            "label": "Population (2026 est.)",
+            "values": [
+              10239,
+              55581,
+              134564,
+              397355,
+              2096472,
+              3169086,
+              146265515
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          }
+        ]
+      },
+      {
+        "title": "Households by income (2024 actual)",
+        "kind": "ring",
+        "note": "Eight brackets, with the two affordability subtotals underneath.",
+        "rows": [
+          {
+            "label": "Less than $25,000",
+            "values": [
+              473,
+              2569,
+              6220,
+              18368,
+              96913,
+              146497,
+              6761400
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 1
+          },
+          {
+            "label": "$25,000 - $49,999",
+            "values": [
+              586,
+              3179,
+              7697,
+              22727,
+              119910,
+              181259,
+              8365800
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 1
+          },
+          {
+            "label": "$50,000 - $74,999",
+            "values": [
+              610,
+              3310,
+              8013,
+              23661,
+              124838,
+              188708,
+              8709600
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 1
+          },
+          {
+            "label": "$75,000 - $99,999",
+            "values": [
+              558,
+              3027,
+              7328,
+              21637,
+              114161,
+              172569,
+              7964700
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 1
+          },
+          {
+            "label": "$100,000 - $124,999",
+            "values": [
+              485,
+              2635,
+              6379,
+              18835,
+              99377,
+              150222,
+              6933300
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 1
+          },
+          {
+            "label": "$125,000 - $149,999",
+            "values": [
+              369,
+              2003,
+              4850,
+              14321,
+              75560,
+              114218,
+              5271600
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 1
+          },
+          {
+            "label": "$150,000 - $199,999",
+            "values": [
+              457,
+              2482,
+              6010,
+              17746,
+              93628,
+              141531,
+              6532200
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 1
+          },
+          {
+            "label": "$200,000 and over",
+            "values": [
+              473,
+              2569,
+              6220,
+              18368,
+              96913,
+              146497,
+              6761400
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 1
+          },
+          {
+            "label": "Subtotal $50,000 and over",
+            "values": [
+              2952,
+              16026,
+              38799,
+              114569,
+              604477,
+              913744,
+              42172800
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "   share of households",
+            "values": [
+              0.736,
+              0.736,
+              0.736,
+              0.736,
+              0.736,
+              0.736,
+              0.736
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "Subtotal $100,000 and over",
+            "values": [
+              1785,
+              9689,
+              23459,
+              69271,
+              365478,
+              552468,
+              25498500
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "   share of households",
+            "values": [
+              0.445,
+              0.445,
+              0.445,
+              0.445,
+              0.445,
+              0.445,
+              0.445
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          }
+        ]
+      },
+      {
+        "title": "Income and affordability",
+        "kind": "ring",
+        "note": "Median interpolated from the brackets above, so the two cannot disagree.",
+        "rows": [
+          {
+            "label": "Average household income (2024)",
+            "values": [
+              81200,
+              103400,
+              107900,
+              112600,
+              118800,
+              108100,
+              113900
+            ],
+            "format": "currency0",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "Median household income (2024)",
+            "values": [
+              66500,
+              81900,
+              83100,
+              83400,
+              88900,
+              80600,
+              81400
+            ],
+            "format": "currency0",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "Est. annual income growth (to 2026)",
+            "values": [
+              0.062,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "format": "pct2",
+            "kind": "ring",
+            "note": "An assumption, not a measurement.",
+            "indent": 0
+          },
+          {
+            "label": "Average household income (2026 est.)",
+            "values": [
+              91581,
+              116619,
+              121694,
+              126995,
+              133988,
+              121920,
+              128461
+            ],
+            "format": "currency0",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "Renter share",
+            "values": [
+              0.654,
+              0.512,
+              0.518,
+              0.481,
+              0.334,
+              0.331,
+              0.352
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "Rent-to-income at $1,795/mo",
+            "values": [
+              0.265,
+              0.208,
+              0.2,
+              0.191,
+              0.181,
+              0.199,
+              0.189
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": "Against projected 2026 income, so it is a forward ratio.",
+            "indent": 0
+          }
+        ]
+      },
+      {
+        "title": "Home value — ZIP 00000 vs Demo MSA",
+        "kind": "zip",
+        "note": "ZIP geography, not a drive ring — the only section that does not share the columns above, so it is shown as its own three figures rather than stretched across headers it does not describe.",
+        "rows": [
+          {
+            "label": "ZIP home value",
+            "values": [
+              451600
+            ],
+            "format": "currency0",
+            "kind": "zip",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "Metro home value",
+            "values": [
+              446200
+            ],
+            "format": "currency0",
+            "kind": "zip",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "ZIP vs metro",
+            "values": [
+              0.0121
+            ],
+            "format": "pct1",
+            "kind": "zip",
+            "note": null,
+            "indent": 0
+          }
+        ]
+      },
+      {
+        "title": "Labor market",
+        "kind": "ring",
+        "note": "Ring job counts are WORKPLACE counts — jobs located inside the ring, not residents who hold jobs. The unemployment row is the opposite: residents.",
+        "rows": [
+          {
+            "label": "Unemployment rate (residents, ACS)",
+            "values": [
+              0.066,
+              0.052,
+              0.048,
+              0.046,
+              0.047,
+              0.051,
+              0.052
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "Jobs located inside the ring — LODES workplace counts",
+            "values": [],
+            "format": "header",
+            "kind": "subheader",
+            "note": null,
+            "indent": 0
+          },
+          {
+            "label": "2021",
+            "values": [
+              10370,
+              122100,
+              352300,
+              903200,
+              null,
+              null,
+              null
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 1
+          },
+          {
+            "label": "2022",
+            "values": [
+              11300,
+              127600,
+              361400,
+              921800,
+              null,
+              null,
+              null
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 1
+          },
+          {
+            "label": "2023  (latest)",
+            "values": [
+              11644,
+              140800,
+              382500,
+              990700,
+              null,
+              null,
+              null
+            ],
+            "format": "count",
+            "kind": "ring",
+            "note": null,
+            "indent": 1
+          },
+          {
+            "label": "Job growth 2021 to 2023",
+            "values": [
+              0.1229,
+              0.1531,
+              0.0858,
+              0.0968,
+              null,
+              null,
+              null
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": null,
+            "indent": 1
+          }
+        ],
+        "metro_history": [
+          {
+            "year": 2025,
+            "nonfarm_000s": 2462.5,
+            "yoy": 0.0026,
+            "unemployment": 0.0423
+          },
+          {
+            "year": 2024,
+            "nonfarm_000s": 2456.0,
+            "yoy": 0.0224,
+            "unemployment": 0.0367
+          },
+          {
+            "year": 2023,
+            "nonfarm_000s": 2402.2,
+            "yoy": 0.0311,
+            "unemployment": 0.0338
+          },
+          {
+            "year": 2022,
+            "nonfarm_000s": 2329.7,
+            "yoy": 0.0512,
+            "unemployment": 0.0311
+          }
+        ],
+        "metro_label": "Demo County, Demo State",
+        "metro_summary": {
+          "nonfarm_year": 2025,
+          "nonfarm_000s": 2462.5,
+          "nonfarm_cagr5": 0.0218,
+          "msa_unemp": 0.0423,
+          "msa_unemp_year": 2025,
+          "county_unemp": 0.0417,
+          "county_unemp_year": 2025,
+          "county_name": "Demo County, Demo State"
+        }
+      },
+      {
+        "title": "Jobs by industry (2023)",
+        "kind": "ring",
+        "note": "Share of jobs by sector, sorted by the metro's own concentration. Ring, MSA and state shares come from LODES workplace counts; the U.S. column is QCEW, a different survey, so read it as a benchmark rather than the same measurement.",
+        "rows": [
+          {
+            "label": "Health Care/Social Asst",
+            "values": [
+              0.079,
+              0.089,
+              0.104,
+              0.127,
+              0.144,
+              0.148,
+              0.152
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": "Location quotient vs U.S.: 0.95x — less concentrated here.",
+            "indent": 0
+          },
+          {
+            "label": "Retail Trade",
+            "values": [
+              0.091,
+              0.091,
+              0.086,
+              0.083,
+              0.109,
+              0.11,
+              0.102
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": "Location quotient vs U.S.: 1.07x — more concentrated here.",
+            "indent": 0
+          },
+          {
+            "label": "Accommodation/Food Svcs",
+            "values": [
+              0.049,
+              0.068,
+              0.058,
+              0.076,
+              0.092,
+              0.098,
+              0.092
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": "Location quotient vs U.S.: 1.00x — less concentrated here.",
+            "indent": 0
+          },
+          {
+            "label": "Professional/Scientific/Tech",
+            "values": [
+              0.061,
+              0.074,
+              0.081,
+              0.072,
+              0.077,
+              0.07,
+              0.086
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": "Location quotient vs U.S.: 0.90x — less concentrated here.",
+            "indent": 0
+          },
+          {
+            "label": "Educational Services",
+            "values": [
+              0.207,
+              0.118,
+              0.092,
+              0.07,
+              0.075,
+              0.081,
+              0.092
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": "Location quotient vs U.S.: 0.82x — less concentrated here.",
+            "indent": 0
+          },
+          {
+            "label": "Admin/Support/Waste",
+            "values": [
+              0.038,
+              0.052,
+              0.061,
+              0.058,
+              0.07,
+              0.066,
+              0.058
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": "Location quotient vs U.S.: 1.21x — more concentrated here.",
+            "indent": 0
+          },
+          {
+            "label": "Finance/Insurance",
+            "values": [
+              0.021,
+              0.038,
+              0.049,
+              0.043,
+              0.061,
+              0.055,
+              0.045
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": "Location quotient vs U.S.: 1.36x — more concentrated here.",
+            "indent": 0
+          },
+          {
+            "label": "Construction",
+            "values": [
+              0.031,
+              0.041,
+              0.047,
+              0.052,
+              0.058,
+              0.06,
+              0.052
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": "Location quotient vs U.S.: 1.12x — more concentrated here.",
+            "indent": 0
+          },
+          {
+            "label": "Manufacturing",
+            "values": [
+              0.018,
+              0.029,
+              0.038,
+              0.049,
+              0.052,
+              0.055,
+              0.086
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": "Location quotient vs U.S.: 0.60x — less concentrated here.",
+            "indent": 0
+          },
+          {
+            "label": "Transportation/Warehousing",
+            "values": [
+              0.014,
+              0.024,
+              0.031,
+              0.041,
+              0.046,
+              0.044,
+              0.042
+            ],
+            "format": "pct1",
+            "kind": "ring",
+            "note": "Location quotient vs U.S.: 1.10x — more concentrated here.",
+            "indent": 0
+          }
+        ]
+      }
+    ],
+    "engine_note": "Synthetic ring demographics in the shape the real engine produces: ACS 5-year, a 2020 decennial baseline, LODES workplace counts and BLS metro series. All public sources; no licensed provider.",
+    "data_year": 2024,
+    "output_year": 2026,
+    "ring_1mi_caveat": "The 1-mile column overstates levels. Ring membership is decided by each census block group's internal point and then the whole block group is counted, so at 1 mile a single large block group can sit mostly outside the ring and still be counted whole. Measured against a commercial source, 1-mile population reads roughly 2.3x and households roughly 1.9x too high; the 3-, 5- and 10-mile columns do not have this problem. Read the 1-mile column for mix and shares, which are ratios and survive the overcount, and read levels off the 3-mile column.",
+    "matched_address": "1400 Sample Parkway, Demo City",
+    "level_row_hints": [
+      "households",
+      "population",
+      "jobs"
+    ],
+    "absent_reason": null
+  },
+  "supply": {
+    "rings": [
+      {
+        "ring": "1 mi",
+        "stage": "Entitlement",
+        "projects": 1,
+        "units": 220
+      },
+      {
+        "ring": "1 mi",
+        "stage": "Permitted",
+        "projects": 1,
+        "units": 148
+      },
+      {
+        "ring": "1 mi",
+        "stage": "Under construction",
+        "projects": 0,
+        "units": 0
+      },
+      {
+        "ring": "1 mi",
+        "stage": "Delivered (24 mo)",
+        "projects": 1,
+        "units": 96
+      },
+      {
+        "ring": "3 mi",
+        "stage": "Entitlement",
+        "projects": 3,
+        "units": 742
+      },
+      {
+        "ring": "3 mi",
+        "stage": "Permitted",
+        "projects": 2,
+        "units": 410
+      },
+      {
+        "ring": "3 mi",
+        "stage": "Under construction",
+        "projects": 2,
+        "units": 508
+      },
+      {
+        "ring": "3 mi",
+        "stage": "Delivered (24 mo)",
+        "projects": 3,
+        "units": 624
+      },
+      {
+        "ring": "5 mi",
+        "stage": "Entitlement",
+        "projects": 6,
+        "units": 1485
+      },
+      {
+        "ring": "5 mi",
+        "stage": "Permitted",
+        "projects": 4,
+        "units": 903
+      },
+      {
+        "ring": "5 mi",
+        "stage": "Under construction",
+        "projects": 5,
+        "units": 1240
+      },
+      {
+        "ring": "5 mi",
+        "stage": "Delivered (24 mo)",
+        "projects": 7,
+        "units": 1608
+      }
+    ],
+    "projects": [
+      {
+        "name": "Cedar Row",
+        "miles": 0.3,
+        "stage": "Delivered (24 mo)",
+        "units": 96,
+        "product": "multifamily",
+        "address": "610 Cedar St",
+        "city": "Demo City",
+        "acres": 4.1,
+        "developer": "Cedar Row Partners",
+        "filed": "2023-02-14",
+        "latest": "2024-06-30",
+        "layers": [
+          "Permit"
+        ]
+      },
+      {
+        "name": "Northgate Flats",
+        "miles": 0.6,
+        "stage": "Entitlement",
+        "units": 220,
+        "product": "multifamily",
+        "address": null,
+        "city": null,
+        "acres": 8.4,
+        "developer": null,
+        "filed": "2026-01-09",
+        "latest": "2026-05-22",
+        "layers": [
+          "Entitlement"
+        ]
+      },
+      {
+        "name": "Willow Bend Phase II",
+        "miles": 0.9,
+        "stage": "Permitted",
+        "units": 148,
+        "product": "multifamily",
+        "address": "1802 Willow Bend Dr",
+        "city": "Demo City",
+        "acres": 6.0,
+        "developer": "Willow Bend Development",
+        "filed": "2025-11-03",
+        "latest": "2026-04-18",
+        "layers": [
+          "Entitlement",
+          "Permit"
+        ]
+      },
+      {
+        "name": "Maple & Seventh",
+        "miles": 1.4,
+        "stage": "Under construction",
+        "units": 268,
+        "product": "multifamily",
+        "address": "700 Maple Ave",
+        "city": "Demo City",
+        "acres": 5.2,
+        "developer": null,
+        "filed": "2025-04-21",
+        "latest": "2026-08-01",
+        "layers": [
+          "Permit"
+        ]
+      },
+      {
+        "name": "Sample Creek Crossing",
+        "miles": 1.7,
+        "stage": "Entitlement",
+        "units": 330,
+        "product": "multifamily",
+        "address": null,
+        "city": null,
+        "acres": 12.6,
+        "developer": "Creek Crossing Holdings",
+        "filed": "2026-03-30",
+        "latest": "2026-07-15",
+        "layers": [
+          "Entitlement"
+        ]
+      },
+      {
+        "name": "Harbor Lofts",
+        "miles": 1.9,
+        "stage": "Delivered (24 mo)",
+        "units": 240,
+        "product": "multifamily",
+        "address": "55 Harbor Way",
+        "city": "Demo City",
+        "acres": 3.4,
+        "developer": null,
+        "filed": "2022-08-08",
+        "latest": "2024-11-12",
+        "layers": [
+          "Permit"
+        ]
+      },
+      {
+        "name": "Vista Terrace",
+        "miles": 2.2,
+        "stage": "Under construction",
+        "units": 240,
+        "product": "multifamily",
+        "address": "3400 Vista Pkwy",
+        "city": "Demo City",
+        "acres": 9.8,
+        "developer": "Terrace Residential",
+        "filed": "2025-01-27",
+        "latest": "2026-09-02",
+        "layers": [
+          "Permit"
+        ]
+      },
+      {
+        "name": "Old Mill Yards",
+        "miles": 2.5,
+        "stage": "Entitlement",
+        "units": 192,
+        "product": "multifamily",
+        "address": null,
+        "city": null,
+        "acres": 7.1,
+        "developer": null,
+        "filed": "2026-02-17",
+        "latest": "2026-06-05",
+        "layers": [
+          "Entitlement"
+        ]
+      },
+      {
+        "name": "Depot Square",
+        "miles": 2.7,
+        "stage": "Permitted",
+        "units": 262,
+        "product": "multifamily",
+        "address": "12 Depot Sq",
+        "city": "Demo City",
+        "acres": 5.5,
+        "developer": "Depot Square LLC",
+        "filed": "2025-09-15",
+        "latest": "2026-08-28",
+        "layers": [
+          "Entitlement",
+          "Permit"
+        ]
+      },
+      {
+        "name": "Brickline Apartments",
+        "miles": 2.9,
+        "stage": "Delivered (24 mo)",
+        "units": 288,
+        "product": "multifamily",
+        "address": "980 Brickline Rd",
+        "city": "Demo City",
+        "acres": 6.7,
+        "developer": null,
+        "filed": "2022-05-02",
+        "latest": "2024-09-19",
+        "layers": [
+          "Permit"
+        ]
+      }
+    ],
+    "ring_stock": {
+      "1 mi": 3140,
+      "3 mi": 18600,
+      "5 mi": 41200
+    },
+    "absent_reason": null
+  },
+  "closing_costs": {
+    "state": "TX",
+    "price": 38700000,
+    "loan_amount": null,
+    "transfer_tax": {
+      "applies": false,
+      "amount_status": "zero_by_law",
+      "rate_label": "No real-estate transfer tax",
+      "amount": 0.0,
+      "citation": "Tex. Const. art. VIII, sec. 29 (added 2015)",
+      "as_of": "2026-09-01",
+      "caveat": "The bar is on enacting a transfer tax after 2016-01-01; Texas had none, so the rate is zero. The same section expressly permits a tax on title insurance, and Texas title premiums are state-promulgated and material — a zero here does not mean a cheap closing."
+    },
+    "mortgage_tax": {
+      "applies": false,
+      "amount_status": "zero_by_law",
+      "rate_label": "No mortgage tax",
+      "amount": 0.0,
+      "citation": "No imposing statute; Tex. Loc. Gov't Code ch. 118",
+      "as_of": "2026-09-01",
+      "caveat": "Proven by absence of an imposing statute rather than by an affirmative constitutional bar, which is a weaker form of proof than Arizona's. Recording is a flat per-page schedule."
+    },
+    "note": "Transfer tax is computed on the purchase price. A mortgage or recording tax is computed on the LOAN AMOUNT, and is reported as not asserted when no loan is stated — never inferred from the price, which would assume 100% leverage. Rates are verified against a primary authority and carry the citation and the date confirmed; a state absent from the table reports as not asserted rather than as zero."
+  },
+  "provenance": {
+    "summary.deal_name": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.1",
+      "method": "read",
+      "quote": "Fixture Park"
+    },
+    "summary.street_address": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.4",
+      "method": "read",
+      "quote": "1400 Example Parkway"
+    },
+    "summary.city": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.4",
+      "method": "read"
+    },
+    "summary.state": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.4",
+      "method": "read"
+    },
+    "summary.zip": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.4",
+      "method": "read"
+    },
+    "summary.county": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.4",
+      "method": "read"
+    },
+    "summary.product_type": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.6",
+      "method": "read"
+    },
+    "summary.structure": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.6",
+      "method": "read",
+      "quote": "Three-story garden, surface parked"
+    },
+    "summary.year_built": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.6",
+      "method": "read"
+    },
+    "summary.product_detail": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.7",
+      "method": "read"
+    },
+    "summary.construction_status": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.6",
+      "method": "read"
+    },
+    "summary.delivery_date": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.6",
+      "method": "read"
+    },
+    "summary.seller_entity": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.2",
+      "method": "read"
+    },
+    "summary.deal_status": {
+      "source_doc": "Synthetic offering memorandum",
+      "locator": "p.2",
+      "method": "read"
+    },
+    "summary.msa": {
+      "source_doc": "Derived by the pipeline",
+      "locator": "—",
+      "method": "derived",
+      "inputs": [
+        "summary.city",
+        "summary.state"
+      ],
+      "note": "Metro assigned from the city/state pair."
+    },
+    "summary.listing_brokerage": {
+      "source_doc": "Derived by the pipeline",
+      "locator": "—",
+      "method": "derived",
+      "inputs": [
+        "summary.seller_entity"
+      ],
+      "note": "Generic label; no firm or individual is named in a published file."
+    },
+    "summary.units_total": {
+      "source_doc": "Synthetic rent roll export",
+      "locator": "Rent Roll!A:A",
+      "method": "derived",
+      "inputs": [
+        "rent_roll.units"
+      ],
+      "note": "Distinct unit identifiers on the roll."
+    },
+    "summary.pricing_guidance": {
+      "source_doc": "Supplied by the operator",
+      "locator": "—",
+      "method": "read",
+      "note": "Illustrative figure supplied directly; not a quote or an offer."
+    },
+    "pricing.price_per_unit": {
+      "source_doc": "Supplied by the operator",
+      "locator": "—",
+      "method": "read",
+      "note": "Illustrative. Inside the band a per-unit sale price occupies."
+    },
+    "pricing.units_total": {
+      "source_doc": "Synthetic rent roll export",
+      "locator": "Rent Roll!A:A",
+      "method": "derived",
+      "inputs": [
+        "summary.units_total"
+      ]
+    },
+    "summary.in_place_rent_avg": {
+      "source_doc": "Derived by the pipeline",
+      "locator": "Unit Mix Summary!E",
+      "method": "computed",
+      "inputs": [
+        "rent_roll.units"
+      ],
+      "note": "Occupied units, straight off the roll."
+    },
+    "summary.market_rent_for_model": {
+      "source_doc": "Derived by the pipeline",
+      "locator": "Unit Mix Summary!J",
+      "method": "computed",
+      "inputs": [
+        "rent_roll.units"
+      ],
+      "note": "New move-in rent where a plan has one in the window, else in-place. Never a blend."
+    },
+    "summary.fair_market_value": {
+      "source_doc": "Supplied by the operator",
+      "locator": "—",
+      "method": "read",
+      "note": "Operator's own estimate."
+    },
+    "summary.tax_rate_as_billed": {
+      "source_doc": "Synthetic county tax record",
+      "locator": "Rate table, synthetic district",
+      "method": "read"
+    },
+    "summary.assessed_value_basis": {
+      "source_doc": "Synthetic county tax record",
+      "locator": "Valuation notice",
+      "method": "read"
+    },
+    "summary.assessment_ratio": {
+      "source_doc": "Synthetic county tax record",
+      "locator": "Rate table",
+      "method": "read"
+    },
+    "summary.tax_divisor": {
+      "source_doc": "Synthetic county tax record",
+      "locator": "Rate table",
+      "method": "read"
+    },
+    "summary.tax_exemption": {
+      "source_doc": "Synthetic county tax record",
+      "locator": "Valuation notice",
+      "method": "read"
+    },
+    "summary.tax_parcel_id": {
+      "source_doc": "Synthetic county tax record",
+      "locator": "Parcel record",
+      "method": "read"
+    },
+    "summary.tax_area_code": {
+      "source_doc": "Synthetic county tax record",
+      "locator": "Rate table",
+      "method": "read"
+    },
+    "summary.tax_billed_amount": {
+      "source_doc": "Synthetic county tax record",
+      "locator": "Tax bill",
+      "method": "read"
+    },
+    "summary.tax_billed_year": {
+      "source_doc": "Synthetic county tax record",
+      "locator": "Tax bill",
+      "method": "read"
+    },
+    "summary.tax_basis_label": {
+      "source_doc": "Synthetic county tax record",
+      "locator": "Valuation notice",
+      "method": "read"
+    },
+    "summary.tax_basis_note": {
+      "source_doc": "Synthetic county tax record",
+      "locator": "Valuation notice",
+      "method": "read"
+    },
+    "summary.school_elementary_name": {
+      "source_doc": "Synthetic public data extract",
+      "locator": "School attendance lookup",
+      "method": "read"
+    },
+    "summary.school_middle_name": {
+      "source_doc": "Synthetic public data extract",
+      "locator": "School attendance lookup",
+      "method": "read"
+    },
+    "summary.school_high_name": {
+      "source_doc": "Synthetic public data extract",
+      "locator": "School attendance lookup",
+      "method": "read"
+    },
+    "t12.month_labels": {
+      "source_doc": "Synthetic trailing-twelve income statement",
+      "locator": "T-12!C8:N8",
+      "method": "read",
+      "note": "Twelve consecutive month-end columns; direction detected from the labels."
+    },
+    "t12.units": {
+      "source_doc": "Synthetic rent roll export",
+      "locator": "—",
+      "method": "derived",
+      "inputs": [
+        "summary.units_total"
+      ]
+    },
+    "t12.source_subtotals": {
+      "source_doc": "Synthetic trailing-twelve income statement",
+      "locator": "T-12!O",
+      "method": "read",
+      "note": "The statement's own printed subtotals, kept for the cross-tie."
+    },
+    "rent_roll.as_of": {
+      "source_doc": "Synthetic rent roll export",
+      "locator": "Rent Roll!A2",
+      "method": "read"
+    },
+    "rent_roll.lookback_months": {
+      "source_doc": "Supplied by the operator",
+      "locator": "—",
+      "method": "read",
+      "note": "Analysis knob."
+    },
+    "rent_roll.new_tenant_tolerance_days": {
+      "source_doc": "Supplied by the operator",
+      "locator": "—",
+      "method": "read",
+      "note": "Analysis knob."
+    },
+    "rent_roll.units": {
+      "source_doc": "Synthetic rent roll export",
+      "locator": "Rent Roll!A4:K183",
+      "method": "read",
+      "note": "Unit identifiers only; the source's resident-name column is never read."
+    },
+    "comps.rows": {
+      "source_doc": "Synthetic weekly rent scrape",
+      "locator": "—",
+      "method": "read",
+      "note": "Own weekly scrape; asking and net effective stated separately."
+    },
+    "comps.rows.tier": {
+      "source_doc": "Tracked-community registry + the scrape",
+      "locator": "comp_tiers.assign",
+      "method": "derived",
+      "inputs": [
+        "comps.rows.distance_mi",
+        "comps.tiering.subject_product",
+        "comps.tiering.subject_year_built",
+        "comps.tiering.year_band",
+        "comps.tiering.top_n",
+        "comps.tiering.additional_n"
+      ],
+      "note": "Tier 1 = the closest 5 matching product and vintage; tier 2 = the next 15; everything else is tier 3, identity only. An unknown year does not disqualify — it is disclosed on the tier header instead."
+    },
+    "comps.nearby": {
+      "source_doc": "Tracked-community registry",
+      "locator": "rents.communities within the radius",
+      "method": "derived",
+      "inputs": [
+        "comps.rows.tier"
+      ],
+      "note": "Every tracked community inside the radius that is not a detail row, with the reason it is not. No rent columns."
+    },
+    "demand.rings": {
+      "source_doc": "Synthetic public data extract",
+      "locator": "—",
+      "method": "read",
+      "note": "Ring demographics."
+    },
+    "supply.rings": {
+      "source_doc": "Synthetic public data extract",
+      "locator": "—",
+      "method": "read",
+      "note": "Permit and entitlement records."
+    },
+    "trade_out.rows": {
+      "source_doc": "Synthetic lease trade-out report",
+      "locator": "—",
+      "method": "read",
+      "note": "Cohort averages."
+    },
+    "closing_costs.transfer_tax.amount": {
+      "source_doc": "Vendored state rate table",
+      "locator": "closing_costs.TRANSFER_TAX",
+      "method": "computed",
+      "inputs": [
+        "pricing.price_per_unit",
+        "pricing.units_total",
+        "summary.state",
+        "closing_costs.price"
+      ],
+      "note": "Rate applied to price_per_unit x units_total. Per-unit statutes round the consideration up."
+    },
+    "closing_costs.mortgage_tax.amount": {
+      "source_doc": "Vendored state rate table",
+      "locator": "closing_costs.MORTGAGE_TAX",
+      "method": "computed",
+      "inputs": [
+        "closing_costs.loan_amount",
+        "summary.state"
+      ],
+      "note": "Computed on the LOAN, never on the price. With no loan amount the line is reported as not asserted rather than inferred at 100% leverage."
+    }
+  }
+}

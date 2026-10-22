@@ -1,0 +1,29 @@
+# The REAL pre-fix source, lifted verbatim from git history, kept as a permanent target
+# for the sweep in test_writers.py. Not importable (.py.txt) and never executed — it is
+# parsed as text.
+#
+#   _historical_pre_r1  — tools/write_t12_analysis.py at 289e26f^ (the monthly revenue
+#                         helper, the R1 defect)
+#   _historical_pre_n1  — tools/write_t12_analysis.py at e0b1a6f^ (the rollup's gross
+#                         scheduled rent gate, the N1 defect)
+#
+# Both build the gate through the local `sumif` helper, so the SUMIF( token never appears
+# adjacent to the comparison: the operator and the 0 land in a string segment of their own
+# (`'<>0,'`). Any detector that requires a literal SUMIF( before `<>0` is blind to this,
+# which is exactly how the first version of the sweep passed against the faulty source.
+
+
+def _historical_pre_r1(sumif, c):
+    gsr = (
+        f'IF({sumif(c, "Gross Scheduled Rent")}<>0,'
+        f'{sumif(c, "Gross Scheduled Rent")},'
+        f'{sumif(c, "Gross Potential Rent")}+{sumif(c, "Gain/(Loss) to Lease")})'
+    )
+    return gsr
+
+
+def _historical_pre_n1(sumif, span_t12, span_t3, r, gpr, gll):
+    return [
+        f'=IF({sumif(span_t12, r)}<>0,{sumif(span_t12, r)},B{gpr}+B{gll})',
+        f'=IF({sumif(span_t12, r)}<>0,{sumif(span_t3, r)}*4,(C{gpr}+C{gll}))',
+    ]

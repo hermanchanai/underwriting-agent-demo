@@ -1,0 +1,23 @@
+[project]
+name = "underwriting-agent-demo"
+version = "1.0.0"
+description = "Raw deal documents in, underwriting workbooks and a model-ready field manifest out."
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["tools/fixtures/*.py.txt"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "W6"]
+ignore = [
+    "E402",  # test scripts and tools put the repo on sys.path before importing
+    "E731",  # small lambdas as named callables are used deliberately in the writers
+    "E741",  # single-letter loop names in formula builders
+    "E702",  # the test scripts build small fixture sheets one row per line, semicolon-joined
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:cacheprovider"

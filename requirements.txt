@@ -1,0 +1,11 @@
+# Runtime: the offline pipeline, writers, previews and parsers.
+openpyxl==3.1.5
+pypdf==6.16.2
+python-docx==1.2.0
+xlrd==2.0.2
+olefile==0.47
+defusedxml==0.7.1
+# Pulled in by python-docx. Pinned because openpyxl switches its serialiser to lxml when it
+# is importable, which changes workbook bytes; server/__init__.py turns that off.
+lxml==6.1.2
+# Live model mode only (DEMO_MODEL_MODE=live): pip install anthropic==1.3.0
