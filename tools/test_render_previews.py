@@ -12,7 +12,7 @@ Second, I6: for every figure that appears in both a workbook and a fragment, the
 string must be the formatting of the same JSON-derived value. The test re-derives each
 number from ``compute`` and asserts the formatted string is literally present in the
 fragment — so a preview drifting from the workbook fails here rather than in front of a
-recruiter.
+reader.
 
 Also checks I5: no ``http(s)://``, no script tags, no external assets, and every table
 inside its own scroll container.
